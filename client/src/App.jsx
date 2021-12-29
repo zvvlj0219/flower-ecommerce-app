@@ -1,16 +1,20 @@
+import { Switch, Route } from 'react-router-dom'
+
 // view
 import Header from './view/Header/Header'
-import ProductsList from './view/Product/ProductsList'
+import FirstView from './view/Product/FirstView'
+import ProductDetail from './view/Product/ProductDetail'
+import WishList from './view/WishList/WishList'
 
 const App = () => {
   return (
     <div>
       <Header />
-      <div>ここにスライダー</div>
-      <div>
-        <ProductsList />
-      </div>
-      <div>ここに説明と写真</div>
+      <Switch>
+        <Route exact path='/' component={FirstView} />
+        <Route exact path='/wishlist' component={WishList} />
+        <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+      </Switch>
       <div>フッター</div>
       <hr />
       <div>

@@ -24,6 +24,7 @@ module.exports = {
     'semi': [2, 'never'],
     'comma-dangle': ['error', 'never'],
     'no-underscore-dangle': 'off',
+    'import/prefer-default-export': 'off',
     'arrow-body-style':'off',
     'arrow-parens': ['error', 'as-needed'],
     'object-curly-newline':'off',

@@ -12,7 +12,11 @@ const Header = () => {
       <div className='account flex'>
         <p>画</p>
         <p>usernmae</p>
-        <p>♡</p>
+        <Link
+          to='/wishlist'
+        >
+          ♡
+        </Link>
         <p>カート</p>
       </div>
     </div>

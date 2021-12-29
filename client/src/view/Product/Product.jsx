@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const Product = ({ products }) => {
-  console.log(products)
   return (
     <div>
       {
         products ?
           products.map(el => (
-            <p key={el._id}>{el.name}</p>
+            <Link
+              to={`/product-detail/${el.name}/${el._id}`}
+              key={el._id}
+            >
+              {el.name}
+            </Link>
           ))
           : ''
       }
@@ -16,7 +21,7 @@ const Product = ({ products }) => {
 }
 
 Product.defaultProps = {
-  products: {}
+  products: []
 }
 
 Product.propTypes = {
