@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const { fetchInitialProducts, fetchAjaxProducts } = require('../../controller/productController')
 
-const { fetchInitialProucts} = require('../../controller/productController')
+router.get('/',fetchInitialProducts)
 
-router.get('/',fetchInitialProucts)
+router.post('/ajax',fetchAjaxProducts)
 
-module.exports = router;
+module.exports = router
