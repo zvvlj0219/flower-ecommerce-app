@@ -14,8 +14,8 @@ mongoose.connect(process.env.MONGODB_URI,{
 .then(()=>console.log('connected mongodb atlas'))
 .catch(error=>console.log(error))
 
-//import controller routes
-// const productController = require('./controller/productController')
+//import  routes
+const productRoute = require('./routes/api/productRoute')
 
 //Express initialize
 const app = express();
@@ -25,19 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
-//initial route
-const Product = require('./model/productModel')
-app.get('/api',async (req,res) => {
-  try {
-    console.log('fetchinitialproducts')
-    const products = await Product.find({})
-    res.status(200).json({result:products})
-  } catch (error) {
-    console.log(error)
-    throw new Error()
-  }
-})
 //routes middleware
+app.use('/api',productRoute)
 
 //handle production
 

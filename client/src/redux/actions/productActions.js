@@ -4,25 +4,35 @@ import errorActions from './errorActions'
 
 export const fetchInitialProducts = () => async dispatch => {
   try {
-    console.log('disptch')
-
     dispatch({ type: actionsType.FETCH_PRODUCTS_REQUEST })
-
-    console.log('disptch')
 
     const { data } = await api.initialProducts()
 
-    console.log(data)
-
     dispatch({
       type: actionsType.FETCH_PRODUCTS_SUCCESS,
-      payload: data
+      payload: data.result
     })
   } catch (error) {
     errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
   }
 }
 
-export const fetchAjaxProducts = () => {
-  return []
+export const fetchAjaxProducts = presentProducts => async (dispatch, getState) => {
+  try {
+    const { products } = getState()
+
+    const id = presentProducts.map(product => product._id)
+
+    const { data } = await api.ajaxProducts(id)
+
+    dispatch({
+      type: actionsType.AJAX_PRODUCTS,
+      payload: [
+        ...products.list,
+        ...data.result
+      ]
+    })
+  } catch (error) {
+    errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
+  }
 }

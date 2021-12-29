@@ -1,9 +1,10 @@
 // initial state
 export default {
   products: {
-    list: []
+    loading: false,
+    list: [],
+    error: null
   },
   productDetail: null,
-  loading: false,
   error: null
 }

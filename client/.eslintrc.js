@@ -19,9 +19,11 @@ module.exports = {
   ],
   rules: {
     'linebreak-style': 'off',
+    'operator-linebreak': 'off',
     'jsx-quotes': ['error', 'prefer-single'],
     'semi': [2, 'never'],
     'comma-dangle': ['error', 'never'],
+    'no-underscore-dangle': 'off',
     'arrow-body-style':'off',
     'arrow-parens': ['error', 'as-needed'],
     'object-curly-newline':'off',

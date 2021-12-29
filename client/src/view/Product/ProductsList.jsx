@@ -7,36 +7,45 @@ import Product from './Product'
 
 const ProductsList = () => {
   const dispatch = useDispatch()
-  const pstate = useSelector(state => state.products)
+
   // state
   const [products, setProducts] = useState([])
 
+  // selector
+  const { loading, list, error } = useSelector(state => state.products)
+
+  // console.log(products)
+
   // function
   const loadmore = useCallback(() => {
-    const additionalProducts = fetchAjaxProducts()
-    console.log(additionalProducts)
-    console.log(
-      ...products,
-      ...additionalProducts
-    )
-    setProducts(
-      ...products,
-      ...additionalProducts
-    )
-  }, [setProducts])
+    dispatch(fetchAjaxProducts(products))
+  }, [products])
 
-  // useEffect
+  // useEffect onload
   useEffect(() => {
-    console.log('onload useEffect')
     dispatch(fetchInitialProducts())
-    console.log(pstate)
   }, [])
+
+  useEffect(() => {
+    if (list.length > 0) {
+      setProducts(list)
+    }
+  }, [list])
 
   // render
   return (
     <div className='productsList'>
       <p>products map</p>
-      <Product />
+      {
+        error && <p>{error}</p>
+      }
+      <Product
+        className='product'
+        products={products}
+      />
+      {
+        loading && <p>Loading...</p>
+      }
       <button type='button' onClick={loadmore}>もっとみる</button>
     </div>
   )
