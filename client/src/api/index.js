@@ -14,3 +14,9 @@ export const ajaxProducts = id => {
     _id: id
   })
 }
+
+export const fetchDetail = id => {
+  return API.post('/product-detail', {
+    _id: id
+  })
+}

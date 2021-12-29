@@ -29,5 +29,18 @@ const fetchAjaxProducts = async (req, res) => {
   }
 }
 
+const fetchProductDetail = async (req, res) => {
+  try {
+    console.log(req.body._id)
+    const detailData = await Product.findById(req.body._id)
+    console.log([detailData])
+    res.status(200).json({ result: [detailData] })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
+
 module.exports.fetchInitialProducts = fetchInitialProducts
 module.exports.fetchAjaxProducts = fetchAjaxProducts
+module.exports.fetchProductDetail = fetchProductDetail

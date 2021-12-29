@@ -5,6 +5,10 @@ export default {
     list: [],
     error: null
   },
-  productDetail: null,
+  productDetail: {
+    loading: false,
+    detail: null,
+    error: null
+  },
   error: null
 }
