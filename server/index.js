@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { MONGODB_URI } = require('./config/config')
 
 //load .env
 const dotenv = require('dotenv');
@@ -7,10 +8,13 @@ dotenv.config();
 
 //connect to mongodb atlas
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI,{
-  useUnifiedTopology : true,
-  useNewUrlParser : true,
-})
+mongoose.connect(
+  MONGODB_URI,
+  {
+    useUnifiedTopology : true,
+    useNewUrlParser : true,
+  }
+)
 .then(()=>console.log('connected mongodb atlas'))
 .catch(error=>console.log(error))
 

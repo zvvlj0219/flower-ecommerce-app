@@ -12,6 +12,13 @@ export const fetchDetailReducer = (state = initialState.productDetail, action) =
         detail: null
       }
     case actionsType.FETCH_DETAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        detail: action.payload
+      }
+    case actionsType.UPDATE_DETAIL:
+      console.log('UPDATE_DETAIL')
       console.log({
         ...state,
         loading: false,
