@@ -41,6 +41,22 @@ const fetchProductDetail = async (req, res) => {
   }
 }
 
+const updateIsLiked = async (req, res) => {
+  try {
+    const {_id, isLiked } = req.body
+    const updatedDate = await Product.findByIdAndUpdate(
+      _id,
+      { isLiked },
+      { returnDocument: 'after' }
+    )
+    res.status(200).json({ result: [updatedDate] })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
+
 module.exports.fetchInitialProducts = fetchInitialProducts
 module.exports.fetchAjaxProducts = fetchAjaxProducts
 module.exports.fetchProductDetail = fetchProductDetail
+module.exports.updateIsLiked = updateIsLiked

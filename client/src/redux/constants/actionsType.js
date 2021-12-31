@@ -4,7 +4,8 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS'
 export const FETCH_PRODUCTS_FAIL = 'FETCH_PRODUCTS_FAIL'
 export const AJAX_PRODUCTS = 'AJAX_PRODUCTS'
 
-// fetch product detail
+// fetch product detail and update isLiked
 export const FETCH_DETAIL_REQUEST = 'FETCH_DETAIL_REQUEST'
 export const FETCH_DETAIL_SUCCESS = 'FETCH_DETAIL_SUCCESS'
+export const UPDATE_DETAIL = 'UPDATE_DETAIL'
 export const FETCH_DETAIL_FAIL = 'FETCH_DETAIL_FAIL'

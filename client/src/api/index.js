@@ -20,3 +20,10 @@ export const fetchDetail = id => {
     _id: id
   })
 }
+
+export const updateIsLiked = (id, isLiked) => {
+  return API.put('/product-detail/isLiked', {
+    _id: id,
+    isLiked
+  })
+}
