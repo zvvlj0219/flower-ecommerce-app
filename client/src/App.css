@@ -18,4 +18,13 @@
 .productDetail > button {
   display: block;
   margin: 10px 0;
+  
+}
+/* 仮 */
+.wishlist_item > button {
+  display: block;
+  margin-left:30px;
+}
+.wishlist_item {
+  display: flex;
 }

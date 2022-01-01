@@ -1,35 +1,8 @@
-import axios from 'axios'
+// product
+export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
 
-// baseURL
-const API = axios.create({ baseURL: 'http://localhost:5000/api' })
+// wishlist
+export { updateIsLiked, fetchWishlist } from './wishlist/wishlist'
 
-// initial fetch three products
-export const initialProducts = () => {
-  return API.get('/')
-}
-
-// ajax fetch six products
-export const ajaxProducts = id => {
-  return API.post('/ajax', {
-    _id: id
-  })
-}
-
-export const fetchDetail = id => {
-  return API.post('/product-detail', {
-    _id: id
-  })
-}
-
-export const updateIsLiked = (id, isLiked) => {
-  return API.put('/product-detail/isLiked', {
-    _id: id,
-    isLiked
-  })
-}
-
-export const updateIsCartIn = id => {
-  return API.put('/product-detail/isCartIn', {
-    _id: id
-  })
-}
+// cart
+export { updateIsCartIn } from './cart/cart'

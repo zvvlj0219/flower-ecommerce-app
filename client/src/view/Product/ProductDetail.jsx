@@ -53,6 +53,7 @@ const ProductDetail = () => {
         detailData.length > 0 ?
           (
             <div>
+              <p>{detailData[0]._id}</p>
               <p>{detailData[0].name}</p>
             </div>
           ) : '..loading'
