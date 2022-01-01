@@ -5,11 +5,17 @@
 }
 
 /* 仮 */
-.header .account > p{
-  padding:0 20px;
+.header .account > p,a{
+  padding:0 10px;
 }
 
 /* productsList */
 .productsList {
   background-color: lightyellow;
+}
+
+/* 仮 */
+.productDetail > button {
+  display: block;
+  margin: 10px 0;
 }

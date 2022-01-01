@@ -40,7 +40,6 @@ const ProductsList = () => {
         error && <p>{error}</p>
       }
       <Product
-        className='product'
         products={products}
       />
       {

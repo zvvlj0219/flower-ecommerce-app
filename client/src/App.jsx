@@ -5,6 +5,7 @@ import Header from './view/Header/Header'
 import FirstView from './view/Product/FirstView'
 import ProductDetail from './view/Product/ProductDetail'
 import WishList from './view/WishList/WishList'
+import Cart from './view/Cart/Cart'
 
 const App = () => {
   return (
@@ -12,8 +13,9 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path='/' component={FirstView} />
-        <Route exact path='/wishlist' component={WishList} />
         <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+        <Route exact path='/wishlist' component={WishList} />
+        <Route exact path='/cart' component={Cart} />
       </Switch>
       <div>フッター</div>
       <hr />

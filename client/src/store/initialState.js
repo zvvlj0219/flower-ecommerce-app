@@ -10,5 +10,14 @@ export default {
     detail: null,
     error: null
   },
-  error: null
+  wishlist: {
+    loading: false,
+    list: [],
+    error: null
+  },
+  cart: {
+    loading: false,
+    list: [],
+    error: null
+  }
 }

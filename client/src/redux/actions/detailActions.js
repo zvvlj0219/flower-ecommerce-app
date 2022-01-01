@@ -29,3 +29,18 @@ export const updateIsLiked = (id, isLiked) => async dispatch => {
     errorActions(actionsType.FETCH_DETAIL_FAIL, error)
   }
 }
+
+export const updateIsCartIn = id => async dispatch => {
+  try {
+    console.log(id)
+
+    const { data } = await api.updateIsCartIn(id)
+
+    dispatch({
+      type: actionsType.UPDATE_DETAIL,
+      payload: data.result
+    })
+  } catch (error) {
+    errorActions(actionsType.FETCH_DETAIL_FAIL, error)
+  }
+}

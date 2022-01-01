@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchDetail, updateIsLiked } from '../../redux/actions/detailActions'
+import { fetchDetail, updateIsLiked, updateIsCartIn } from '../../redux/actions/detailActions'
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -14,9 +14,12 @@ const ProductDetail = () => {
     list.length > 0 ? list.filter(el => el._id === id) : null
   )
 
-  // const [isLiked, setisLiked] = useState(null)
   const [isLiked, setisLiked] = useState(
     detailData ? detailData[0].isLiked : ''
+  )
+
+  const [isCartIn, setisCartIn] = useState(
+    detailData ? detailData[0].isCartIn : false
   )
 
   // function
@@ -25,6 +28,16 @@ const ProductDetail = () => {
     setisLiked(!isLiked)
   }
 
+  const addToCart = () => {
+    if (isCartIn) {
+      console.log('link cart')
+    } else {
+      dispatch(updateIsCartIn(id))
+      setisCartIn(true)
+    }
+  }
+
+  // useEffect
   useEffect(() => {
     if (!detailData && !detail) {
       dispatch(fetchDetail(id))
@@ -32,11 +45,12 @@ const ProductDetail = () => {
     if (detail) {
       setDetailData(detail)
       setisLiked(detail[0].isLiked)
+      setisCartIn(detail[0].isCartIn)
     }
   }, [detail, detailData])
 
   return (
-    <div>
+    <div className='productDetail'>
       <p>ProductDetail</p>
       {
         detailData ?
@@ -51,6 +65,14 @@ const ProductDetail = () => {
         onClick={toggleIsLiked}
       >
         {`wishlist : ${isLiked}`}
+      </button>
+      <button
+        type='button'
+        onClick={addToCart}
+      >
+        {
+          isCartIn ? 'チェックアウト' : 'カートに入れる'
+        }
       </button>
     </div>
   )

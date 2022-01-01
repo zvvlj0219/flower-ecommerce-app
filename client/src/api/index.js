@@ -27,3 +27,9 @@ export const updateIsLiked = (id, isLiked) => {
     isLiked
   })
 }
+
+export const updateIsCartIn = id => {
+  return API.put('/product-detail/isCartIn', {
+    _id: id
+  })
+}
