@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Product = ({ products }) => {
   return (
-    <div>
+    <div className='product'>
       {
         products ?
           products.map(el => (

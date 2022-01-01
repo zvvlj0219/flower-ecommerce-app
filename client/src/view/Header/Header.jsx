@@ -17,7 +17,11 @@ const Header = () => {
         >
           ♡
         </Link>
-        <p>カート</p>
+        <Link
+          to='/cart'
+        >
+          カート
+        </Link>
       </div>
     </div>
   )

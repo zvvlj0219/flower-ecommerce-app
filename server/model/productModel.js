@@ -17,6 +17,10 @@ const productSchema = mongoose.Schema(
     isLiked: {
       type: Boolean,
       required: true
+    },
+    isCartIn: {
+      type: Boolean,
+      required: true
     }
     // countInStock: {
     //   type: Number,
