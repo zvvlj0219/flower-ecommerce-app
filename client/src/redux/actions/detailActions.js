@@ -25,6 +25,18 @@ export const updateIsLiked = (id, isLiked) => async dispatch => {
       type: actionsType.UPDATE_DETAIL,
       payload: data.result
     })
+
+    if (isLiked) { // false > true
+      dispatch({
+        type: actionsType.ADD_TO_WISHLIST,
+        payload: data.result[0]._id
+      })
+    } else {
+      dispatch({
+        type: actionsType.REMOVE_FROM_WISHLIST,
+        payload: data.result[0]._id
+      })
+    }
   } catch (error) {
     errorActions(actionsType.FETCH_DETAIL_FAIL, error)
   }

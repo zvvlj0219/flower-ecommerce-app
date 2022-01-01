@@ -1,23 +1,22 @@
-// initial state
-export default {
+const initialState = {
   products: {
-    loading: false,
+    loading: true,
     list: [],
     error: null
   },
   productDetail: {
-    loading: false,
-    detail: null,
+    loading: true,
+    detail: [],
     error: null
   },
   wishlist: {
-    loading: false,
-    list: [],
-    error: null
+    list: localStorage.getItem('wishlist')
+      ? JSON.parse(localStorage.getItem('wishlist'))
+      : []
   },
   cart: {
-    loading: false,
-    list: [],
-    error: null
+    list: []
   }
 }
+
+export default initialState
