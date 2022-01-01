@@ -4,8 +4,9 @@ import thunk from 'redux-thunk'
 import { createBrowserHistory } from 'history'
 
 // Import reducers
-import { fetchProductReducer } from '../redux/reducers/productReducer'
-import { fetchDetailReducer } from '../redux/reducers/detailReducer'
+import { productReducer } from '../redux/reducers/productReducer'
+import { detailReducer } from '../redux/reducers/detailReducer'
+import { wishlistReducer } from '../redux/reducers/wishlistReducer'
 
 export const history = createBrowserHistory()
 
@@ -14,8 +15,9 @@ export default function configureStore() {
   const store = createStore(
     combineReducers({
       router: connectRouter(history),
-      products: fetchProductReducer,
-      productDetail: fetchDetailReducer
+      products: productReducer,
+      productDetail: detailReducer,
+      wishlist: wishlistReducer
     }),
     applyMiddleware(
       routerMiddleware(history),

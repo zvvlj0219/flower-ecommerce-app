@@ -3,7 +3,7 @@ import * as actionsType from '../constants/actionsType'
 // initial state
 import initialState from '../../store/initialState'
 
-export const fetchProductReducer = (state = initialState.products, action) => {
+export const productReducer = (state = initialState.products, action) => {
   switch (action.type) {
     case actionsType.FETCH_PRODUCTS_REQUEST:
       return {

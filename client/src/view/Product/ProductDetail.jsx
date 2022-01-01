@@ -10,21 +10,15 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
 
   // state
-  const [detailData, setDetailData] = useState(
-    list.length > 0 ? list.filter(el => el._id === id) : null
+  const [detailData, setdetailData] = useState(
+    list.length > 0 ? list.filter(el => el._id === id) : []
   )
-
-  const [isLiked, setisLiked] = useState(
-    detailData ? detailData[0].isLiked : ''
-  )
-
-  const [isCartIn, setisCartIn] = useState(
-    detailData ? detailData[0].isCartIn : false
-  )
+  const [isLiked, setisLiked] = useState(false)
+  const [isCartIn, setisCartIn] = useState(false)
 
   // function
   const toggleIsLiked = () => {
-    dispatch(updateIsLiked(id, !detailData[0].isLiked))
+    dispatch(updateIsLiked(id, !isLiked))
     setisLiked(!isLiked)
   }
 
@@ -37,23 +31,26 @@ const ProductDetail = () => {
     }
   }
 
-  // useEffect
   useEffect(() => {
-    if (!detailData && !detail) {
-      dispatch(fetchDetail(id))
-    }
-    if (detail) {
-      setDetailData(detail)
+    dispatch(fetchDetail(id))
+  }, [])
+
+  useEffect(() => {
+    if (detail.length > 0) {
+      setdetailData(detail)
       setisLiked(detail[0].isLiked)
       setisCartIn(detail[0].isCartIn)
     }
-  }, [detail, detailData])
+  }, [detail])
+
+  // stateを生かせていない、毎回フェッチしている
+  // その分ロードがあり、レンダリングもぎこちない
 
   return (
     <div className='productDetail'>
       <p>ProductDetail</p>
       {
-        detailData ?
+        detailData.length > 0 ?
           (
             <div>
               <p>{detailData[0].name}</p>
@@ -64,7 +61,7 @@ const ProductDetail = () => {
         type='button'
         onClick={toggleIsLiked}
       >
-        {`wishlist : ${isLiked}`}
+        {`wishlist : ${isLiked ? '❤' : '♡'}`}
       </button>
       <button
         type='button'
