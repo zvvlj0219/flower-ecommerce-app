@@ -1,33 +1,46 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchWishlist } from '../../redux/actions/wishlistActions'
 
 const WishList = () => {
-  const { list } = useSelector(state => state.wishlist)
+  const dispatch = useDispatch()
+  const { data } = useSelector(state => state.wishlist)
 
-  const [wishlist, setWishlist] = useState(list)
+  const [wishlist, setWishlist] = useState()
 
-  useEffect(() => console.log(wishlist), [list, setWishlist])
+  useEffect(() => {
+    dispatch(fetchWishlist())
+  }, [])
+
+  useEffect(() => {
+    if (data) {
+      setWishlist(data)
+    }
+  }, [data])
 
   return (
-    <div>
+    <div className='wishlist'>
       <p>WishList</p>
-      {/* <div>
+      <div>
         {
           wishlist ?
             wishlist.map(item => (
-              <div key={item._id}>
-                <p>{item.name}</p>
+              <div
+                className='wishlist_item'
+                key={item._id}
+              >
+                <div>{item.name}</div>
                 <button
                   type='button'
                 >
-                  {item.isLiked}
+                  {item.isLiked ? '❤' : '♡'}
                 </button>
               </div>
             )) : (
               <p>no wishlist</p>
             )
         }
-      </div> */}
+      </div>
     </div>
   )
 }
