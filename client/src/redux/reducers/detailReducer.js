@@ -8,8 +8,7 @@ export const detailReducer = (state = initialState.productDetail, action) => {
     case actionsType.FETCH_DETAIL_REQUEST:
       return {
         ...state,
-        loading: true,
-        detail: []
+        loading: true
       }
     case actionsType.FETCH_DETAIL_SUCCESS:
       return {

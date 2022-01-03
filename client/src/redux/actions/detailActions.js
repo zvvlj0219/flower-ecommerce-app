@@ -10,7 +10,18 @@ export const fetchDetail = id => async dispatch => {
 
     dispatch({
       type: actionsType.FETCH_DETAIL_SUCCESS,
-      payload: data.result
+      payload: Object(data.result[0])
+    })
+  } catch (error) {
+    errorActions(actionsType.FETCH_DETAIL_FAIL, error)
+  }
+}
+
+export const listFilter = data => async dispatch => {
+  try {
+    dispatch({
+      type: actionsType.FETCH_DETAIL_SUCCESS,
+      payload: Object(data[0])
     })
   } catch (error) {
     errorActions(actionsType.FETCH_DETAIL_FAIL, error)
@@ -21,20 +32,22 @@ export const updateIsLiked = (id, isLiked) => async dispatch => {
   try {
     const { data } = await api.updateIsLiked(id, isLiked)
 
+    const result = Object(data.result[0])
+
     dispatch({
       type: actionsType.UPDATE_DETAIL,
-      payload: data.result
+      payload: result
     })
 
     if (isLiked) { // false > true
       dispatch({
         type: actionsType.ADD_TO_WISHLIST,
-        payload: data.result[0]._id
+        payload: result._id
       })
-    } else {
+    } else { // true >> false
       dispatch({
         type: actionsType.REMOVE_FROM_WISHLIST,
-        payload: data.result[0]._id
+        payload: result._id
       })
     }
   } catch (error) {

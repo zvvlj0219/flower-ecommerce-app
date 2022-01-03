@@ -2,14 +2,11 @@ import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
 import errorActions from './errorActions'
 
-export const fetchWishlist = () => async (dispatch, getState) => {
+export const fetchWishlist = () => async dispatch => {
   try {
     dispatch({ type: actionsType.FETCH_WISHLIST_REQUEST })
 
-    const { wishlist } = getState()
-    const { list } = wishlist
-
-    const { data } = await api.fetchWishlist(list)
+    const { data } = await api.fetchWishlist()
 
     dispatch({
       type: actionsType.FETCH_WISHLIST_SUCCESS,
