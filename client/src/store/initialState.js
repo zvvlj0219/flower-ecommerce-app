@@ -9,13 +9,13 @@ const initialState = {
     detail: {},
     error: null
   },
-  wishlist: {
-    loading: true,
-    list: [],
-    error: null
-  },
-  cart: {
-    list: []
+  users: {
+    user_id: null,
+    email: null,
+    username: null,
+    isSignedIn: false,
+    cart: [],
+    wishlist: []
   }
 }
 
