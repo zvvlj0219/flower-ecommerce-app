@@ -6,15 +6,12 @@ const initialState = {
   },
   productDetail: {
     loading: true,
-    detail: [],
+    detail: {},
     error: null
   },
   wishlist: {
     loading: true,
-    list: localStorage.getItem('wishlist')
-      ? JSON.parse(localStorage.getItem('wishlist'))
-      : [],
-    data: null,
+    list: [],
     error: null
   },
   cart: {

@@ -1,77 +1,68 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchDetail, updateIsLiked, updateIsCartIn } from '../../redux/actions/detailActions'
+import { fetchDetail, listFilter, updateIsLiked, updateIsCartIn } from '../../redux/actions/detailActions'
 
 const ProductDetail = () => {
   const { id } = useParams()
   const { list } = useSelector(state => state.products)
-  const { detail } = useSelector(state => state.productDetail)
+  const { detail, loading } = useSelector(state => state.productDetail)
   const dispatch = useDispatch()
 
-  // state
-  const [detailData, setdetailData] = useState(
-    list.length > 0 ? list.filter(el => el._id === id) : []
-  )
-  const [isLiked, setisLiked] = useState(false)
-  const [isCartIn, setisCartIn] = useState(false)
-
   // function
-  const toggleIsLiked = () => {
+  const toggleIsLiked = isLiked => {
     dispatch(updateIsLiked(id, !isLiked))
-    setisLiked(!isLiked)
   }
 
   const addToCart = () => {
-    if (isCartIn) {
+    if (detail.isCartIn) {
       console.log('link cart')
     } else {
       dispatch(updateIsCartIn(id))
-      setisCartIn(true)
     }
   }
 
+  // useEffect onload
   useEffect(() => {
-    dispatch(fetchDetail(id))
-  }, [])
-
-  useEffect(() => {
-    if (detail.length > 0) {
-      setdetailData(detail)
-      setisLiked(detail[0].isLiked)
-      setisCartIn(detail[0].isCartIn)
+    if (list.length === 0) {
+      dispatch(fetchDetail(id))
+    } else {
+      dispatch(listFilter(
+        list.filter(el => el._id === id)
+      ))
     }
-  }, [detail])
-
-  // stateを生かせていない、毎回フェッチしている
-  // その分ロードがあり、レンダリングもぎこちない
+  }, [])
 
   return (
     <div className='productDetail'>
       <p>ProductDetail</p>
-      {
-        detailData.length > 0 ?
-          (
-            <div>
-              <p>{detailData[0]._id}</p>
-              <p>{detailData[0].name}</p>
-            </div>
-          ) : '..loading'
-      }
-      <button
-        type='button'
-        onClick={toggleIsLiked}
-      >
-        {`wishlist : ${isLiked ? '❤' : '♡'}`}
-      </button>
-      <button
-        type='button'
-        onClick={addToCart}
-      >
+      <div>
+        { loading && (
+          <p>...loading</p>
+        )}
         {
-          isCartIn ? 'チェックアウト' : 'カートに入れる'
+          detail && (
+            <>
+              <div>
+                <p>{detail._id}</p>
+                <p>{detail.name}</p>
+              </div>
+              <button
+                type='button'
+                onClick={() => toggleIsLiked(detail.isLiked)}
+              >
+                { detail.isLiked ? 'wishlist ❤' : 'wishlist ♡' }
+              </button>
+              <button
+                type='button'
+                onClick={addToCart}
+              >
+                { detail.isCartIn ? 'チェックアウト' : 'カートに入れる' }
+              </button>
+            </>
+          )
         }
-      </button>
+      </div>
     </div>
   )
 }

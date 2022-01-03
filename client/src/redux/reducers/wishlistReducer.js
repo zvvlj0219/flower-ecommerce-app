@@ -10,31 +10,14 @@ export const wishlistReducer = (state = initialState.wishlist, action) => {
         ...state,
         loading: true
       }
-    case actionsType.FETCH_WISHLIST_SUCCESS:
+    case actionsType.FETCH_WISHLIST_SUCCESS: {
+      console.log({
+        ...state,
+        list: action.payload
+      })
       return {
         ...state,
-        data: action.payload
-      }
-    case actionsType.ADD_TO_WISHLIST: {
-      const { list } = state
-      const mergedData = list.filter(id => {
-        if (id !== null) {
-          return id
-        }
-        return false
-      })
-      mergedData.push(action.payload)
-      localStorage.setItem('wishlist', JSON.stringify(mergedData))
-      return {
-        list: mergedData
-      }
-    }
-    case actionsType.REMOVE_FROM_WISHLIST: {
-      const { list } = state
-      const refreshedData = list.filter(id => id !== action.payload)
-      localStorage.setItem('wishlist', JSON.stringify(refreshedData))
-      return {
-        list: refreshedData
+        list: action.payload
       }
     }
     case actionsType.FETCH_WISHLIST_FAIL:
