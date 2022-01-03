@@ -6,16 +6,25 @@ import FirstView from './view/Product/FirstView'
 import ProductDetail from './view/Product/ProductDetail'
 import WishList from './view/WishList/WishList'
 import Cart from './view/Cart/Cart'
+import Auth from './Auth'
+import SignIn from './view/Auth/SignIn'
+import Register from './view/Auth/Register'
 
 const App = () => {
   return (
     <div>
       <Header />
       <Switch>
+        <Route exact path='/auth/signin' component={SignIn} />
+        <Route exact path='/auth/register' component={Register} />
         <Route exact path='/' component={FirstView} />
         <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
         <Route exact path='/wishlist' component={WishList} />
         <Route exact path='/cart' component={Cart} />
+
+        <Auth>
+          <div>auth</div>
+        </Auth>
       </Switch>
       <div>フッター</div>
       <hr />

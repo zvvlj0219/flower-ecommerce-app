@@ -20,6 +20,7 @@ mongoose.connect(
 
 //import  routes
 const productRoute = require('./routes/api/productRoute')
+const authRoute = require('./routes/api/authRoute')
 const wishlistRoute = require('./routes/api/wishlistRoute')
 
 //Express initialize
@@ -32,6 +33,7 @@ app.use(cors());
 
 //routes middleware
 app.use('/api', productRoute)
+app.use('/api/auth', authRoute)
 app.use('/api/wishlist', wishlistRoute)
 
 //handle production

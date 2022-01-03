@@ -1,3 +1,6 @@
+// auth
+export { signIn, register } from './auth/auth'
+
 // product
 export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
 

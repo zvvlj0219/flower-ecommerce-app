@@ -16,3 +16,8 @@ export const FETCH_WISHLIST_SUCCESS = 'FETCH_WISHLIST_SUCCESS'
 export const FETCH_WISHLIST_FAIL = 'FETCH_WISHLIST_FAIL'
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST'
 export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST'
+
+// authentication
+export const SIGN_IN = 'SIGN_IN'
+export const REGISTER = 'REGISTER'
+export const LOGOUT = 'LOGOUT'

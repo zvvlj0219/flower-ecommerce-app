@@ -6,7 +6,7 @@ import { createBrowserHistory } from 'history'
 // Import reducers
 import { productReducer } from '../redux/reducers/productReducer'
 import { detailReducer } from '../redux/reducers/detailReducer'
-import { wishlistReducer } from '../redux/reducers/wishlistReducer'
+import { usersReducer } from '../redux/reducers/usersReducer'
 
 export const history = createBrowserHistory()
 
@@ -17,7 +17,7 @@ export default function configureStore() {
       router: connectRouter(history),
       products: productReducer,
       productDetail: detailReducer,
-      wishlist: wishlistReducer
+      users: usersReducer
     }),
     applyMiddleware(
       routerMiddleware(history),
