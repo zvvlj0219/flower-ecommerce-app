@@ -1,4 +1,7 @@
-import { Switch, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Switch, Route, useHistory } from 'react-router-dom'
+import { listenAuth } from './redux/actions/usersActions'
 
 // view
 import Header from './view/Header/Header'
@@ -11,19 +14,29 @@ import SignIn from './view/Auth/SignIn'
 import Register from './view/Auth/Register'
 
 const App = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const { isSignedIn } = useSelector(state => state.users)
+
+  useEffect(() => {
+    if (!isSignedIn && localStorage.getItem('profile')) {
+      dispatch(listenAuth(history))
+    }
+  }, [])
+
   return (
     <div>
       <Header />
       <Switch>
-        <Route exact path='/auth/signin' component={SignIn} />
-        <Route exact path='/auth/register' component={Register} />
         <Route exact path='/' component={FirstView} />
         <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+        <Route exact path='/auth/signin' component={SignIn} />
+        <Route exact path='/auth/register' component={Register} />
         <Route exact path='/wishlist' component={WishList} />
         <Route exact path='/cart' component={Cart} />
 
         <Auth>
-          <div>auth</div>
+          <Route exact path='/:username' component={FirstView} />
         </Auth>
       </Switch>
       <div>フッター</div>
