@@ -1,4 +1,5 @@
 const jwt  = require('jsonwebtoken')
+const { TOKEN_SECRET } = require('../config/config')
 
 const verifytoken = async (req,res,next) =>{
   try {
@@ -9,7 +10,9 @@ const verifytoken = async (req,res,next) =>{
     if(!token){
       return res.status(401).send('Access Denied');
     }
-    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    const verified = jwt.verify(token, TOKEN_SECRET);
+
+    console.log(verified)
 
     req.userId = verified;
 
