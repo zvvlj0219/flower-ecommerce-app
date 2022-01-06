@@ -19,5 +19,6 @@ export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST'
 
 // authentication
 export const LISTEN_AUTH = 'LISTEN_AUTH'
+export const INIT_AUTH = 'INIT_AUTH'
 export const SIGN_IN = 'SIGN_IN'
 export const LOGOUT = 'LOGOUT'

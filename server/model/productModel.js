@@ -13,14 +13,6 @@ const productSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
-    },
-    isLiked: {
-      type: Boolean,
-      required: true
-    },
-    isCartIn: {
-      type: Boolean,
-      required: true
     }
     // countInStock: {
     //   type: Number,

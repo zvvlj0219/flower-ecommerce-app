@@ -8,9 +8,11 @@ export const usersReducer = (state = initialState.users, action) => {
     case actionsType.SIGN_IN:
       return action.payload
     case actionsType.LISTEN_AUTH:
+      console.log(action.payload)
+      return action.payload
+    case actionsType.INIT_AUTH:
       return action.payload
     case actionsType.LOGOUT:
-      console.log('LOGOUT')
       return initialState.users
     default:
       return state

@@ -1,5 +1,5 @@
 // auth
-export { signIn, register } from './auth/auth'
+export { listenAuth, signIn, register } from './auth/auth'
 
 // product
 export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
