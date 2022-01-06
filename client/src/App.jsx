@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Switch, Route, useHistory } from 'react-router-dom'
-import { listenAuth } from './redux/actions/usersActions'
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
+import { listenAuth, initAuth } from './redux/actions/usersActions'
 
 // view
 import Header from './view/Header/Header'
@@ -16,11 +16,14 @@ import Register from './view/Auth/Register'
 const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const { pathname } = useLocation()
   const { isSignedIn } = useSelector(state => state.users)
 
   useEffect(() => {
     if (!isSignedIn && localStorage.getItem('profile')) {
-      dispatch(listenAuth(history))
+      dispatch(listenAuth(history, pathname))
+    } else {
+      dispatch(initAuth(history))
     }
   }, [])
 
@@ -36,7 +39,8 @@ const App = () => {
         <Route exact path='/cart' component={Cart} />
 
         <Auth>
-          <Route exact path='/:username' component={FirstView} />
+          <Route exact path='/' component={FirstView} />
+          <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
         </Auth>
       </Switch>
       <div>フッター</div>

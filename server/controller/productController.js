@@ -41,38 +41,7 @@ const fetchProductDetail = async (req, res) => {
   }
 }
 
-const updateIsLiked = async (req, res) => {
-  try {
-    const {_id, isLiked } = req.body
-    const updatedData = await Product.findByIdAndUpdate(
-      _id,
-      { isLiked },
-      { returnDocument: 'after' }
-    )
-    res.status(200).json({ result: [updatedData] })
-  } catch (error) {
-    console.log(error)
-    throw new Error()
-  }
-}
-
-const updateIsCartIn = async (req, res) => {
-  try {
-    const {_id } = req.body
-    const updatedData = await Product.findByIdAndUpdate(
-      _id,
-      { isCartIn: true },
-      { returnDocument: 'after' }
-    )
-    res.status(200).json({ result: [updatedData] })
-  } catch (error) {
-    console.log(error)
-    throw new Error()
-  }
-}
 
 module.exports.fetchInitialProducts = fetchInitialProducts
 module.exports.fetchAjaxProducts = fetchAjaxProducts
 module.exports.fetchProductDetail = fetchProductDetail
-module.exports.updateIsLiked = updateIsLiked
-module.exports.updateIsCartIn = updateIsCartIn

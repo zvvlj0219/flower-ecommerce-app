@@ -14,10 +14,6 @@ const authSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isSignedIn: {
-      type: Boolean,
-      required: true,
-    },
     imagefile: {
       type: String
     },

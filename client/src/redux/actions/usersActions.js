@@ -1,34 +1,54 @@
+import jwtDecode from 'jwt-decode'
 import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
+import initialState from '../../store/initialState'
 // import errorActions from './errorActions'
 
-export const listenAuth = history => async dispatch => {
+export const listenAuth = (history, pathname = '/') => async dispatch => {
   try {
-    const storageData = JSON.parse(localStorage.getItem('profile'))
+    const token = JSON.parse(localStorage.getItem('profile'))
 
-    console.log(storageData)
+    const { email, _id } = jwtDecode(token)
+
+    const { data } = await api.listenAuth({ email, _id })
 
     dispatch({
       type: actionsType.LISTEN_AUTH,
       payload: {
-        user_id: storageData._id,
-        email: storageData.email,
-        username: storageData.username,
+        user_id: data.user._id,
+        email: data.user.email,
+        username: data.user.username,
         isSignedIn: true,
-        cart: storageData.cart,
-        wishlist: storageData.wishlist
+        cart: data.user.cart,
+        wishlist: data.user.wishlist
       }
     })
 
-    history.push(`/${storageData.username}`)
+    localStorage.setItem('profile', JSON.stringify(data.token))
+
+    history.push(pathname)
   } catch (error) {
-    history.push('/auth/signin')
+    console.log(error)
   }
 }
+
+export const initAuth = history => async dispatch => {
+  try {
+    localStorage.setItem('guestProfile', JSON.stringify(initialState.users))
+
+    dispatch({
+      type: actionsType.INIT_AUTH,
+      payload: initialState.users
+    })
+
+    history.push('/')
+  } catch (error) {
+    //
+  }
+}
+
 export const signIn = (form, history) => async dispatch => {
   try {
-    console.log('signin')
-
     const { data } = await api.signIn(form)
 
     const { _id, email, username, cart, wishlist } = data.user
@@ -47,9 +67,9 @@ export const signIn = (form, history) => async dispatch => {
       payload: storageData
     })
 
-    history.push(`/${username}`)
+    history.push('/')
 
-    localStorage.setItem('profile', JSON.stringify(storageData))
+    localStorage.setItem('profile', JSON.stringify(data.token))
   } catch (error) {
     //
   }
@@ -57,8 +77,6 @@ export const signIn = (form, history) => async dispatch => {
 
 export const register = (form, history) => async () => {
   try {
-    console.log('register')
-
     const { data } = await api.register(form)
 
     console.log(data)

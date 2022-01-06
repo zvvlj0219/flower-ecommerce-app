@@ -13,21 +13,11 @@ const Header = () => {
 
   return (
     <div className='header flex'>
-      {
-        username ? (
-          <Link
-            to={`/${username}`}
-          >
-            flower
-          </Link>
-        ) : (
-          <Link
-            to='/'
-          >
-            flower
-          </Link>
-        )
-      }
+      <Link
+        to='/'
+      >
+        flower
+      </Link>
       <div className='navbar'>navbar</div>
       <div className='account flex'>
         <p>画</p>
@@ -41,7 +31,9 @@ const Header = () => {
             username ? (
               <p>{username}</p>
             ) : (
-              <Link to='/auth/signin'>ログイン</Link>
+              <div>
+                <Link to='/auth/signin'>ログイン</Link>
+              </div>
             )
           }
         </div>

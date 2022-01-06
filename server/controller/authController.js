@@ -10,6 +10,33 @@ const { signinValidation, registerValidation, comparePassword } = require('../mi
 // secret key
 const { TOKEN_SECRET } = require('../config/config')
 
+const listenAuth = async (req, res) => {
+  const { email, _id } = req.body
+
+  try {
+    const existedUser = await Auth.findOne({ email, _id })
+    if (!existedUser) {
+      res.status(404).json({ message: 'no exist' })
+    }
+    
+    const token = jwt.sign(
+      { 
+        email:existedUser.email,
+        _id:existedUser._id
+      }, 
+      TOKEN_SECRET,
+      { 
+        algorithm: 'HS256',
+        expiresIn: '2h' 
+      }
+    )
+
+    res.status(200).json({ user:existedUser, token})
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
 const signIn = async (req, res) => {
   const { email, password } = req.body
 
@@ -27,8 +54,7 @@ const signIn = async (req, res) => {
       res.status(404).json({ message: 'no exist' })
     }
 
-    console.log(existedUser)
-
+    
     const passwordCorrect = await bcrypt.compare(password, existedUser.password)
     if (!passwordCorrect) {
       res.status(400).json({ message: 'invalid password' })
@@ -37,7 +63,7 @@ const signIn = async (req, res) => {
     const token = jwt.sign(
       { 
         email:existedUser.email,
-        id:existedUser._id
+        _id:existedUser._id
       }, 
       TOKEN_SECRET,
       { 
@@ -86,7 +112,6 @@ const register = async (req, res) => {
       email,
       username,
       password:hashedPassword,
-      isSignedIn: false,
       imagefile: null,
       cart: [],
       wishlist: []
@@ -103,5 +128,6 @@ const register = async (req, res) => {
   }
 }
 
+module.exports.listenAuth = listenAuth
 module.exports.signIn = signIn
 module.exports.register = register

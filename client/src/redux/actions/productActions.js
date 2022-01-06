@@ -13,6 +13,7 @@ export const fetchInitialProducts = () => async dispatch => {
       payload: data.result
     })
   } catch (error) {
+    console.log(error)
     errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
   }
 }

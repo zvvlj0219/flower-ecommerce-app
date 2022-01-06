@@ -1,16 +1,24 @@
 const jwt  = require('jsonwebtoken')
 const { TOKEN_SECRET } = require('../config/config')
 
-const verifytoken = async (req,res,next) =>{
+const verifyToken = async (req,res,next) =>{
   try {
-    const token = req.headers.Authorization.split(" ")[1]
+    // const token = req.headers.authorization
+    const token = req.headers.authorization.split(" ")[1]
 
     console.log(token)
 
     if(!token){
       return res.status(401).send('Access Denied');
     }
-    const verified = jwt.verify(token, TOKEN_SECRET);
+    const verified = jwt.verify(
+      token,
+      TOKEN_SECRET,
+      {
+        algorithm: 'HS256',
+        maxAge: '2h' 
+      }
+    );
 
     console.log(verified)
 
@@ -19,8 +27,8 @@ const verifytoken = async (req,res,next) =>{
     next();
   } catch (error) {
     console.log(error)
-    throw new Error()
+    throw new Error('verify error')
   }
 }
 
-module.exports.verifytoken = verifytoken
+module.exports.verifyToken = verifyToken
