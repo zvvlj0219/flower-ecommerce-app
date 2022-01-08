@@ -16,14 +16,7 @@ export const detailReducer = (state = initialState.productDetail, action) => {
         loading: false,
         detail: action.payload
       }
-    case actionsType.UPDATE_DETAIL:
-      return {
-        ...state,
-        loading: false,
-        detail: action.payload
-      }
     case actionsType.FETCH_DETAIL_FAIL:
-      console.log('FETCH_DETAIL_FAIL')
       return {
         ...state,
         loading: false,

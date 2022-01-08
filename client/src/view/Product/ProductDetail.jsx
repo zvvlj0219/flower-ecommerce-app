@@ -1,25 +1,36 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { fetchDetail, listFilter, updateIsLiked, updateIsCartIn } from '../../redux/actions/detailActions'
+import { useParams, useHistory } from 'react-router-dom'
+import { fetchDetail, listFilter, addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/detailActions'
 
 const ProductDetail = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  // product id
   const { id } = useParams()
+
+  // store
   const { list } = useSelector(state => state.products)
   const { detail, loading } = useSelector(state => state.productDetail)
-  const dispatch = useDispatch()
+  const { wishlist } = useSelector(state => state.users)
+
+  // state
+  const [isLiked, setisLiked] = useState(false)
 
   // function
-  const toggleIsLiked = isLiked => {
-    dispatch(updateIsLiked(id, !isLiked))
+  const toggleIsLiked = () => {
+    if (isLiked) {
+      dispatch(removeIsLiked(id))
+    } else {
+      dispatch(addIsLiked(id))
+    }
+    setisLiked(!isLiked)
   }
 
   const addToCart = () => {
-    if (detail.isCartIn) {
-      console.log('link cart')
-    } else {
-      dispatch(updateIsCartIn(id))
-    }
+    dispatch(addIsCartIn(id))
+    history.push('/cart')
   }
 
   // useEffect onload
@@ -32,6 +43,15 @@ const ProductDetail = () => {
       ))
     }
   }, [])
+
+  // useEffect
+  useEffect(() => {
+    wishlist.forEach(productId => {
+      if (productId === id) {
+        setisLiked(true)
+      }
+    })
+  }, [wishlist])
 
   return (
     <div className='productDetail'>
@@ -49,15 +69,18 @@ const ProductDetail = () => {
               </div>
               <button
                 type='button'
-                onClick={() => toggleIsLiked(detail.isLiked)}
+                onClick={toggleIsLiked}
               >
-                { detail.isLiked ? 'wishlist ❤' : 'wishlist ♡' }
+                {
+                  isLiked ?
+                    'wishlist ❤' : 'wishlist ♡'
+                }
               </button>
               <button
                 type='button'
                 onClick={addToCart}
               >
-                { detail.isCartIn ? 'チェックアウト' : 'カートに入れる' }
+                カートに入れる
               </button>
             </>
           )

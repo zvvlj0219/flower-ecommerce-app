@@ -1,11 +1,11 @@
 // auth
-export { listenAuth, signIn, register } from './auth/auth'
+export { listenAuth, signIn, takeOver, register } from './auth/auth'
 
 // product
 export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
 
 // wishlist
-export { updateIsLiked, fetchWishlist } from './wishlist/wishlist'
+export { updateWishlist } from './wishlist/wishlist'
 
 // cart
-export { updateIsCartIn } from './cart/cart'
+export { updateCart } from './cart/cart'

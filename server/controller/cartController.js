@@ -1,12 +1,12 @@
 const Auth = require('../model/authModel')
 
-const updateWishlist = async (req, res) => {
+const updateCart = async (req, res) => {
   try {
-    const { userId, wishlist } = req.body
+    const { userId, cart } = req.body
 
     const user = await Auth.findByIdAndUpdate(
       userId,
-      { wishlist },
+      { cart },
       { returnDocument : 'after'}
     )
 
@@ -17,4 +17,4 @@ const updateWishlist = async (req, res) => {
   }
 }
 
-module.exports.updateWishlist = updateWishlist
+module.exports.updateCart = updateCart

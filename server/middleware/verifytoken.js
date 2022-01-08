@@ -3,10 +3,7 @@ const { TOKEN_SECRET } = require('../config/config')
 
 const verifyToken = async (req,res,next) =>{
   try {
-    // const token = req.headers.authorization
     const token = req.headers.authorization.split(" ")[1]
-
-    console.log(token)
 
     if(!token){
       return res.status(401).send('Access Denied');
@@ -20,14 +17,12 @@ const verifyToken = async (req,res,next) =>{
       }
     );
 
-    console.log(verified)
-
     req.userId = verified;
 
     next();
   } catch (error) {
     console.log(error)
-    throw new Error('verify error')
+    return res.status(400).send('ERROR : Invalid Token')
   }
 }
 
