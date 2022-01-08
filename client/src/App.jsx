@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
 import { listenAuth, initAuth } from './redux/actions/usersActions'
 
@@ -9,7 +9,6 @@ import FirstView from './view/Product/FirstView'
 import ProductDetail from './view/Product/ProductDetail'
 import WishList from './view/WishList/WishList'
 import Cart from './view/Cart/Cart'
-import Auth from './Auth'
 import SignIn from './view/Auth/SignIn'
 import Register from './view/Auth/Register'
 
@@ -19,11 +18,15 @@ const App = () => {
   const { pathname } = useLocation()
   const { isSignedIn } = useSelector(state => state.users)
 
+  console.log(useSelector(state => state.users))
+
   useEffect(() => {
-    if (!isSignedIn && localStorage.getItem('profile')) {
+    if (localStorage.getItem('profile')) {
+      console.log('listen Aurh')
       dispatch(listenAuth(history, pathname))
     } else {
-      dispatch(initAuth(history))
+      console.log('init Auth')
+      dispatch(initAuth(history, pathname))
     }
   }, [])
 
@@ -31,17 +34,25 @@ const App = () => {
     <div>
       <Header />
       <Switch>
-        <Route exact path='/' component={FirstView} />
-        <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
-        <Route exact path='/auth/signin' component={SignIn} />
-        <Route exact path='/auth/register' component={Register} />
-        <Route exact path='/wishlist' component={WishList} />
-        <Route exact path='/cart' component={Cart} />
-
-        <Auth>
-          <Route exact path='/' component={FirstView} />
-          <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
-        </Auth>
+        {
+          isSignedIn ? (
+            <>
+              <Route exact path='/' component={FirstView} />
+              <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+              <Route exact path='/wishlist' component={WishList} />
+              <Route exact path='/cart' component={Cart} />
+            </>
+          ) : (
+            <>
+              <Route exact path='/' component={FirstView} />
+              <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+              <Route exact path='/wishlist' component={WishList} />
+              <Route exact path='/cart' component={Cart} />
+              <Route exact path='/auth/signin' component={SignIn} />
+              <Route exact path='/auth/register' component={Register} />
+            </>
+          )
+        }
       </Switch>
       <div>フッター</div>
       <hr />

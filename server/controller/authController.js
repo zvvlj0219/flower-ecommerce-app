@@ -37,6 +37,7 @@ const listenAuth = async (req, res) => {
     throw new Error()
   }
 }
+
 const signIn = async (req, res) => {
   const { email, password } = req.body
 
@@ -78,6 +79,28 @@ const signIn = async (req, res) => {
     throw new Error()
   }
 }
+
+// const takeOver = async (req, res) => {
+//   const { _id, cart, wishlist } = req.body
+
+//   console.log(req.body)
+
+//   try {
+//     const user = await Auth.findByIdAndUpdate(
+//       _id,
+//       {
+//         cart,
+//         wishlist
+//       },
+//       { returnDocument : 'after'}
+//     )
+      
+//     res.status(200).json({ user })
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error()
+//   }
+// }
 
 const register = async (req, res) => {
   const { email, username, password, confirmpassword } = req.body
@@ -130,4 +153,5 @@ const register = async (req, res) => {
 
 module.exports.listenAuth = listenAuth
 module.exports.signIn = signIn
+// module.exports.takeOver = takeOver
 module.exports.register = register

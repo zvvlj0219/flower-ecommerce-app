@@ -24,27 +24,39 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
       }
     })
 
-    localStorage.setItem('profile', JSON.stringify(data.token))
-
     history.push(pathname)
+
+    localStorage.setItem('profile', JSON.stringify(data.token))
   } catch (error) {
-    console.log(error)
+    history.push('/auth/signin')
+
+    localStorage.removeItem('profile')
   }
 }
 
-export const initAuth = history => async dispatch => {
-  try {
-    localStorage.setItem('guestProfile', JSON.stringify(initialState.users))
+export const initAuth = (history, pathname = '/') => async dispatch => {
+  if (!localStorage.getItem('guestProfile')) {
+    localStorage.setItem('guestProfile', JSON.stringify({
+      cart: [],
+      isSignedIn: false,
+      wishlist: []
+    }))
 
     dispatch({
       type: actionsType.INIT_AUTH,
-      payload: initialState.users
+      payload: {
+        cart: [],
+        isSignedIn: false,
+        wishlist: []
+      }
     })
-
-    history.push('/')
-  } catch (error) {
-    //
+  } else {
+    dispatch({
+      type: actionsType.INIT_AUTH,
+      payload: JSON.parse(localStorage.getItem('guestProfile'))
+    })
   }
+  history.push(pathname)
 }
 
 export const signIn = (form, history) => async dispatch => {
@@ -53,25 +65,31 @@ export const signIn = (form, history) => async dispatch => {
 
     const { _id, email, username, cart, wishlist } = data.user
 
-    const storageData = {
-      user_id: _id,
-      email,
-      username,
-      isSignedIn: true,
-      cart,
-      wishlist
-    }
+    // const storageWishlist = JSON.parse(localStorage.getItem('guestProfile')).wishlist
+
+    // const mergedWishlist = wishlist.filter(el =>  storageWishlist.indexOf(el) === -1)
+
+    // const result = await api.takeOver(_id, cart, mergedWishlist)
 
     dispatch({
       type: actionsType.SIGN_IN,
-      payload: storageData
+      payload: {
+        user_id: _id,
+        email,
+        username,
+        isSignedIn: true,
+        cart,
+        wishlist
+      }
     })
 
     history.push('/')
 
     localStorage.setItem('profile', JSON.stringify(data.token))
+
+    localStorage.removeItem('guestProfile')
   } catch (error) {
-    //
+    throw new Error()
   }
 }
 
@@ -83,20 +101,18 @@ export const register = (form, history) => async () => {
 
     history.push('/auth/signin')
   } catch (error) {
-    //
+    throw new Error()
   }
 }
 
 export const logout = history => async dispatch => {
-  try {
-    console.log('logout')
+  dispatch({
+    type: actionsType.LOGOUT
+  })
 
-    dispatch({ type: actionsType.LOGOUT })
+  localStorage.removeItem('profile')
 
-    localStorage.removeItem('profile')
+  localStorage.setItem('guestProfile', JSON.stringify(initialState.users))
 
-    history.push('/')
-  } catch (error) {
-    //
-  }
+  history.push('/')
 }
