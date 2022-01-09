@@ -6,14 +6,13 @@ export const initialProducts = () => {
 }
 
 // ajax fetch six products
-export const ajaxProducts = id => {
+export const ajaxProducts = _id => {
   return API.post('/ajax', {
-    _id: id
+    // _id : array
+    _id
   })
 }
 
-export const fetchDetail = id => {
-  return API.post('/product-detail', {
-    _id: id
-  })
+export const fetchDetail = _id => {
+  return API.post('/product-detail', _id)
 }

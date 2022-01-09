@@ -2,13 +2,14 @@ const Auth = require('../model/authModel')
 
 const updateWishlist = async (req, res) => {
   try {
-    const { userId, wishlist } = req.body
+    const { _id, wishlist } = req.body
 
     const user = await Auth.findByIdAndUpdate(
-      userId,
+      _id,
       { wishlist },
       { returnDocument : 'after'}
     )
+    .select(['_id','email','username','cart','wishlist'])
 
     res.status(200).json({ user })
   } catch (error) {

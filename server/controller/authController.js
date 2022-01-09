@@ -15,6 +15,8 @@ const listenAuth = async (req, res) => {
 
   try {
     const existedUser = await Auth.findOne({ email, _id })
+    .select(['_id','email','username','cart','wishlist'])
+
     if (!existedUser) {
       res.status(404).json({ message: 'no exist' })
     }
@@ -40,8 +42,6 @@ const listenAuth = async (req, res) => {
 
 const signIn = async (req, res) => {
   const { email, password } = req.body
-
-  console.log(req.body)
 
   try {
     //validation
@@ -73,40 +73,45 @@ const signIn = async (req, res) => {
       }
     )
       
-    res.status(200).json({ user:existedUser, token})
+    res.status(200).json({
+      user:{
+        _id: existedUser._id,
+        email: existedUser.email,
+        username: existedUser.username,
+        cart: existedUser.cart,
+        wishlist: existedUser.wishlist
+      },
+      token
+    })
   } catch (error) {
     console.log(error)
     throw new Error()
   }
 }
 
-// const takeOver = async (req, res) => {
-//   const { _id, cart, wishlist } = req.body
+const takeOver = async (req, res) => {
+  const { _id, wishlist, cart } = req.body
 
-//   console.log(req.body)
-
-//   try {
-//     const user = await Auth.findByIdAndUpdate(
-//       _id,
-//       {
-//         cart,
-//         wishlist
-//       },
-//       { returnDocument : 'after'}
-//     )
+  try {
+    const user = await Auth.findByIdAndUpdate(
+      _id,
+      {
+        wishlist,
+        cart
+      },
+      { returnDocument : 'after'}
+    )
+    .select(['_id','email','username','cart','wishlist'])
       
-//     res.status(200).json({ user })
-//   } catch (error) {
-//     console.log(error)
-//     throw new Error()
-//   }
-// }
+    res.status(200).json({ user })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
 
 const register = async (req, res) => {
   const { email, username, password, confirmpassword } = req.body
-
-  console.log('register')
-  console.log(req.body)
 
   // validation
   const differentPassword = comparePassword(password, confirmpassword)
@@ -126,7 +131,6 @@ const register = async (req, res) => {
       return res.status(400).json({ message: 'existed email' })
     }
     
-    
     // hash passwords
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -142,8 +146,6 @@ const register = async (req, res) => {
     
     const createdAccount = await Auth.create(newAccount)
 
-    console.log(createdAccount)
-
     res.status(200).json({ user: createdAccount })
   } catch (error) {
     console.log(error)
@@ -153,5 +155,5 @@ const register = async (req, res) => {
 
 module.exports.listenAuth = listenAuth
 module.exports.signIn = signIn
-// module.exports.takeOver = takeOver
+module.exports.takeOver = takeOver
 module.exports.register = register

@@ -2,6 +2,7 @@ import jwtDecode from 'jwt-decode'
 import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
 import initialState from '../../store/initialState'
+import Merge from '../../module/takeover'
 // import errorActions from './errorActions'
 
 export const listenAuth = (history, pathname = '/') => async dispatch => {
@@ -15,12 +16,8 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
     dispatch({
       type: actionsType.LISTEN_AUTH,
       payload: {
-        user_id: data.user._id,
-        email: data.user.email,
-        username: data.user.username,
-        isSignedIn: true,
-        cart: data.user.cart,
-        wishlist: data.user.wishlist
+        ...data.user,
+        isSignedIn: true
       }
     })
 
@@ -36,19 +33,17 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
 
 export const initAuth = (history, pathname = '/') => async dispatch => {
   if (!localStorage.getItem('guestProfile')) {
-    localStorage.setItem('guestProfile', JSON.stringify({
+    const storageData = {
       cart: [],
       isSignedIn: false,
       wishlist: []
-    }))
+    }
+
+    localStorage.setItem('guestProfile', JSON.stringify(storageData))
 
     dispatch({
       type: actionsType.INIT_AUTH,
-      payload: {
-        cart: [],
-        isSignedIn: false,
-        wishlist: []
-      }
+      payload: storageData
     })
   } else {
     dispatch({
@@ -63,23 +58,26 @@ export const signIn = (form, history) => async dispatch => {
   try {
     const { data } = await api.signIn(form)
 
-    const { _id, email, username, cart, wishlist } = data.user
+    const { _id, wishlist: userWishlist, cart: userCart } = data.user
 
-    // const storageWishlist = JSON.parse(localStorage.getItem('guestProfile')).wishlist
+    // take over cart and wishlist with signin
+    const { wishlist: guestWishlist, cart: guestCart } = JSON.parse(
+      localStorage.getItem('guestProfile')
+    )
 
-    // const mergedWishlist = wishlist.filter(el =>  storageWishlist.indexOf(el) === -1)
+    const merge = new Merge(guestWishlist, guestCart, userWishlist, userCart)
 
-    // const result = await api.takeOver(_id, cart, mergedWishlist)
+    const { data: mergedData } = await api.takeOver(
+      _id,
+      merge.takeoverWishlist(),
+      merge.takeoverCart()
+    )
 
     dispatch({
       type: actionsType.SIGN_IN,
       payload: {
-        user_id: _id,
-        email,
-        username,
-        isSignedIn: true,
-        cart,
-        wishlist
+        ...mergedData.user,
+        isSignedIn: true
       }
     })
 
@@ -95,9 +93,7 @@ export const signIn = (form, history) => async dispatch => {
 
 export const register = (form, history) => async () => {
   try {
-    const { data } = await api.register(form)
-
-    console.log(data)
+    await api.register(form)
 
     history.push('/auth/signin')
   } catch (error) {

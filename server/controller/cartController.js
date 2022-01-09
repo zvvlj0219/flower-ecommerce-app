@@ -2,13 +2,14 @@ const Auth = require('../model/authModel')
 
 const updateCart = async (req, res) => {
   try {
-    const { userId, cart } = req.body
+    const { _id, cart } = req.body
 
     const user = await Auth.findByIdAndUpdate(
-      userId,
+      _id,
       { cart },
       { returnDocument : 'after'}
     )
+    .select(['_id','email','username','cart','wishlist'])
 
     res.status(200).json({ user })
   } catch (error) {
