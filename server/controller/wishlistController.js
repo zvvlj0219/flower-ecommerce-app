@@ -9,7 +9,7 @@ const updateWishlist = async (req, res) => {
       { wishlist },
       { returnDocument : 'after'}
     )
-    .select(['_id','email','username','cart','wishlist'])
+    .select(['_id','email','username','cart','wishlist','information'])
 
     res.status(200).json({ user })
   } catch (error) {

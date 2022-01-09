@@ -9,3 +9,6 @@ export { updateWishlist } from './wishlist/wishlist'
 
 // cart
 export { updateCart } from './cart/cart'
+
+// account
+export { updateInfo } from './account/account'

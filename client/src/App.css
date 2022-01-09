@@ -1,19 +1,4 @@
-/* header */
-.header {
-  background-color: bisque;
-  justify-content: space-between;
-}
-
-/* 仮 */
-.header .account > p,a{
-  padding:0 10px;
-}
-
-.header .logout {
-  width:auto;
-  height: 30px;
-  margin: auto 10px;
-}
+@import './view/Header/header.css';
 
 /* productsList */
 .productsList {

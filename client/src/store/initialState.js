@@ -15,7 +15,13 @@ const initialState = {
     username: null,
     isSignedIn: false,
     cart: [],
-    wishlist: []
+    wishlist: [],
+    order: [],
+    information: {
+      client: '',
+      address: '',
+      payment: []
+    }
   }
 }
 
