@@ -9,7 +9,7 @@ const updateCart = async (req, res) => {
       { cart },
       { returnDocument : 'after'}
     )
-    .select(['_id','email','username','cart','wishlist'])
+    .select(['_id','email','username','cart','wishlist','information'])
 
     res.status(200).json({ user })
   } catch (error) {

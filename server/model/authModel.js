@@ -25,6 +25,21 @@ const authSchema = mongoose.Schema(
       type: Array,
       required: true,
     },
+    order: {
+      type: Array,
+      required: true
+    },
+    information: {
+      client: {
+        type: String
+      },
+      address: {
+        type: String
+      },
+      payment:  {
+        type: Array
+      }
+    }
   },
   {
     collection:'users',

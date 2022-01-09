@@ -1,0 +1,66 @@
+/* header */
+.header {
+  justify-content: space-between;
+  height: 55px;
+  width: 100%;
+  box-shadow: 2px 2px 2px rgba(229,229,229, 0.5);
+  background-color: rgb(255, 200, 221, 0.05);
+}
+
+/* logo */
+.header > .title_logo {
+  font-size: 1.8rem;
+  font-weight:570;
+  align-self:center;
+  margin-left:25px;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.header > .title_logo > a {
+  color: "#495057";
+}
+
+.header > .title_logo span {
+  color: pink;
+}
+
+/* navbar */
+.header .navbar > ul {
+  display: flex;
+  align-items: center;
+  margin-top:20px;
+}
+
+.header .navbar li {
+  margin:0 22px;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: bold;
+  color:rgba(0,0,0,0.7)
+}
+
+.header .navbar li:hover {
+  color:rgb(255, 182, 193,0.7);
+  transition:color 0.1s;
+}
+
+/* menu */
+.header .menu_wrapper {
+  align-items: center;
+  margin:0 25px;
+}
+
+.header .menu_wrapper > div{
+  margin:0 5px;
+}
+
+
+/* 仮 */
+.header .account > p,a{
+  padding:0 10px;
+}
+
+.header .logout {
+  width:auto;
+  height: 30px;
+  margin: auto 10px;
+}

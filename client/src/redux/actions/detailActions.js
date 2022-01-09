@@ -43,7 +43,10 @@ export const addIsLiked = productId => async (dispatch, getState) => {
 
       dispatch({
         type: actionsType.UPDATE_WISHLIST,
-        payload: data.user
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
       })
     } else {
       const { wishlist } = users
@@ -80,7 +83,10 @@ export const removeIsLiked = productId => async (dispatch, getState) => {
 
       dispatch({
         type: actionsType.UPDATE_CART,
-        payload: data.user
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
       })
     } else {
       const { wishlist } = users
@@ -117,7 +123,10 @@ export const addIsCartIn = productId => async (dispatch, getState) => {
 
       dispatch({
         type: actionsType.UPDATE_CART,
-        payload: data.user
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
       })
     } else {
       const { cart } = users
@@ -154,7 +163,10 @@ export const removeIsCartIn = productId => async (dispatch, getState) => {
 
       dispatch({
         type: actionsType.UPDATE_CART,
-        payload: data.user
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
       })
     } else {
       const { cart } = users

@@ -15,7 +15,7 @@ const listenAuth = async (req, res) => {
 
   try {
     const existedUser = await Auth.findOne({ email, _id })
-    .select(['_id','email','username','cart','wishlist'])
+    .select(['_id','email','username','cart','wishlist','order','information'])
 
     if (!existedUser) {
       res.status(404).json({ message: 'no exist' })
@@ -55,7 +55,6 @@ const signIn = async (req, res) => {
       res.status(404).json({ message: 'no exist' })
     }
 
-    
     const passwordCorrect = await bcrypt.compare(password, existedUser.password)
     if (!passwordCorrect) {
       res.status(400).json({ message: 'invalid password' })
@@ -141,7 +140,13 @@ const register = async (req, res) => {
       password:hashedPassword,
       imagefile: null,
       cart: [],
-      wishlist: []
+      wishlist: [],
+      order: [],
+      information: {
+        client: null,
+        address: null,
+        payment: []
+      }
     })
     
     const createdAccount = await Auth.create(newAccount)

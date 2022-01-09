@@ -14,3 +14,7 @@ a {
 .flex{
   display: flex;
 }
+
+li {
+  list-style: none;
+}

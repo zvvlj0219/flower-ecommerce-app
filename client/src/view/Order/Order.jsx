@@ -1,12 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
 
-const Cart = () => {
+const Order = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { cart } = useSelector(state => state.users)
+  // selector
+  const { cart, information } = useSelector(state => state.users)
+
+  // function
+  const checkout = useCallback(() => {
+    history.push('/order/checkout')
+  })
 
   const addToCart = id => {
     dispatch(addIsCartIn(id))
@@ -20,15 +27,13 @@ const Cart = () => {
     dispatch(deleteIsCartIn(id))
   }
 
-  const order = () => {
-    history.push('/order')
-  }
+  useEffect(() => {}, [])
 
   return (
-    <div className='wishlist'>
-      <p>Cart</p>
-      {
-        cart.length > 0 ?
+    <div>
+      <p>商品 ユーザー情報</p>
+      <div>
+        {
           cart.map(item => (
             <div key={item._id}>
               <p>{item._id}</p>
@@ -53,23 +58,28 @@ const Cart = () => {
               <button type='button' onClick={() => deleteFromCart(item._id)}>削除</button>
               <hr />
             </div>
-          )) : 'no product in your cart'
-      }
-      <div>
-        {
-          cart.length ?
-            (
-              <button
-                type='button'
-                onClick={order}
-              >
-                レジへ進む
-              </button>
-            ) : ''
+          ))
         }
       </div>
+      <hr />
+      <div>
+        <div>{`client: ${information.client}`}</div>
+        <div>{`address: ${information.address}`}</div>
+        <div>{`payment: ${information.payment}`}</div>
+        <button
+          type='button'
+        >
+          編集
+        </button>
+      </div>
+      <button
+        type='button'
+        onClick={checkout}
+      >
+        注文確認
+      </button>
     </div>
   )
 }
 
-export default Cart
+export default Order
