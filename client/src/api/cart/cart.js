@@ -1,8 +1,8 @@
 import API from '../axios.config'
 
-export const updateCart = (userId, cart) => {
+export const updateCart = (_id, cart) => {
   return API.put('/cart/updateCart', {
-    userId,
+    _id,
     cart
   })
 }

@@ -39,9 +39,7 @@ export const addIsLiked = productId => async (dispatch, getState) => {
 
       const updatedWishlist = calc.addToWishlist()
 
-      const { data } = await api.updateWishlist(users.user_id, updatedWishlist)
-
-      console.log(data)
+      const { data } = await api.updateWishlist(users._id, updatedWishlist)
 
       dispatch({
         type: actionsType.UPDATE_WISHLIST,
@@ -78,9 +76,7 @@ export const removeIsLiked = productId => async (dispatch, getState) => {
 
       const updateWishlist = calc.removeFromWishlist()
 
-      const { data } = await api.updateWishlist(users.user_id, updateWishlist)
-
-      console.log(data)
+      const { data } = await api.updateWishlist(users._id, updateWishlist)
 
       dispatch({
         type: actionsType.UPDATE_CART,
@@ -117,7 +113,7 @@ export const addIsCartIn = productId => async (dispatch, getState) => {
 
       const updatedCart = calc.addToCart()
 
-      const { data } = await api.updateCart(users.user_id, updatedCart)
+      const { data } = await api.updateCart(users._id, updatedCart)
 
       dispatch({
         type: actionsType.UPDATE_CART,
@@ -154,7 +150,7 @@ export const removeIsCartIn = productId => async (dispatch, getState) => {
 
       const updatedCart = calc.removeFromCart()
 
-      const { data } = await api.updateCart(users.user_id, updatedCart)
+      const { data } = await api.updateCart(users._id, updatedCart)
 
       dispatch({
         type: actionsType.UPDATE_CART,
@@ -191,7 +187,7 @@ export const deleteIsCartIn = productId => async (dispatch, getState) => {
 
       const updatedCart = calc.deleteFromCart()
 
-      const { data } = await api.updateCart(users.user_id, updatedCart)
+      const { data } = await api.updateCart(users._id, updatedCart)
 
       dispatch({
         type: actionsType.UPDATE_CART,

@@ -1,8 +1,8 @@
 import API from '../axios.config'
 
-export const updateWishlist = (userId, wishlist) => {
+export const updateWishlist = (_id, wishlist) => {
   return API.put('/wishlist/updateWishlist', {
-    userId,
+    _id,
     wishlist
   })
 }

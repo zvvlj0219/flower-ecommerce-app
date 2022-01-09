@@ -10,7 +10,7 @@ const initialState = {
     error: null
   },
   users: {
-    user_id: null,
+    _id: null,
     email: null,
     username: null,
     isSignedIn: false,

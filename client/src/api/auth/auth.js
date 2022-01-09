@@ -8,11 +8,11 @@ export const signIn = form => {
   return API.post('/auth/signin', form)
 }
 
-export const takeOver = (_id, cart, wishlist) => {
+export const takeOver = (_id, wishlist, cart) => {
   return API.post('/auth/takeOver', {
     _id,
-    cart,
-    wishlist
+    wishlist,
+    cart
   })
 }
 
