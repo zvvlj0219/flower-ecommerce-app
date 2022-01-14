@@ -1,0 +1,73 @@
+/* arrow style */
+.slick-slider {
+  position: relative;
+}
+
+.slick-slider > button {
+  background-color: transparent;
+  border: none;
+  width:60px;
+  height: 60px;
+  font-size: 40px;
+  font-weight: bold;
+  color: rgba(211, 211, 211,0.5);
+  display: block;
+  z-index: 1;
+  position: absolute;
+}
+
+.slick-slider > button::before {
+  content: none;
+}
+
+.slick-slider > button:hover {
+  color: lightgray;
+  transition: color 0.1s;
+  z-index: 1;
+}
+
+.slick-dots {
+  background-color: transparent;
+  bottom: 12px;
+}
+
+.slick-dots li,
+.slick-dots li button{
+  width: 5px;
+  height: 5px;
+}
+
+.slick-dots li button::before {
+  opacity: 0.2;
+}
+
+.slick-dots > .slick-active {
+  opacity: 0.6;
+}
+
+/* slider image */
+.slide_image {
+  background-color: transparent;
+  position: relative;
+}
+
+.slide_image > div {
+  position: absolute;
+  bottom: 170px;
+  left:50px;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 20px;
+  color: rgb(255, 0, 234);
+}
+
+.slide_image  span {
+  display: block;
+  width: 130px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: pink;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+  font-size: 15px;
+}
