@@ -1,77 +1,50 @@
-import { useSelector } from 'react-redux'
-import Badge from '@mui/material/Badge'
-import Link from '@mui/material/Link'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
-import HeaderMenu from './HeaderMenu'
-
-const iconStyle = {
-  root: {
-    color: 'black'
-  }
-}
+import { useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
+import HeaderDrawer from './HeaderDrawer'
+import MenuWrapper from './MenuWrapper'
+import './header.css'
 
 const Header = () => {
-  const { wishlist, cart } = useSelector(state => state.users)
+  const [sidebarOpen, setsidebarOpen] = useState(false)
+
+  const handleDrawer = useCallback((event, isOpne) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return
+    setsidebarOpen(isOpne)
+  }, [setsidebarOpen])
+
+  const navLink = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/' },
+    { name: 'Products', path: '/' },
+    { name: 'information', path: '/' }
+  ]
 
   return (
     <div className='header flex'>
       <div className='title_logo'>
-        <Link
-          href='/'
-          underline='none'
-          style={iconStyle.root}
-        >
+        <Link to='/'>
           Florist &nbsp;
           <span>.</span>
         </Link>
       </div>
       <nav className='navbar'>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Products</li>
-          <li>information</li>
+          {
+            navLink.map(link => (
+              <li key={link.name}>
+                <Link to={link.path}>
+                  {link.name}
+                </Link>
+              </li>
+            ))
+          }
         </ul>
       </nav>
       <div className='menu_wrapper flex'>
-        <div className='wishlist_link'>
-          <Badge
-            color='secondary'
-            variant='dot'
-            invisible={!wishlist.length > 0}
-          >
-            <Link
-              href='/wishlist'
-              underline='none'
-              style={iconStyle.root}
-            >
-              <FavoriteBorderIcon />
-            </Link>
-          </Badge>
-        </div>
-        <div className='cart_link'>
-          <Badge
-            color='secondary'
-            variant='dot'
-            invisible={!cart.length > 0}
-          >
-            <Link
-              href='/cart'
-              underline='none'
-              style={iconStyle.root}
-            >
-              <LocalGroceryStoreIcon />
-            </Link>
-          </Badge>
-        </div>
-        <div className='header_menu'>
-          <FormatAlignRightIcon
-            style={iconStyle.root}
-          />
-        </div>
-        <HeaderMenu />
+        <MenuWrapper
+          handleDrawer={e => handleDrawer(e, true)}
+        />
+        <HeaderDrawer open={sidebarOpen} onClose={handleDrawer} />
       </div>
     </div>
   )

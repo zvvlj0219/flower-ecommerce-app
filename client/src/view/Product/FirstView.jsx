@@ -1,9 +1,12 @@
 import ProductsList from './ProductsList'
+import MainSlider from '../Slider/MainSlider'
 
 const FirstView = () => {
   return (
     <div>
-      <div>ここにスライダー</div>
+      <div>
+        <MainSlider />
+      </div>
       <div>
         <ProductsList />
       </div>
