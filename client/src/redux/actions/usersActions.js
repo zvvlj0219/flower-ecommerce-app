@@ -60,32 +60,43 @@ export const signIn = (form, history) => async dispatch => {
 
     const { _id, wishlist: userWishlist, cart: userCart } = data.user
 
+    // if browser has guesuprofile
     // take over cart and wishlist with signin
-    const { wishlist: guestWishlist, cart: guestCart } = JSON.parse(
-      localStorage.getItem('guestProfile')
-    )
+    if (localStorage.getItem('guestProfile')) {
+      const { wishlist: guestWishlist, cart: guestCart } = JSON.parse(
+        localStorage.getItem('guestProfile')
+      )
 
-    const merge = new Merge(guestWishlist, guestCart, userWishlist, userCart)
+      const merge = new Merge(guestWishlist, guestCart, userWishlist, userCart)
 
-    const { data: mergedData } = await api.takeOver(
-      _id,
-      merge.takeoverWishlist(),
-      merge.takeoverCart()
-    )
+      const { data: mergedData } = await api.takeOver(
+        _id,
+        merge.takeoverWishlist(),
+        merge.takeoverCart()
+      )
 
-    dispatch({
-      type: actionsType.SIGN_IN,
-      payload: {
-        ...mergedData.user,
-        isSignedIn: true
-      }
-    })
+      dispatch({
+        type: actionsType.SIGN_IN,
+        payload: {
+          ...mergedData.user,
+          isSignedIn: true
+        }
+      })
+
+      localStorage.removeItem('guestProfile')
+    } else {
+      dispatch({
+        type: actionsType.SIGN_IN,
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
+      })
+    }
 
     history.push('/')
 
     localStorage.setItem('profile', JSON.stringify(data.token))
-
-    localStorage.removeItem('guestProfile')
   } catch (error) {
     throw new Error()
   }

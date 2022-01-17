@@ -63,16 +63,8 @@ const App = () => {
           )
         }
       </Switch>
-      <div>フッター</div>
       <hr />
-      <div>
-        <p>product add form</p>
-        <p>name</p>
-        <p>description</p>
-        <p>price</p>
-        <p>count in stock</p>
-        <p>image url</p>
-      </div>
+      <div>フッター</div>
     </div>
   )
 }
