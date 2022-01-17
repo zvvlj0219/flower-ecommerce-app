@@ -3,6 +3,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
+// import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getWindowSize } from '../../module/getWindowSize'
 
@@ -16,18 +17,20 @@ import NextArrow from '../../components/NextArrow'
 import PrevArrow from '../../components/PrevArrow'
 
 const MainSlider = () => {
-  const { width } = getWindowSize()
+  const { windowSize } = getWindowSize()
+  const { width } = windowSize
 
-  const imagesWrapper = {
-    width,
-    height: width / 2,
-    margin: '0 auto',
-    backgroundColor: '#fff'
-  }
+  // const [imageSize, setimageSize] = useState()
 
-  const imgStyle = {
-    width,
-    height: width / 2
+  const imagesWrapper = () => {
+    if (width < 1100) {
+      const imagesStyle = {
+        width,
+        height: width / 1.8
+      }
+      return imagesStyle
+    }
+    return {}
   }
 
   const options = {
@@ -56,8 +59,8 @@ const MainSlider = () => {
         prevArrow={options.prevArrow}
       >
         <div>
-          <div className='slide_image' style={imagesWrapper}>
-            <img src={cherryblossom} style={imgStyle} alt='' />
+          <div className='slide_image' style={imagesWrapper()}>
+            <img src={cherryblossom} style={imagesWrapper()} alt='' />
             <div>
               <div>
                 <h1>Meet your own special flower</h1>
@@ -67,8 +70,8 @@ const MainSlider = () => {
           </div>
         </div>
         <div>
-          <div className='slide_image' style={imagesWrapper}>
-            <img src={sofia} style={imgStyle} alt='' />
+          <div className='slide_image' style={imagesWrapper()}>
+            <img src={sofia} style={imagesWrapper()} alt='' />
             <div>
               <h1>Meet your own special flower</h1>
               <Link to='/'><span>Shop now</span></Link>

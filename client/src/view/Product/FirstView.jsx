@@ -4,7 +4,7 @@ import MainSlider from '../Slider/MainSlider'
 const FirstView = () => {
   return (
     <div>
-      <div>
+      <div className='main_slider'>
         <MainSlider />
       </div>
       <div>
