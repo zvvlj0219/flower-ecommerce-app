@@ -5,7 +5,7 @@ const fetchInitialProducts = async (req, res) => {
   try {
     const initialProducts = await Product.find()
     .sort({createdAt:1})
-    .limit(3)
+    .limit(4)
     res.status(200).json({ result: initialProducts })
   } catch (error) {
     console.log(error)

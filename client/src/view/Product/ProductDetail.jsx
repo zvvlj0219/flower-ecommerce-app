@@ -4,7 +4,7 @@ import { useParams, useHistory, Link } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
-import './product.css'
+import './productDetail.css'
 
 import { fetchDetail, listFilter, addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/detailActions'
 import ProductSlider from '../Slider/ProductSlider'

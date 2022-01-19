@@ -3,10 +3,6 @@
   position: relative;
 }
 
-.main_slider .slick-active img {
-  z-index: 10;
-}
-
 .main_slider  button {
   background-color: transparent;
   border: none;
@@ -56,7 +52,7 @@
 
 /* slider image */
 .main_slider .slide_image {
-  background-color: #fff;
+  background-color: rgb(255, 200, 221, 0.05);
   position: relative;
   width: 100%;
 }

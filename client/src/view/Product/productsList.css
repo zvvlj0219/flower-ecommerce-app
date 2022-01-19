@@ -1,0 +1,47 @@
+.productsList {
+  width:95%;
+  height: auto;
+  margin: 0 auto;
+}
+.productsList .MuiGrid-container {
+  width:100%;
+  margin: 0;
+  padding-right: 16px;
+}
+
+.productsList .price_wrapper > span {
+  color:dimgray; 
+}
+
+.productsList .price_wrapper span + span {
+  color:red; 
+}
+
+.productsList .product h3 {
+  color:dimgray; 
+}
+
+.productsList .button_wrapper {
+  margin-top: 30px;
+}
+
+.productsList .button_wrapper.hidden {
+  display: none;
+}
+
+.productsList .button_wrapper button{
+  display: block;
+  padding:10px 45px;
+  border: none;
+  border-radius: 5%;
+  box-shadow: 2px 2px 3px 0 rgba(146, 146, 146, 0.5);
+  margin: 0 auto;
+}
+
+
+@media (min-width:1200px) {
+  .productsList .MuiGrid-container {
+    width:1100px;
+    margin: 0 auto;
+  }  
+}
