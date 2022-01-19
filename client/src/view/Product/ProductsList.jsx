@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import './productsList.css'
+import Grid from '@mui/material/Grid'
 import { fetchInitialProducts, fetchAjaxProducts } from '../../redux/actions/productActions'
 
 // import product
@@ -10,16 +12,16 @@ const ProductsList = () => {
 
   // state
   const [products, setProducts] = useState([])
+  const [buttonClass, setButtonClass] = useState('')
 
   // selector
-  const { loading, list, error } = useSelector(state => state.products)
-
-  // console.log(products)
+  const { loading, list } = useSelector(state => state.products)
 
   // function
   const loadmore = useCallback(() => {
+    setButtonClass('hidden')
     dispatch(fetchAjaxProducts(products))
-  }, [products])
+  }, [dispatch, setButtonClass])
 
   // useEffect onload
   useEffect(() => {
@@ -35,17 +37,21 @@ const ProductsList = () => {
   // render
   return (
     <div className='productsList'>
-      <p>products map</p>
       {
-        error && <p>{error}</p>
+        !loading ? (
+          <Grid
+            container
+            spacing={3}
+          >
+            <Product
+              products={products}
+            />
+          </Grid>
+        ) : ''
       }
-      <Product
-        products={products}
-      />
-      {
-        loading && <p>Loading...</p>
-      }
-      <button type='button' onClick={loadmore}>もっとみる</button>
+      <div className={`button_wrapper ${buttonClass}`}>
+        <button type='button' onClick={loadmore}>もっとみる</button>
+      </div>
     </div>
   )
 }
