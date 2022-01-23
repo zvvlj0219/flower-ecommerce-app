@@ -9,6 +9,13 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
   try {
     const token = JSON.parse(localStorage.getItem('profile'))
 
+    dispatch({
+      type: actionsType.LISTEN_AUTH_REQUEST,
+      payload: {
+        isSignedIn: true
+      }
+    })
+
     const { email, _id } = jwtDecode(token)
 
     const { data } = await api.listenAuth({ email, _id })
@@ -17,7 +24,8 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
       type: actionsType.LISTEN_AUTH,
       payload: {
         ...data.user,
-        isSignedIn: true
+        isSignedIn: true,
+        loading: false
       }
     })
 

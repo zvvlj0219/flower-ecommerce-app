@@ -30,14 +30,16 @@ export const listFilter = data => async dispatch => {
   }
 }
 
-export const addIsLiked = productId => async (dispatch, getState) => {
+export const addIsLiked = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()
 
     if (users.isSignedIn) {
-      const calc = new CalcIsLiked(users.wishlist, productId)
+      const calc = new CalcIsLiked(users.wishlist, detail)
 
       const updatedWishlist = calc.addToWishlist()
+
+      console.log(updatedWishlist)
 
       const { data } = await api.updateWishlist(users._id, updatedWishlist)
 
@@ -51,7 +53,7 @@ export const addIsLiked = productId => async (dispatch, getState) => {
     } else {
       const { wishlist } = users
 
-      const calc = new CalcIsLiked(wishlist, productId)
+      const calc = new CalcIsLiked(wishlist, detail)
 
       const updatedData = {
         ...users,
@@ -70,12 +72,12 @@ export const addIsLiked = productId => async (dispatch, getState) => {
   }
 }
 
-export const removeIsLiked = productId => async (dispatch, getState) => {
+export const removeIsLiked = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()
 
     if (users.isSignedIn) {
-      const calc = new CalcIsLiked(users.wishlist, productId)
+      const calc = new CalcIsLiked(users.wishlist, detail)
 
       const updateWishlist = calc.removeFromWishlist()
 
@@ -91,7 +93,7 @@ export const removeIsLiked = productId => async (dispatch, getState) => {
     } else {
       const { wishlist } = users
 
-      const calc = new CalcIsLiked(wishlist, productId)
+      const calc = new CalcIsLiked(wishlist, detail)
 
       const updatedData = {
         ...users,
@@ -110,12 +112,12 @@ export const removeIsLiked = productId => async (dispatch, getState) => {
   }
 }
 
-export const addIsCartIn = productId => async (dispatch, getState) => {
+export const addIsCartIn = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()
 
     if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, productId)
+      const calc = new CalcCart(users.cart, detail)
 
       const updatedCart = calc.addToCart()
 
@@ -131,7 +133,7 @@ export const addIsCartIn = productId => async (dispatch, getState) => {
     } else {
       const { cart } = users
 
-      const calc = new CalcCart(cart, productId)
+      const calc = new CalcCart(cart, detail)
 
       const updatedData = {
         ...users,
@@ -150,12 +152,12 @@ export const addIsCartIn = productId => async (dispatch, getState) => {
   }
 }
 
-export const removeIsCartIn = productId => async (dispatch, getState) => {
+export const removeIsCartIn = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()
 
     if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, productId)
+      const calc = new CalcCart(users.cart, detail)
 
       const updatedCart = calc.removeFromCart()
 
@@ -171,7 +173,7 @@ export const removeIsCartIn = productId => async (dispatch, getState) => {
     } else {
       const { cart } = users
 
-      const calc = new CalcCart(cart, productId)
+      const calc = new CalcCart(cart, detail)
 
       const updatedData = {
         ...users,
@@ -190,12 +192,12 @@ export const removeIsCartIn = productId => async (dispatch, getState) => {
   }
 }
 
-export const deleteIsCartIn = productId => async (dispatch, getState) => {
+export const deleteIsCartIn = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()
 
     if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, productId)
+      const calc = new CalcCart(users.cart, detail)
 
       const updatedCart = calc.deleteFromCart()
 
@@ -207,7 +209,7 @@ export const deleteIsCartIn = productId => async (dispatch, getState) => {
       })
     } else {
       const { cart } = users
-      const calc = new CalcCart(cart, productId)
+      const calc = new CalcCart(cart, detail)
 
       const updatedData = {
         ...users,

@@ -9,6 +9,11 @@ export const usersReducer = (state = initialState.users, action) => {
       return action.payload
     case actionsType.LISTEN_AUTH:
       return action.payload
+    case actionsType.LISTEN_AUTH_REQUEST:
+      return {
+        ...state,
+        isSignedIn: true
+      }
     case actionsType.UPDATE_WISHLIST:
       return action.payload
     case actionsType.UPDATE_CART:

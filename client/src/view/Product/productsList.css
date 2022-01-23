@@ -1,12 +1,12 @@
 .productsList {
-  width:95%;
+  width:100%;
   height: auto;
   margin: 0 auto;
 }
 .productsList .MuiGrid-container {
-  width:100%;
-  margin: 0;
-  padding-right: 16px;
+  width:90%;
+  margin: 0 auto;
+  padding-right: 24px;
 }
 
 .productsList .price_wrapper > span {

@@ -7,7 +7,7 @@ const FirstView = () => {
       <div className='main_slider'>
         <MainSlider />
       </div>
-      <div>
+      <div className='main_contents'>
         <ProductsList />
       </div>
       <div>ここに説明と写真</div>

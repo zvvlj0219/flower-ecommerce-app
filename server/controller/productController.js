@@ -15,13 +15,14 @@ const fetchInitialProducts = async (req, res) => {
 
 const fetchAjaxProducts = async (req, res) => {
   try {
+    const { _id } = req.body
+    console.log(_id)
     const ajaxProducts = await Product.find({
       _id: {
-        $nin: req.body._id
+        $nin: _id
       }
     })
     .limit(6)
-    console.log(ajaxProducts)
     res.status(200).json({ result: ajaxProducts })
   } catch (error) {
     console.log(error)
@@ -31,9 +32,8 @@ const fetchAjaxProducts = async (req, res) => {
 
 const fetchProductDetail = async (req, res) => {
   try {
-    console.log(req.body._id)
-    const detailData = await Product.findById(req.body._id)
-    console.log([detailData])
+    const { _id } = req.body
+    const detailData = await Product.findById(_id)
     res.status(200).json({ result: [detailData] })
   } catch (error) {
     console.log(error)

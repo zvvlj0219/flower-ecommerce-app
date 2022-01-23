@@ -1,4 +1,33 @@
+const mongoose = require('mongoose');
+
+// import model
+const Product = require('../model/productModel')
 const Auth = require('../model/authModel')
+
+const fetchWishlist = async (req, res) => {
+  try {
+    const { _id } = req.body
+
+    const allProducts = await Product.find()
+
+    const wishlist = allProducts.filter(el => {
+      return _id.find(id => {
+        const wishlistId = new mongoose.Types.ObjectId(id)
+        console.log(wishlistId)
+        console.log(el._id)
+        console.log(wishlistId === el._id)
+        return wishlistId === el._id
+      })
+    })
+
+    console.log(wishlist)
+      
+    res.status(200).json({ result: wishlist })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
 
 const updateWishlist = async (req, res) => {
   try {
@@ -18,4 +47,5 @@ const updateWishlist = async (req, res) => {
   }
 }
 
+module.exports.fetchWishlist = fetchWishlist
 module.exports.updateWishlist = updateWishlist
