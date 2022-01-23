@@ -6,7 +6,7 @@
 .main_slider  button {
   background-color: transparent;
   border: none;
-  width:60px;
+  width:30px;
   height: 40px;
   font-size: 30px;
   font-weight: bold;
@@ -16,8 +16,14 @@
   position: absolute;
 }
 
-.main_slider .slick-slide.slick-cloned {
-  z-index: -1;
+.main_slider .slick-arrow.slick-next {
+  position: absolute;
+  right: 0px;
+}
+
+.main_slider .slick-arrow.slick-prev {
+  position: absolute;
+  left: 0px;
 }
 
 .main_slider button::before {
@@ -54,11 +60,11 @@
 .main_slider .slide_image {
   background-color: rgb(255, 200, 221, 0.05);
   position: relative;
-  width: 100%;
+  max-width: 100vw;
 }
 
 .main_slider .slide_image > img {
-  width: 100%;
+  max-width: 100vw;
 }
 
 .main_slider .slide_image > div {

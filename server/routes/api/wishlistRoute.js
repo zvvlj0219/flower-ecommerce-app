@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { updateWishlist } = require('../../controller/wishlistController')
+const { fetchWishlist, updateWishlist } = require('../../controller/wishlistController')
+
+router.post('/', fetchWishlist)
 
 router.put('/updateWishlist', updateWishlist)
 

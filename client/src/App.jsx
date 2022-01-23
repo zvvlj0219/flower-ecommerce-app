@@ -25,10 +25,8 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem('profile')) {
-      console.log('listen Aurh')
       dispatch(listenAuth(history, pathname))
     } else {
-      console.log('init Auth')
       dispatch(initAuth(history, pathname))
     }
   }, [])

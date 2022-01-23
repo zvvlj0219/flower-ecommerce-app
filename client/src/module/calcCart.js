@@ -1,12 +1,12 @@
 class CalcCart {
-  constructor(cart, productId) {
+  constructor(cart, detail) {
     this.cart = cart
-    this.productId = productId
+    this.detail = detail
     this.existedIndex = null
   }
 
   findIndexInCart() {
-    this.existedIndex = this.cart.findIndex(item => item._id === this.productId)
+    this.existedIndex = this.cart.findIndex(item => item._id === this.detail._id)
     if (this.existedIndex === -1) {
       this.existedIndex = null
     }
@@ -18,7 +18,11 @@ class CalcCart {
       this.cart[this.existedIndex].qty += 1
     } else {
       this.cart.push({
-        _id: this.productId,
+        _id: this.detail._id,
+        countInStock: this.detail.countInStock,
+        name: this.detail.name,
+        price: this.detail.price,
+        imageUrl: this.detail.imageUrl,
         qty: 1
       })
     }

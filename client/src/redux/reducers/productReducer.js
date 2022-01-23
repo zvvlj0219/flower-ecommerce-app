@@ -25,11 +25,6 @@ export const productReducer = (state = initialState.products, action) => {
         error: action.payload
       }
     case actionsType.AJAX_PRODUCTS:
-      console.log({
-        ...state,
-        loading: false,
-        list: [...action.payload]
-      })
       return {
         ...state,
         loading: false,

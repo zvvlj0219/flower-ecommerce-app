@@ -18,11 +18,12 @@ export const fetchInitialProducts = () => async dispatch => {
   }
 }
 
-export const fetchAjaxProducts = presentProducts => async (dispatch, getState) => {
+export const fetchAjaxProducts = () => async (dispatch, getState) => {
   try {
     const { products } = getState()
+    const { list } = products
 
-    const id = presentProducts.map(product => product._id)
+    const id = list.map(product => product._id)
 
     const { data } = await api.ajaxProducts(id)
 

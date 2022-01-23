@@ -10,6 +10,7 @@ const initialState = {
     error: null
   },
   users: {
+    loading: true,
     _id: null,
     email: null,
     username: null,

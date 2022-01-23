@@ -27,21 +27,22 @@ const ProductDetail = () => {
   // function
   const toggleIsLiked = () => {
     if (isLiked) {
-      dispatch(removeIsLiked(id))
+      dispatch(removeIsLiked(detail))
     } else {
-      dispatch(addIsLiked(id))
+      dispatch(addIsLiked(detail))
     }
     setisLiked(!isLiked)
   }
 
   const addToCart = () => {
-    dispatch(addIsCartIn(id))
+    dispatch(addIsCartIn(detail))
     history.push('/cart')
   }
 
   // useEffect onload
   useEffect(() => {
     if (list.length === 0) {
+      console.log(id)
       dispatch(fetchDetail(id))
     } else {
       dispatch(listFilter(
@@ -52,8 +53,8 @@ const ProductDetail = () => {
 
   // useEffect
   useEffect(() => {
-    wishlist.forEach(productId => {
-      if (productId === id) {
+    wishlist.forEach(item => {
+      if (item._id === id) {
         setisLiked(true)
       }
     })
