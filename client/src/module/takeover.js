@@ -4,29 +4,27 @@ class Merge {
     this.guestCart = guestCart
     this.userWishlist = userWishlist
     this.userCart = userCart
-    this.roopkey = []
+    this.loopkey = []
   }
 
   takeoverWishlist() {
-    const x = this.guestWishlist.filter(id => this.userWishlist.indexOf(id) === -1)
-    if (x.length > 0) {
-      this.userWishlist.push(...x)
-    }
+    this.loopkey = this.userWishlist.map(item => item._id)
+    this.guestWishlist.forEach(element => {
+      if (this.loopkey.indexOf(element._id) === -1) {
+        this.userWishlist.push(element)
+      }
+    })
     return this.userWishlist
   }
 
   takeoverCart() {
-    this.guestCart.forEach((el, index) => {
-      if (this.roopkey.indexOf(el._id) === -1) {
-        this.roopkey.push(el._id)
-        this.userCart.push({
-          _id: el._id,
-          qty: el.qty
-        })
+    this.loopkey = this.userCart.map(item => item._id)
+    this.guestCart.forEach((element, guestIndex) => {
+      if (this.loopkey.indexOf(element._id) === -1) {
+        this.userCart.push(element)
       } else {
-        const duplicatedIndex = this.roopkey.indexOf(el._id)
-        const presentIndex = index
-        this.userCart[duplicatedIndex].qty += this.guestCart[presentIndex].qty
+        const duplicatedIndex = this.loopkey.indexOf(element._id)
+        this.userCart[duplicatedIndex].qty += this.guestCart[guestIndex].qty
       }
     })
     return this.userCart

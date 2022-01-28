@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const NextArrow = ({ className, onClick }) => {
   return (
@@ -7,9 +8,7 @@ const NextArrow = ({ className, onClick }) => {
       className={className}
       onClick={onClick}
     >
-      <span>
-        &rang;
-      </span>
+      <ArrowForwardIosIcon fontSize='large' />
     </button>
   )
 }

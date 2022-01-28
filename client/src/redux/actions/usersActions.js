@@ -32,6 +32,10 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
     history.push(pathname)
 
     localStorage.setItem('profile', JSON.stringify(data.token))
+
+    if (localStorage.getItem('guestProfile')) {
+      localStorage.removeItem('guestProfile')
+    }
   } catch (error) {
     history.push('/auth/signin')
 
@@ -118,6 +122,28 @@ export const register = (form, history) => async () => {
   } catch (error) {
     throw new Error()
   }
+}
+
+export const guestInfo = (client, address) => async (dispatch, getState) => {
+  const information = {
+    client,
+    address
+  }
+
+  const { users } = getState()
+
+  localStorage.setItem(
+    'guestProfile',
+    JSON.stringify({
+      ...users,
+      information
+    })
+  )
+
+  dispatch({
+    type: actionsType.GUEST_INFO,
+    payload: information
+  })
 }
 
 export const logout = history => async dispatch => {

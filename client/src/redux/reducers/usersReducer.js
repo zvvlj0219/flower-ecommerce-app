@@ -19,7 +19,16 @@ export const usersReducer = (state = initialState.users, action) => {
     case actionsType.UPDATE_CART:
       return action.payload
     case actionsType.INIT_AUTH:
-      return action.payload
+      return {
+        ...action.payload,
+        loading: false
+      }
+    case actionsType.GUEST_INFO:
+      return {
+        ...state,
+        loading: false,
+        information: action.payload
+      }
     case actionsType.LOGOUT:
       return initialState.users
     default:

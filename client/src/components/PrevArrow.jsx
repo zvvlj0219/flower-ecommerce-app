@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 const PrevArrow = ({ className, onClick }) => {
   return (
@@ -7,9 +8,7 @@ const PrevArrow = ({ className, onClick }) => {
       className={className}
       onClick={onClick}
     >
-      <span>
-        &lang;
-      </span>
+      <ArrowBackIosNewIcon fontSize='large' />
     </button>
   )
 }

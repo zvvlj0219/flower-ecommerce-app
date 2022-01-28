@@ -1,83 +1,158 @@
-import { useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Divider from '@mui/material/Divider'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
+import { getSubtotal } from '../../module/getSubtotal'
+import './order.css'
 
 const Order = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
   // selector
-  const { cart, information } = useSelector(state => state.users)
+  const { loading, cart, information } = useSelector(state => state.users)
 
   // function
   const checkout = useCallback(() => {
-    history.push('/order/checkout')
+    history.push('/order/complete')
   })
 
-  const addToCart = id => {
-    dispatch(addIsCartIn(id))
+  const addToCart = item => {
+    dispatch(addIsCartIn(item))
   }
 
-  const removeFromCart = id => {
-    dispatch(removeIsCartIn(id))
+  const removeFromCart = item => {
+    dispatch(removeIsCartIn(item))
   }
 
-  const deleteFromCart = id => {
-    dispatch(deleteIsCartIn(id))
+  const deleteFromCart = item => {
+    dispatch(deleteIsCartIn(item))
   }
 
-  useEffect(() => {}, [])
+  const gotoDetail = useCallback(item => {
+    history.push(`/product-detail/${item.name}/${item._id}`)
+  })
+
+  const subTotal = getSubtotal(cart)
 
   return (
-    <div>
-      <p>商品 ユーザー情報</p>
-      <div>
+    <div className='order'>
+      <p className='link_wrapper'>
+        <span>ホーム</span>
+        <span>&rang;</span>
+        <span>カート</span>
+        <span>&rang;</span>
+        <span>ユーザー情報確認</span>
+      </p>
+      <div className='user_info'>
+        <h3>ユーザー情報確認</h3>
+        <div>
+          <span>受取人:</span>
+          <p>{information.client}</p>
+        </div>
+        <div>
+          <span>受取人住所:</span>
+          <p>{information.address}</p>
+        </div>
+        <button type='button'>編集する</button>
+      </div>
+      <div className='item_container'>
+        <h4 className='head'>カート内アイテム一覧</h4>
         {
-          cart.map(item => (
-            <div key={item._id}>
-              <p>{item._id}</p>
-              <div className='flex'>
-                <button
-                  type='button'
-                  onClick={() => removeFromCart(item._id)}
-                >
-                  {
-                    item.qty === 1 ?
-                      '削除' : '-'
-                  }
-                </button>
-                <p>{item.qty}</p>
-                <button
-                  type='button'
-                  onClick={() => addToCart(item._id)}
-                >
-                  +
-                </button>
+          loading && ''
+        }
+        {
+          !loading && cart.length > 0 &&
+            cart.map(item => (
+              <div key={item._id}>
+                <div className='item'>
+                  <img
+                    src={item.imagUrl}
+                    alt={item.name}
+                    className='image'
+                  />
+                  <div className='item_info' key={item._id}>
+                    <Link
+                      to={`/product-detail/${item.name}/${item._id}`}
+                    >
+                      {item.name}
+                    </Link>
+                    <p className='price_wrapper'>
+                      <span>価格:</span>
+                      <span className='price'>{item.price}</span>
+                      <span>円（税込）</span>
+                    </p>
+                    <button
+                      type='button'
+                      className='delete'
+                      onClick={() => deleteFromCart(item)}
+                    >
+                      削除
+                    </button>
+                    <button
+                      type='button'
+                      className='detail'
+                      onClick={() => gotoDetail(item)}
+                    >
+                      詳細を見る
+                    </button>
+                  </div>
+                  <div className='button_wrapper'>
+                    <button
+                      type='button'
+                      onClick={() => removeFromCart(item)}
+                    >
+                      {
+                        item.qty === 1 ?
+                          <DeleteIcon /> : <ArrowBackIosNewIcon />
+                      }
+                    </button>
+                    <p>{item.qty}</p>
+                    <button
+                      type='button'
+                      onClick={() => addToCart(item)}
+                    >
+                      <ArrowForwardIosIcon />
+                    </button>
+                  </div>
+                </div>
+                <Divider />
               </div>
-              <button type='button' onClick={() => deleteFromCart(item._id)}>削除</button>
-              <hr />
-            </div>
-          ))
+            ))
         }
       </div>
-      <hr />
-      <div>
-        <div>{`client: ${information.client}`}</div>
-        <div>{`address: ${information.address}`}</div>
-        <div>{`payment: ${information.payment}`}</div>
+      <div className='price_container'>
+        <p>代金手数料</p>
+        <div>
+          <div>商品代金</div>
+          <div>{`${subTotal}円`}</div>
+        </div>
+        <div>
+          <div>手数料</div>
+          <div>{`${subTotal * 0.1}円`}</div>
+        </div>
+        <div>
+          <div>送料</div>
+          <div>{`${subTotal * 0.3}円`}</div>
+        </div>
+        <Divider />
+        <div>
+          <div>合計</div>
+          <div>{`${subTotal * 1.4}円`}</div>
+        </div>
+      </div>
+      <div className='checkout'>
         <button
           type='button'
+          onClick={checkout}
         >
-          編集
+          注文確定
         </button>
       </div>
-      <button
-        type='button'
-        onClick={checkout}
-      >
-        注文確認
-      </button>
     </div>
   )
 }
