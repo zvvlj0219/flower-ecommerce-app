@@ -35,9 +35,6 @@ const authSchema = mongoose.Schema(
       },
       address: {
         type: String
-      },
-      payment:  {
-        type: Array
       }
     }
   },

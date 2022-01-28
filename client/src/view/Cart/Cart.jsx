@@ -6,13 +6,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
+import { getSubtotal } from '../../module/getSubtotal'
 import './cart.css'
 
 const Cart = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { loading, cart } = useSelector(state => state.users)
+  const { loading, cart, isSignedIn } = useSelector(state => state.users)
 
   const addToCart = item => {
     dispatch(addIsCartIn(item))
@@ -30,9 +31,16 @@ const Cart = () => {
     history.push(`/product-detail/${item.name}/${item._id}`)
   })
 
-  const order = () => {
-    history.push('/order')
-  }
+  const order = useCallback(() => {
+    if (isSignedIn) {
+      history.push('/order')
+    } else {
+      // history.push('/order/guest')
+      history.push('/cart/guestorderinfo')
+    }
+  })
+
+  const subTotal = getSubtotal(cart)
 
   return (
     <div className='cart'>
@@ -53,7 +61,20 @@ const Cart = () => {
       </div>
       {
         !loading && cart.length > 0 && (
-          <h4>{`カート内に${cart.length}点のアイテムがあります`}</h4>
+          <>
+            <h4>{`カート内に${cart.length}点のアイテムがあります`}</h4>
+            <p className='subtotal'>
+              <span>
+                小計&nbsp;
+              </span>
+              <span>
+                {subTotal}
+              </span>
+              <span>
+                円
+              </span>
+            </p>
+          </>
         )
       }
       <div className='item_container'>
@@ -83,12 +104,14 @@ const Cart = () => {
                     </p>
                     <button
                       type='button'
-                      onClick={() => deleteFromCart(item._id)}
+                      className='delete'
+                      onClick={() => deleteFromCart(item)}
                     >
                       削除
                     </button>
                     <button
                       type='button'
+                      className='detail'
                       onClick={() => gotoDetail(item)}
                     >
                       詳細を見る
@@ -123,19 +146,17 @@ const Cart = () => {
           )
         }
       </div>
-      <div>
-        {
-          cart.length ?
-            (
-              <button
-                type='button'
-                onClick={order}
-              >
-                レジへ進む
-              </button>
-            ) : ''
-        }
-      </div>
+      {
+        cart.length > 0 && (
+          <button
+            type='button'
+            onClick={order}
+            className='link_to_regi'
+          >
+            <span>レジへ進む</span>
+          </button>
+        )
+      }
     </div>
   )
 }

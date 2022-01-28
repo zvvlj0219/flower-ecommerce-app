@@ -12,14 +12,14 @@ import Cart from './view/Cart/Cart'
 import SignIn from './view/Auth/SignIn'
 import Register from './view/Auth/Register'
 import Order from './view/Order/Order'
-import OrderConfirm from './view/Order/OrderConfirm'
+import GuestOrderInfo from './view/Order/GuestOrderInfo'
 import OrderComplete from './view/Order/OrderComplete'
 
 const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { pathname } = useLocation()
-  const { isSignedIn } = useSelector(state => state.users)
+  // const { isSignedIn } = useSelector(state => state.users)
 
   console.log(useSelector(state => state.users))
 
@@ -35,16 +35,25 @@ const App = () => {
     <div>
       <Header />
       <Switch>
-        {
+        <Route exact path='/' component={FirstView} />
+        <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
+        <Route exact path='/wishlist' component={WishList} />
+        <Route exact path='/cart' component={Cart} />
+        <Route exact path='/cart/guestorderinfo' component={GuestOrderInfo} />
+        <Route exact path='/order' component={Order} />
+        <Route exact path='/order/complete' component={OrderComplete} />
+        <Route exact path='/auth/signin' component={SignIn} />
+        <Route exact path='/auth/register' component={Register} />
+        {/* {
           isSignedIn ? (
             <>
               <Route exact path='/' component={FirstView} />
               <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
               <Route exact path='/wishlist' component={WishList} />
               <Route exact path='/cart' component={Cart} />
+              <Route exact path='/cart/guestOrderInfo' component={GuestOrderInfo} />
               <Route exact path='/order' component={Order} />
-              <Route exact path='/order/checkout' component={OrderConfirm} />
-              <Route exact path='/order/checkout/complete' component={OrderComplete} />
+              <Route exact path='/order/complete' component={OrderComplete} />
             </>
           ) : (
             <>
@@ -52,14 +61,14 @@ const App = () => {
               <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
               <Route exact path='/wishlist' component={WishList} />
               <Route exact path='/cart' component={Cart} />
+              <Route exact path='/cart/guestOrderInfo' component={GuestOrderInfo} />
               <Route exact path='/order' component={Order} />
-              <Route exact path='/order/checkout' component={OrderConfirm} />
-              <Route exact path='/order/checkout/complete' component={OrderComplete} />
+              <Route exact path='/order/complete' component={OrderComplete} />
               <Route exact path='/auth/signin' component={SignIn} />
               <Route exact path='/auth/register' component={Register} />
             </>
           )
-        }
+        } */}
       </Switch>
       <hr />
       <div>フッター</div>

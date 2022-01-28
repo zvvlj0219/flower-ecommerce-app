@@ -3,9 +3,6 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-// import { Link } from 'react-router-dom'
-// import { getWindowSize } from '../../module/getWindowSize'
-
 // import images & css
 import './productSlider.css'
 import cherryblossom from '../../assets/cherryblossom.png'

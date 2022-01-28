@@ -9,18 +9,26 @@ import { getWindowSize } from '../../module/getWindowSize'
 
 // import images & css
 import './main_slider.css'
-import cherryblossom from '../../assets/cherryblossom.png'
-import sofia from '../../assets/sofia.png'
+import portrait1 from '../../assets/main_slider/portrait1.jpg'
+import portrait2 from '../../assets/main_slider/portrait2.jpg'
+import portrait3 from '../../assets/main_slider/portrait3.jpg'
+import flowerbox1 from '../../assets/main_slider/flowerbox1.jpg'
+import wedding1 from '../../assets/main_slider/wedding1.jpg'
 
 // arrow components
 import NextArrow from '../../components/NextArrow'
 import PrevArrow from '../../components/PrevArrow'
 
-const MainSlider = () => {
-  const { windowSize } = getWindowSize()
-  const { width } = windowSize
+const imageBox = [
+  { num: 1, image: portrait1 },
+  { num: 2, image: portrait2 },
+  { num: 3, image: portrait3 },
+  { num: 4, image: flowerbox1 },
+  { num: 5, image: wedding1 }
+]
 
-  // const [imageSize, setimageSize] = useState()
+const MainSlider = () => {
+  const { width } = getWindowSize()
 
   const imagesWrapper = () => {
     if (width < 1100) {
@@ -46,7 +54,7 @@ const MainSlider = () => {
   }
 
   return (
-    <div>
+    <div className='main_slider'>
       <Slider
         autoplay={options.autoplay}
         infinite={options.infinite}
@@ -58,26 +66,21 @@ const MainSlider = () => {
         nextArrow={options.nextArrow}
         prevArrow={options.prevArrow}
       >
-        <div>
-          <div className='slide_image' style={imagesWrapper()}>
-            <img src={cherryblossom} style={imagesWrapper()} alt='' />
-            <div>
-              <div>
-                <h1>Meet your own special flower</h1>
-                <Link to='/'><span>Shop now</span></Link>
+        {
+          imageBox.map(slide => (
+            <div key={slide.num}>
+              <div className='slide_image' style={imagesWrapper()}>
+                <img src={slide.image} style={imagesWrapper()} alt='' />
+                <div>
+                  <div>
+                    <h1>Meet your own special flower</h1>
+                    <Link to='/'><span>Shop now</span></Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div>
-          <div className='slide_image' style={imagesWrapper()}>
-            <img src={sofia} style={imagesWrapper()} alt='' />
-            <div>
-              <h1>Meet your own special flower</h1>
-              <Link to='/'><span>Shop now</span></Link>
-            </div>
-          </div>
-        </div>
+          ))
+        }
       </Slider>
     </div>
   )

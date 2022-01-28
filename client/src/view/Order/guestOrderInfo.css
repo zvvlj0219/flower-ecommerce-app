@@ -1,0 +1,146 @@
+.guestOrderInfo .form_container {
+  border-radius: 6px;
+  border: 2px solid skyblue;
+  margin: 30px auto;
+}
+
+.guestOrderInfo .form_container p{
+  text-align: center;
+  font-size: 15px;
+  color:red;
+}
+
+.guestOrderInfo .form_container > div {
+  display: flex;
+  justify-content: space-between;
+  width:90%;
+  margin: 0 auto;
+}
+
+.guestOrderInfo .form_container > div > span {
+  font-weight: bold;
+}
+
+.guestOrderInfo > .link_to_casher button {
+  margin: 0 auto;
+  display: block;
+  padding:10px 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #42a5f5;
+  box-shadow: 2px 2px 3px 0 rgba(146, 146, 146, 0.5);
+}
+
+@media (max-width:600px) {
+  .guestOrderInfo .form_container {
+    width:80%;
+    padding: 10px 30px;
+  }
+
+  .guestOrderInfo .form_container > div {
+    margin: 15px;
+  }  
+
+  .MuiFormControl-root {
+    position: relative;
+  }
+
+  .guestOrderInfo .form_container .MuiOutlinedInput-root {
+    height:40px;
+  }
+  .guestOrderInfo .form_container .MuiInputLabel-root {
+    position: absolute;
+    top:-5px;
+    display: inline-block;
+  }
+}
+
+@media (min-width:600px) {
+  .guestOrderInfo .form_container {
+    width:80%;
+    padding: 10px 30px;
+  }
+
+  .guestOrderInfo .form_container > div {
+    margin: 15px;
+  }
+
+  .guestOrderInfo .form_container span {
+    margin-left: 30px;
+    margin-top: 5px;
+  } 
+
+  .MuiFormControl-root {
+    position: relative;
+  }
+
+  .guestOrderInfo .form_container .MuiOutlinedInput-root {
+    height:40px;
+  }
+  .guestOrderInfo .form_container .MuiInputLabel-root {
+    position: absolute;
+    top:-5px;
+    display: inline-block;
+  }
+  
+}
+
+@media (min-width:900px) {
+  .guestOrderInfo .form_container {
+    width:70%;
+    padding: 10px 30px;
+  }
+
+  .guestOrderInfo .form_container > div {
+    margin: 15px;
+  } 
+
+  .guestOrderInfo .form_container span {
+    margin-left: 30px;
+    margin-top: 5px;
+  } 
+
+  .MuiFormControl-root {
+    position: relative;
+  }
+
+  .guestOrderInfo .form_container .MuiOutlinedInput-root {
+    height:40px;
+  }
+  .guestOrderInfo .form_container .MuiInputLabel-root {
+    position: absolute;
+    top:-5px;
+    display: inline-block;
+  }
+  
+}
+
+@media (min-width:1200px) {
+  .guestOrderInfo .form_container {
+    width:900px;
+    padding: 10px 30px;
+  }
+
+  .guestOrderInfo .form_container > div {
+    margin: 15px;
+  } 
+
+  .guestOrderInfo .form_container span {
+    margin-left: 30px;
+    margin-top: 5px;
+  } 
+
+  .MuiFormControl-root {
+    position: relative;
+  }
+
+  .guestOrderInfo .form_container .MuiOutlinedInput-root {
+    height:40px;
+  }
+  .guestOrderInfo .form_container .MuiInputLabel-root {
+    position: absolute;
+    top:-5px;
+    display: inline-block;
+  }
+  
+}
