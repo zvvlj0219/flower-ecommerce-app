@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import { Form, TextInput } from '../../components/TextInput'
 import { signIn } from '../../redux/actions/usersActions'
+import './auth.css'
 
 const SignIn = () => {
   const dispatch = useDispatch()
@@ -20,38 +22,44 @@ const SignIn = () => {
   }
 
   // form handler
-  const handleEmail = useCallback(e => {
-    setemail(e.target.value)
+  const handleEmail = useCallback(value => {
+    setemail(value)
   }, [setemail])
 
-  const handlePassword = useCallback(e => {
-    setpassword(e.target.value)
+  const handlePassword = useCallback(value => {
+    setpassword(value)
   }, [setpassword])
 
   return (
-    <div>
-      <p>Singin</p>
-      <div>
-        <div className='flex'>
-          <p>Email:</p>
-          <input
-            type='email'
-            name='email'
-            placeholder='emial..'
+    <div className='auth_container'>
+      <h3>ログイン</h3>
+      <div className='email wrapper'>
+        <p>Eメール:</p>
+        <Form>
+          <TextInput
+            id='email'
+            label='Eメール'
+            variant='outlined'
             value={email}
-            onChange={handleEmail}
+            type='text'
+            onChange={e => handleEmail(e.target.value)}
           />
-        </div>
-        <div className='flex'>
-          <p>Password:</p>
-          <input
-            type='password'
-            name='password'
-            placeholder='password..'
+        </Form>
+      </div>
+      <div className='password wrapper'>
+        <p>パスワード:</p>
+        <Form>
+          <TextInput
+            id='password'
+            label='パスワード'
+            variant='outlined'
             value={password}
-            onChange={handlePassword}
+            type='password'
+            onChange={e => handlePassword(e.target.value)}
           />
-        </div>
+        </Form>
+      </div>
+      <div className='button_wrapper'>
         <button
           type='button'
           onClick={handleSubmit}

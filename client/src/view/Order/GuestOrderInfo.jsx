@@ -1,25 +1,9 @@
 import { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { styled } from '@mui/material/styles'
-import TextField from '@mui/material/TextField'
+import { Form, TextInput } from '../../components/TextInput'
 import { guestInfo } from '../../redux/actions/usersActions'
 import './guestOrderInfo.css'
-
-const Form = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    width: 250
-  },
-  [theme.breakpoints.up('sm')]: {
-    width: 350
-  },
-  [theme.breakpoints.up('md')]: {
-    width: 480
-  },
-  [theme.breakpoints.up('lg')]: {
-    width: 600
-  }
-}))
 
 const storage = localStorage.getItem('guestProfile') ?
   JSON.parse(localStorage.getItem('guestProfile'))
@@ -31,7 +15,6 @@ const GuestOrderInfo = () => {
 
   const { information } = storage
   const { client, address: clientAddress } = information
-  console.log(storage)
 
   const [name, setName] = useState(client)
   const [address, setAddress] = useState(clientAddress)
@@ -54,10 +37,6 @@ const GuestOrderInfo = () => {
     }
   })
 
-  const setting = {
-    fullWidth: true
-  }
-
   return (
     <div className='guestOrderInfo'>
       <div className='form_container'>
@@ -70,12 +49,11 @@ const GuestOrderInfo = () => {
         <div>
           <span>氏名:</span>
           <Form className='form_wrapper'>
-            <TextField
+            <TextInput
               id='outlined-name'
               label='氏名'
               variant='outlined'
               value={name}
-              fullWidth={setting.fullWidth}
               onChange={e => nameHandler(e.target.value)}
             />
           </Form>
@@ -83,12 +61,11 @@ const GuestOrderInfo = () => {
         <div>
           <span>住所:</span>
           <Form className='form_wrapper'>
-            <TextField
+            <TextInput
               id='outlined-address'
               label='お届け先住所'
               variant='outlined'
               value={address}
-              fullWidth={setting.fullWidth}
               onChange={e => addressHandler(e.target.value)}
             />
           </Form>

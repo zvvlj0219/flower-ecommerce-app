@@ -19,7 +19,6 @@ const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { pathname } = useLocation()
-  // const { isSignedIn } = useSelector(state => state.users)
 
   console.log(useSelector(state => state.users))
 
@@ -44,31 +43,6 @@ const App = () => {
         <Route exact path='/order/complete' component={OrderComplete} />
         <Route exact path='/auth/signin' component={SignIn} />
         <Route exact path='/auth/register' component={Register} />
-        {/* {
-          isSignedIn ? (
-            <>
-              <Route exact path='/' component={FirstView} />
-              <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
-              <Route exact path='/wishlist' component={WishList} />
-              <Route exact path='/cart' component={Cart} />
-              <Route exact path='/cart/guestOrderInfo' component={GuestOrderInfo} />
-              <Route exact path='/order' component={Order} />
-              <Route exact path='/order/complete' component={OrderComplete} />
-            </>
-          ) : (
-            <>
-              <Route exact path='/' component={FirstView} />
-              <Route exact path='/product-detail/:name/:id' component={ProductDetail} />
-              <Route exact path='/wishlist' component={WishList} />
-              <Route exact path='/cart' component={Cart} />
-              <Route exact path='/cart/guestOrderInfo' component={GuestOrderInfo} />
-              <Route exact path='/order' component={Order} />
-              <Route exact path='/order/complete' component={OrderComplete} />
-              <Route exact path='/auth/signin' component={SignIn} />
-              <Route exact path='/auth/register' component={Register} />
-            </>
-          )
-        } */}
       </Switch>
       <hr />
       <div>フッター</div>

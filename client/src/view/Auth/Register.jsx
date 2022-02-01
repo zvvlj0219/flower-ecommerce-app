@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import { Form, TextInput } from '../../components/TextInput'
 import { register } from '../../redux/actions/usersActions'
+import './auth.css'
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -24,66 +26,78 @@ const Register = () => {
   }
 
   // form handler
-  const handleEmail = useCallback(e => {
-    setemail(e.target.value)
+  const handleEmail = useCallback(value => {
+    setemail(value)
   }, [setemail])
 
-  const handleUsername = useCallback(e => {
-    setusername(e.target.value)
+  const handleUsername = useCallback(value => {
+    setusername(value)
   }, [setusername])
 
-  const handlePassword = useCallback(e => {
-    setpassword(e.target.value)
+  const handlePassword = useCallback(value => {
+    setpassword(value)
   }, [setpassword])
 
-  const handleConfirmPassword = useCallback(e => {
-    setconfirmpassword(e.target.value)
+  const handleConfirmPassword = useCallback(value => {
+    setconfirmpassword(value)
   }, [setconfirmpassword])
 
   return (
-    <div>
-      <p>Singin</p>
-      <div>
-        <div className='flex'>
-          <p>Email:</p>
-          <input
-            type='email'
-            name='email'
-            placeholder='emial..'
+    <div className='auth_container'>
+      <h3>新規登録</h3>
+      <div className='email wrapper'>
+        <p>Eメール:</p>
+        <Form>
+          <TextInput
+            id='email'
+            label='Eメール'
+            variant='outlined'
             value={email}
-            onChange={handleEmail}
-          />
-        </div>
-        <div className='flex'>
-          <p>Username:</p>
-          <input
             type='text'
-            name='username'
-            placeholder='username..'
+            onChange={e => handleEmail(e.target.value)}
+          />
+        </Form>
+      </div>
+      <div className='username wrapper'>
+        <p>ニックネーム:</p>
+        <Form>
+          <TextInput
+            id='username'
+            label='ニックネーム'
+            variant='outlined'
             value={username}
-            onChange={handleUsername}
+            type='text'
+            onChange={e => handleUsername(e.target.value)}
           />
-        </div>
-        <div className='flex'>
-          <p>Password:</p>
-          <input
-            type='password'
-            name='password'
-            placeholder='password..'
+        </Form>
+      </div>
+      <div className='password wrapper'>
+        <p>パスワード:</p>
+        <Form>
+          <TextInput
+            id='password'
+            label='パスワード'
+            variant='outlined'
             value={password}
-            onChange={handlePassword}
-          />
-        </div>
-        <div className='flex'>
-          <p>confirmPassword:</p>
-          <input
             type='password'
-            name='password'
-            placeholder='password..'
-            value={confirmpassword}
-            onChange={handleConfirmPassword}
+            onChange={e => handlePassword(e.target.value)}
           />
-        </div>
+        </Form>
+      </div>
+      <div className='confirmpassword wrapper'>
+        <p>パスワード(確認):</p>
+        <Form>
+          <TextInput
+            id='confirmPassword'
+            label='パスワード(確認)'
+            variant='outlined'
+            value={confirmpassword}
+            type='password'
+            onChange={e => handleConfirmPassword(e.target.value)}
+          />
+        </Form>
+      </div>
+      <div className='button_wrapper'>
         <button
           type='button'
           onClick={handleSubmit}
@@ -93,7 +107,7 @@ const Register = () => {
         <Link
           to='/auth/signin'
         >
-          アカウントをお持ちの方
+          すでにアカウントをお持ちの方
         </Link>
       </div>
     </div>

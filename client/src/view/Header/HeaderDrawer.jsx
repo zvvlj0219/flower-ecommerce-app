@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@mui/styles'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
-// import List from '@mui/material/List'
 import { logout } from '../../redux/actions/usersActions'
 
 const useStyles = makeStyles(() => ({
@@ -25,6 +24,12 @@ const HeaderDrawer = ({ open, onClose }) => {
     dispatch(logout(history))
   }, [dispatch])
 
+  const menuList = [
+    { linkname: 'ホーム', path: '/' },
+    { linkname: 'いいね!した商品', path: '/wishlist' },
+    { linkname: 'カート', path: '/cart' }
+  ]
+
   return (
     <nav>
       <Drawer
@@ -35,34 +40,51 @@ const HeaderDrawer = ({ open, onClose }) => {
           keepMounted: true
           // Better open performance on mobile.
         }}
+        className='headerDrawer_container'
       >
-        <div
-          className={classes.drawerBox}
-        >
-          <div>
+        <div className={classes.drawerBox}>
+          <div className='hello_message'>
             {
               isSignedIn ? (
                 <p>{`こんにちは, ${username} さん`}</p>
               ) : (
-                <Link
-                  to='/auth/signin'
-                >
-                  ログイン
-                </Link>
+                <p>こんにちは、ゲストさん</p>
               )
             }
           </div>
           <Divider />
+          {
+            menuList.map(el => (
+              <>
+                <div className='link'>
+                  <Link to={el.path}>
+                    {el.linkname}
+                  </Link>
+                </div>
+                <Divider />
+              </>
+            ))
+          }
           <div>
             {
               isSignedIn ? (
-                <button
-                  type='button'
-                  onClick={callLogout}
-                >
-                  ログアウト
-                </button>
-              ) : ''
+                <div className='button_wrapper'>
+                  <button
+                    type='button'
+                    onClick={callLogout}
+                  >
+                    →ログアウト
+                  </button>
+                </div>
+              ) : (
+                <div className='button_wrapper'>
+                  <Link
+                    to='/auth/signin'
+                  >
+                    ログインする
+                  </Link>
+                </div>
+              )
             }
           </div>
         </div>
