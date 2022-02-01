@@ -29,6 +29,18 @@ export const usersReducer = (state = initialState.users, action) => {
         loading: false,
         information: action.payload
       }
+    case actionsType.ORDER_CONFIRM_REQUEST:
+      return {
+        ...state,
+        isSignedIn: true,
+        loading: true
+      }
+    case actionsType.ORDER_CONFIRM_SUCCESS:
+      return {
+        ...action.payload,
+        isSignedIn: true,
+        loading: false
+      }
     case actionsType.LOGOUT:
       return initialState.users
     default:

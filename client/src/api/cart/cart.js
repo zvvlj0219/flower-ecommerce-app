@@ -6,3 +6,10 @@ export const updateCart = (_id, cart) => {
     cart
   })
 }
+
+export const orderConfirm = (_id, cart) => {
+  return API.post('/cart/orderConfirm', {
+    _id,
+    cart
+  })
+}

@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
+import { orderConfirm } from '../../redux/actions/usersActions'
 import { getSubtotal } from '../../module/getSubtotal'
 import './order.css'
 
@@ -17,8 +18,8 @@ const Order = () => {
   const { loading, cart, information } = useSelector(state => state.users)
 
   // function
-  const checkout = useCallback(() => {
-    history.push('/order/complete')
+  const orderConfirmFunc = useCallback(() => {
+    dispatch(orderConfirm(history))
   })
 
   const addToCart = item => {
@@ -133,22 +134,22 @@ const Order = () => {
         </div>
         <div>
           <div>手数料</div>
-          <div>{`${subTotal * 0.1}円`}</div>
+          <div>{`${Math.floor(subTotal * 0.1)}円`}</div>
         </div>
         <div>
           <div>送料</div>
-          <div>{`${subTotal * 0.3}円`}</div>
+          <div>{`${Math.floor(subTotal * 0.3)}円`}</div>
         </div>
         <Divider />
         <div>
           <div>合計</div>
-          <div>{`${subTotal * 1.4}円`}</div>
+          <div>{`${subTotal + Math.floor(subTotal * 0.1) + Math.floor(subTotal * 0.3)}円`}</div>
         </div>
       </div>
-      <div className='checkout'>
+      <div className='orderConfirm'>
         <button
           type='button'
-          onClick={checkout}
+          onClick={orderConfirmFunc}
         >
           注文確定
         </button>

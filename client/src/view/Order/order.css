@@ -154,7 +154,7 @@
   margin-bottom: 10px;
 }
 
-.order > .checkout > button {
+.order > .orderConfirm > button {
   margin:30px auto;
   display: block;
   padding:10px 50px;
