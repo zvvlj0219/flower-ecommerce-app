@@ -1,19 +1,35 @@
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import { useState } from 'react'
+import { styled } from '@mui/material/styles'
 
-const TextInput = ({ id, label, variant, placeholder, onChange }) => {
-  const [text, setText] = useState(placeholder)
+export const Form = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: 250
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: 350
+  },
+  [theme.breakpoints.up('md')]: {
+    width: 480
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: 600
+  }
+}))
 
+export const TextInput = ({ id, label, variant, type, value, onChange }) => {
+  const setting = {
+    fullWidth: true
+  }
   return (
     <TextField
       id={id}
-      label={text}
+      label={label}
       variant={variant}
-      placeholder={placeholder}
+      value={value}
+      type={type}
+      fullWidth={setting.fullWidth}
       onChange={onChange}
-      onFocus={() => setText(label)}
-      onBlur={() => setText(placeholder)}
     />
   )
 }
@@ -22,7 +38,8 @@ TextInput.defaultProps = {
   id: '',
   label: '',
   variant: '',
-  placeholder: '',
+  value: '',
+  type: 'text',
   onChange: null
 }
 
@@ -30,8 +47,7 @@ TextInput.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   variant: PropTypes.string,
-  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.string,
   onChange: PropTypes.func
 }
-
-export default TextInput

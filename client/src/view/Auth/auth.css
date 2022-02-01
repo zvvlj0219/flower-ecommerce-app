@@ -1,0 +1,79 @@
+/* auth */
+.auth_container {
+  border: 2px solid rgb(255, 0, 234, 0.7);
+  border-radius: 10px;
+  margin: 30px auto 0;
+}
+
+.auth_container > h3 {
+  text-align: center;
+}
+
+.auth_container > .wrapper p {
+  font-weight: bold;
+}
+
+.auth_container > .wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.auth_container > .button_wrapper > button {
+  background-color: rgb(66, 165, 245, 0.9);
+  border: none;
+  border-radius: 5px;
+  display: block;
+  padding: 5px 30px;
+}
+
+.auth_container > .button_wrapper > a {
+  color:dimgray;
+  text-align: end;
+  margin-right: 10px;
+}
+
+@media (max-width:900px) {
+  .auth_container {
+    width:80%;
+  }
+  
+  .auth_container > .wrapper {
+    padding:15px;
+  }
+
+  .auth_container > .wrapper p {
+    width:100px;
+  }
+
+  .auth_container > .button_wrapper{
+    margin:15px auto;
+  }
+
+  .auth_container > .button_wrapper > button {
+    margin:15px auto;
+    font-size: 15px;
+  }
+}
+
+@media (min-width:900px) {
+  .auth_container {
+    width:800px;
+  }
+  
+  .auth_container > .wrapper {
+    padding:20px;
+  }
+
+  .auth_container > .wrapper p {
+    width:150px;
+  }
+
+  .auth_container > .button_wrapper{
+    margin:20px auto;
+  }
+
+  .auth_container > .button_wrapper > button {
+    margin:15px auto;
+    font-size: 18px;
+  }
+}

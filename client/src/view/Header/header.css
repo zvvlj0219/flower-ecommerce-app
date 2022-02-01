@@ -53,8 +53,6 @@
   margin:0 5px;
 }
 
-
-/* 仮 */
 .header .account > p,a{
   padding:0 10px;
 }
@@ -63,6 +61,37 @@
   width:auto;
   height: 30px;
   margin: auto 10px;
+}
+
+/* drawer */
+.headerDrawer_container .hello_message {
+  margin-left: 10px;
+}
+
+.headerDrawer_container .link {
+  height: 50px;
+}
+
+.headerDrawer_container .link > a {
+  display: block;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  color: rgb(61, 61, 61);
+}
+
+.headerDrawer_container .button_wrapper {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.headerDrawer_container .button_wrapper > button,
+.headerDrawer_container .button_wrapper > a {
+  background-color: transparent;
+  border:none;
+  font-size: 17px;
+  color: rgb(39, 39, 39);
 }
 
 @media (max-width:930px) {
