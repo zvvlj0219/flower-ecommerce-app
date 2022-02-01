@@ -8,7 +8,7 @@ export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
 export { fetchWishlist, updateWishlist } from './wishlist/wishlist'
 
 // cart
-export { updateCart } from './cart/cart'
+export { updateCart, orderConfirm } from './cart/cart'
 
 // account
 export { updateInfo } from './account/account'
