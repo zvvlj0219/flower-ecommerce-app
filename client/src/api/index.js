@@ -2,7 +2,7 @@
 export { listenAuth, signIn, takeOver, register } from './auth/auth'
 
 // product
-export { initialProducts, ajaxProducts, fetchDetail } from './product/product'
+export { initialProducts, ajaxProducts, fetchDetail, allProducts, uploadImageToServer, uploadProduct } from './product/product'
 
 // wishlist
 export { fetchWishlist, updateWishlist } from './wishlist/wishlist'

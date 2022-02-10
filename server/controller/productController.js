@@ -16,7 +16,6 @@ const fetchInitialProducts = async (req, res) => {
 const fetchAjaxProducts = async (req, res) => {
   try {
     const { _id } = req.body
-    console.log(_id)
     const ajaxProducts = await Product.find({
       _id: {
         $nin: _id
@@ -41,7 +40,36 @@ const fetchProductDetail = async (req, res) => {
   }
 }
 
+const fetchAllProducts = async (req, res) => {
+  try {
+    const AllProducts = await Product.find()
+    .sort({createdAt:1})
+    res.status(200).json({ productList: AllProducts })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
+
+const uploadImage = (req, res) => {
+  res.status(200)
+}
+
+const uploadProduct = async (req, res) => {
+  try {
+    const { productData } = req.body
+    const newProduct = await Product.create(productData)
+    res.status(200).json({ result: newProduct })
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
+
 
 module.exports.fetchInitialProducts = fetchInitialProducts
 module.exports.fetchAjaxProducts = fetchAjaxProducts
 module.exports.fetchProductDetail = fetchProductDetail
+module.exports.fetchAllProducts = fetchAllProducts
+module.exports.uploadProduct = uploadProduct
+module.exports.uploadImage = uploadImage

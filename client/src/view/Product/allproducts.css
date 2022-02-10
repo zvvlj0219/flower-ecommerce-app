@@ -1,0 +1,33 @@
+.allproducts_container {
+  width:100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.allproducts_container > .link_wrapper {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-left: 20px;
+}
+
+.allproducts_container > .link_wrapper span{
+  display: block;
+  margin-left: 5px;
+}
+
+.allproducts_container > .link_wrapper p{
+  display: flex;
+}
+
+.allproducts_container .MuiGrid-container {
+  width:90%;
+  margin: 0 auto;
+  padding-right: 24px;
+}
+
+@media (min-width:1200px) {
+  .allproducts_container .MuiGrid-container {
+    width:1100px;
+    margin: 0 auto;
+  }  
+}

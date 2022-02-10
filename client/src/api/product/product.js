@@ -7,7 +7,6 @@ export const initialProducts = () => {
 
 // ajax fetch six products
 export const ajaxProducts = _id => {
-  console.log(_id)
   return API.post('/ajax', {
     // _id : array
     _id
@@ -17,5 +16,28 @@ export const ajaxProducts = _id => {
 export const fetchDetail = _id => {
   return API.post('/product-detail', {
     _id
+  })
+}
+
+// all products
+export const allProducts = () => {
+  return API.get('/all-products')
+}
+
+export const uploadImageToServer = formData => {
+  return API.post(
+    '/upload-image',
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+  )
+}
+
+export const uploadProduct = productData => {
+  return API.post('/upload-product', {
+    productData
   })
 }

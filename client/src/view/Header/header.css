@@ -64,8 +64,30 @@
 }
 
 /* drawer */
-.headerDrawer_container .hello_message {
+.headerDrawer_container .hello_message div {
+  width: 100%;
+}
+
+.headerDrawer_container .hello_message .account-service{
+  display: block;
+  display: flex;
+  height: 50px;
+  color:darkcyan;
+}
+
+.headerDrawer_container .account-service .account-icon{
+  align-self: center;
+}
+
+.headerDrawer_container .hello_message span {
+  display: block;
+  align-self: center;
   margin-left: 10px;
+}
+
+.headerDrawer_container .hello_message > .account-service {
+  color: darkcyan;
+  padding:15px 0;
 }
 
 .headerDrawer_container .link {
@@ -81,9 +103,10 @@
   color: rgb(61, 61, 61);
 }
 
-.headerDrawer_container .button_wrapper {
-  margin-top: 10px;
-  margin-left: 20px;
+.headerDrawer_container .button_wrapper > button {
+  display: flex;
+  margin-left: 15px;
+  margin-top:10px;
 }
 
 .headerDrawer_container .button_wrapper > button,
@@ -91,7 +114,21 @@
   background-color: transparent;
   border:none;
   font-size: 17px;
-  color: rgb(39, 39, 39);
+  color:rgb(61, 61, 61)
+}
+
+.headerDrawer_container .button_wrapper > .logout-icon{
+  align-self: center;
+}
+.headerDrawer_container .button_wrapper span{
+  display: block;
+  padding-left: 10px;
+}
+
+.headerDrawer_container .button_wrapper .login{
+  padding-left: 20px;
+  padding-top: 10px;
+  color: darkcyan;
 }
 
 @media (max-width:930px) {
