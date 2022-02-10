@@ -7,15 +7,12 @@ const Auth = require('../model/authModel')
 // import middleware
 const { signinValidation, registerValidation, comparePassword } = require('../middleware/validation')
 
-// secret key
-const { TOKEN_SECRET } = require('../config/config')
-
 const listenAuth = async (req, res) => {
   const { email, _id } = req.body
 
   try {
     const existedUser = await Auth.findOne({ email, _id })
-    .select(['_id','email','username','cart','wishlist','order','information'])
+    .select(['_id','email','username','cart','wishlist','information'])
 
     if (!existedUser) {
       res.status(404).json({ message: 'no exist' })
@@ -26,7 +23,7 @@ const listenAuth = async (req, res) => {
         email:existedUser.email,
         _id:existedUser._id
       }, 
-      TOKEN_SECRET,
+      process.env.TOKEN_SECRET,
       { 
         algorithm: 'HS256',
         expiresIn: '2h' 
@@ -65,7 +62,7 @@ const signIn = async (req, res) => {
         email:existedUser.email,
         _id:existedUser._id
       }, 
-      TOKEN_SECRET,
+      process.env.TOKEN_SECRET,
       { 
         algorithm: 'HS256',
         expiresIn: '2h' 
@@ -100,7 +97,7 @@ const takeOver = async (req, res) => {
       },
       { returnDocument : 'after'}
     )
-    .select(['_id','email','username','cart','wishlist'])
+    .select(['_id','email','username','cart', 'order','wishlist'])
       
     res.status(200).json({ user })
   } catch (error) {

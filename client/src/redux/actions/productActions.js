@@ -38,3 +38,29 @@ export const fetchAjaxProducts = () => async (dispatch, getState) => {
     errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
   }
 }
+
+export const uploadProductToServer = async productData => {
+  const { imageUrl } = productData
+
+  if (!imageUrl) return
+
+  try {
+    const formData = new FormData()
+
+    const imageNameArray = []
+
+    for (let i = 0; i < imageUrl.length; i += 1) {
+      formData.append('upload-input-name', imageUrl[i])
+      imageNameArray.push(`upload-input-name-${imageUrl[i].name}`)
+    }
+
+    api.uploadImageToServer(formData)
+
+    await api.uploadProduct({
+      ...productData,
+      imageUrl: imageNameArray
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}

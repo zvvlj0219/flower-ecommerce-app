@@ -1,5 +1,4 @@
 const jwt  = require('jsonwebtoken')
-const { TOKEN_SECRET } = require('../config/config')
 
 const verifyToken = async (req,res,next) =>{
   try {
@@ -10,7 +9,7 @@ const verifyToken = async (req,res,next) =>{
     }
     const verified = jwt.verify(
       token,
-      TOKEN_SECRET,
+      process.env.TOKEN_SECRET,
       {
         algorithm: 'HS256',
         maxAge: '2h' 

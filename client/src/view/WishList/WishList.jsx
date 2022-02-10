@@ -3,8 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import Divider from '@mui/material/Divider'
+import LinkHistory from '../../components/LinkHistory'
 import { removeIsLiked } from '../../redux/actions/detailActions'
 import './wishlist.css'
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: 'いいね!した商品', path: '/wishlist' }
+]
 
 const WishList = () => {
   const dispatch = useDispatch()
@@ -21,21 +27,7 @@ const WishList = () => {
 
   return (
     <div className='wishlist'>
-      <div className='link_wrapper'>
-        <p>
-          <Link
-            to='/'
-          >
-            ホーム
-          </Link>
-          <span>&rang;</span>
-          <Link
-            to='/wishlist'
-          >
-            いいね!した商品
-          </Link>
-        </p>
-      </div>
+      <LinkHistory linkdata={linkdata} />
       <div className='item_container'>
         {
           loading && ''

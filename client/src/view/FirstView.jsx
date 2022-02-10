@@ -1,5 +1,5 @@
-import ProductsList from './ProductsList'
-import MainSlider from '../Slider/MainSlider'
+import ProductsList from './Product/ProductsList'
+import MainSlider from './Slider/MainSlider'
 
 const FirstView = () => {
   return (

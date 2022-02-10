@@ -17,7 +17,7 @@ export const Form = styled('div')(({ theme }) => ({
   }
 }))
 
-export const TextInput = ({ id, label, variant, type, value, onChange }) => {
+export const TextInput = ({ id, label, variant, type, value, multiline, onChange }) => {
   const setting = {
     fullWidth: true
   }
@@ -28,6 +28,7 @@ export const TextInput = ({ id, label, variant, type, value, onChange }) => {
       variant={variant}
       value={value}
       type={type}
+      multiline={multiline}
       fullWidth={setting.fullWidth}
       onChange={onChange}
     />
@@ -40,6 +41,7 @@ TextInput.defaultProps = {
   variant: '',
   value: '',
   type: 'text',
+  multiline: false,
   onChange: null
 }
 
@@ -49,5 +51,6 @@ TextInput.propTypes = {
   variant: PropTypes.string,
   value: PropTypes.string,
   type: PropTypes.string,
+  multiline: PropTypes.bool,
   onChange: PropTypes.func
 }

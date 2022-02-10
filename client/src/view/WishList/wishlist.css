@@ -1,18 +1,3 @@
-.wishlist > .link_wrapper {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-left: 20px;
-}
-
-.wishlist > .link_wrapper span{
-  display: block;
-  margin-left: 5px;
-}
-
-.wishlist > .link_wrapper p{
-  display: flex;
-}
-
 .wishlist > .item_container {
   width: 95%;
   margin: 0 auto;

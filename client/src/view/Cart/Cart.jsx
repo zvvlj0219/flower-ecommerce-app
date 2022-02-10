@@ -5,9 +5,15 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
+import LinkHistory from '../../components/LinkHistory'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
 import { getSubtotal } from '../../module/getSubtotal'
 import './cart.css'
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: 'カート', path: '/cart' }
+]
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -44,21 +50,7 @@ const Cart = () => {
 
   return (
     <div className='cart'>
-      <div className='link_wrapper'>
-        <p>
-          <Link
-            to='/'
-          >
-            ホーム
-          </Link>
-          <span>&rang;</span>
-          <Link
-            to='/cart'
-          >
-            カート
-          </Link>
-        </p>
-      </div>
+      <LinkHistory linkdata={linkdata} />
       {
         !loading && cart.length > 0 && (
           <>

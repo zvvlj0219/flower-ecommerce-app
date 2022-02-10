@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@mui/styles'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import LogoutIcon from '@mui/icons-material/Logout'
 import { logout } from '../../redux/actions/usersActions'
 
 const useStyles = makeStyles(() => ({
@@ -26,8 +28,10 @@ const HeaderDrawer = ({ open, onClose }) => {
 
   const menuList = [
     { linkname: 'ホーム', path: '/' },
+    { linkname: '商品一覧', path: '/all-products' },
     { linkname: 'いいね!した商品', path: '/wishlist' },
-    { linkname: 'カート', path: '/cart' }
+    { linkname: 'カート', path: '/cart' },
+    { linkname: '出品する', path: '/upload-product' }
   ]
 
   return (
@@ -46,7 +50,14 @@ const HeaderDrawer = ({ open, onClose }) => {
           <div className='hello_message'>
             {
               isSignedIn ? (
-                <p>{`こんにちは, ${username} さん`}</p>
+                <div>
+                  <p>{`こんにちは, ${username} さん`}</p>
+                  <Divider />
+                  <Link to='/account-service' className='account-service'>
+                    <AccountCircleIcon className='account-icon' />
+                    <span>アカウントサービス</span>
+                  </Link>
+                </div>
               ) : (
                 <p>こんにちは、ゲストさん</p>
               )
@@ -55,14 +66,14 @@ const HeaderDrawer = ({ open, onClose }) => {
           <Divider />
           {
             menuList.map(el => (
-              <>
+              <div key={el.linkname}>
                 <div className='link'>
                   <Link to={el.path}>
                     {el.linkname}
                   </Link>
                 </div>
                 <Divider />
-              </>
+              </div>
             ))
           }
           <div>
@@ -73,13 +84,15 @@ const HeaderDrawer = ({ open, onClose }) => {
                     type='button'
                     onClick={callLogout}
                   >
-                    →ログアウト
+                    <LogoutIcon className='logout-icon' />
+                    <span>ログアウト</span>
                   </button>
                 </div>
               ) : (
                 <div className='button_wrapper'>
                   <Link
                     to='/auth/signin'
+                    className='login'
                   >
                     ログインする
                   </Link>

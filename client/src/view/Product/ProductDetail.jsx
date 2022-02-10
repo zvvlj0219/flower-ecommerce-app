@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams, useHistory, Link } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import LinkHistory from '../../components/LinkHistory'
 import './productDetail.css'
 
 import { fetchDetail, listFilter, addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/detailActions'
@@ -60,30 +61,17 @@ const ProductDetail = () => {
     })
   }, [wishlist])
 
+  const linkdata = [
+    { page: 'ホーム', path: '/' },
+    { page: `${detail.name}`, path: `/product-detail/${detail.name}/${id}` }
+  ]
+
   return (
     <div className='productDetail'>
       {
         !loading ? (
           <>
-            <div className='link_wrapper'>
-              {
-                detail && (
-                  <p>
-                    <Link
-                      to='/'
-                    >
-                      商品一覧
-                    </Link>
-                    <span>&rang;</span>
-                    <Link
-                      to={`/product-detail/${detail.name}/${id}`}
-                    >
-                      {detail.name}
-                    </Link>
-                  </p>
-                )
-              }
-            </div>
+            <LinkHistory linkdata={linkdata} />
             <h2 className='product_name'>
               {detail.name}
             </h2>
