@@ -9,22 +9,16 @@ import { getWindowSize } from '../../module/getWindowSize'
 
 // import images & css
 import './main_slider.css'
-import portrait1 from '../../assets/main_slider/portrait1.jpg'
-import portrait2 from '../../assets/main_slider/portrait2.jpg'
-import portrait3 from '../../assets/main_slider/portrait3.jpg'
-import flowerbox1 from '../../assets/main_slider/flowerbox1.jpg'
-import wedding1 from '../../assets/main_slider/wedding1.jpg'
+import kh3 from '../../assets/kh3.jpg'
+import venis from '../../assets/venis.jpg'
 
 // arrow components
 import NextArrow from '../../components/NextArrow'
 import PrevArrow from '../../components/PrevArrow'
 
 const imageBox = [
-  { num: 1, image: portrait1 },
-  { num: 2, image: portrait2 },
-  { num: 3, image: portrait3 },
-  { num: 4, image: flowerbox1 },
-  { num: 5, image: wedding1 }
+  { num: 1, image: kh3 },
+  { num: 2, image: venis }
 ]
 
 const MainSlider = () => {

@@ -5,9 +5,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { CardActionArea } from '@mui/material'
-
-// import cherryblossom from '../../assets/cherryblossom.png'
-import sofia from '../../assets/sofia.png'
+import ImageArea from '../../components/ImageArea'
 
 const Product = ({ products }) => {
   const history = useHistory()
@@ -19,28 +17,34 @@ const Product = ({ products }) => {
   return (
     <>
       {
-        products.map(items => (
+        products.map(item => (
           <Grid
             item
             xs={6}
             md={4}
             lg={3}
-            key={items._id}
+            key={item._id}
             className='product'
-            onClick={() => productPage(items.name, items._id)}
+            onClick={() => productPage(item.name, item._id)}
           >
             <Card>
               <CardActionArea>
-                <CardMedia
-                  component='img'
-                  alt={items.name}
-                  image={sofia}
-                />
+                <CardMedia>
+                  <ImageArea
+                    path={item.imageUrl[0]}
+                    style={{
+                      width: '160px',
+                      height: '160px',
+                      display: 'block',
+                      margin: '10px auto'
+                    }}
+                  />
+                </CardMedia>
                 <CardContent>
-                  <h3>{items.name}</h3>
+                  <h3>{item.name}</h3>
                   <p className='price_wrapper'>
                     <span>価格:</span>
-                    <span className='price'>{items.price}</span>
+                    <span className='price'>{item.price}</span>
                     <span>円（税込）</span>
                   </p>
                 </CardContent>

@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom'
+import { fetchAllProducts } from '../../redux/actions/productActions'
 import Product from './Product'
-import * as api from '../../api/index'
 import './allproducts.css'
 
 const AllProducts = () => {
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
 
-  const fecthAllProducts = async () => {
-    const { data } = await api.allProducts()
-    setProducts(data.productList)
-  }
-
-  console.log(products)
+  const { list: allproducts } = useSelector(state => state.products)
 
   useEffect(() => {
-    fecthAllProducts()
+    dispatch(fetchAllProducts())
   }, [])
 
   return (
@@ -37,14 +33,14 @@ const AllProducts = () => {
         </p>
       </div>
       {
-        products.length > 0 ? (
+        allproducts.length > 0 ? (
           <div className='products_wrapper'>
             <Grid
               container
               spacing={3}
             >
               <Product
-                products={products}
+                products={allproducts}
               />
             </Grid>
           </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
@@ -6,7 +6,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
 import LinkHistory from '../../components/LinkHistory'
 import './productDetail.css'
-
 import { fetchDetail, listFilter, addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/detailActions'
 import ProductSlider from '../Slider/ProductSlider'
 
@@ -24,6 +23,7 @@ const ProductDetail = () => {
 
   // state
   const [isLiked, setisLiked] = useState(false)
+  const [imageData, setImageData] = useState([])
 
   // function
   const toggleIsLiked = () => {
@@ -40,10 +40,27 @@ const ProductDetail = () => {
     history.push('/cart')
   }
 
+  const fetchImage = useCallback(() => {
+    for (let i = 0; i < detail.imageUrl?.length; i += 1) {
+      import(`../../assets/product/${detail.imageUrl[i]}`)
+        .then(module => {
+          setImageData(arr => {
+            return [
+              ...arr,
+              {
+                id: i,
+                path: module.default
+              }
+            ]
+          })
+        })
+        .catch(err => console.log(err))
+    }
+  }, [detail, imageData, setImageData])
+
   // useEffect onload
   useEffect(() => {
     if (list.length === 0) {
-      console.log(id)
       dispatch(fetchDetail(id))
     } else {
       dispatch(listFilter(
@@ -61,6 +78,10 @@ const ProductDetail = () => {
     })
   }, [wishlist])
 
+  useEffect(() => {
+    fetchImage()
+  }, [detail])
+
   const linkdata = [
     { page: 'ホーム', path: '/' },
     { page: `${detail.name}`, path: `/product-detail/${detail.name}/${id}` }
@@ -76,7 +97,7 @@ const ProductDetail = () => {
               {detail.name}
             </h2>
             <div className='grid'>
-              <ProductSlider />
+              <ProductSlider imageData={imageData} />
               <div className='description'>
                 <h3>■商品説明</h3>
                 {

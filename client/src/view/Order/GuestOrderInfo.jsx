@@ -5,19 +5,12 @@ import { Form, TextInput } from '../../components/TextInput'
 import { guestInfo } from '../../redux/actions/usersActions'
 import './guestOrderInfo.css'
 
-const storage = localStorage.getItem('guestProfile') ?
-  JSON.parse(localStorage.getItem('guestProfile'))
-  : ''
-
 const GuestOrderInfo = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { information } = storage
-  const { client, address: clientAddress } = information
-
-  const [name, setName] = useState(client)
-  const [address, setAddress] = useState(clientAddress)
+  const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
   const [errmsg, setErrmsg] = useState(false)
 
   const nameHandler = useCallback(value => {

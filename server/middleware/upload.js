@@ -4,13 +4,13 @@ const path = require('path')
 const storage = multer.diskStorage({
   destination: function(req, file, callback) {
     // output dir
-    callback(null, './server/imageChunk');
+    callback(null, './client/src/assets/product');
   },
   filename: function(req, file, callback) {
-    const { fieldname, originalname } = file
+    const { originalname } = file
     callback(
       null,
-      fieldname + '-' + originalname.split('.')[0] + path.extname(file.originalname)
+      originalname.split('.')[0] + path.extname(originalname)
     );
   }
 });

@@ -39,26 +39,48 @@ export const fetchAjaxProducts = () => async (dispatch, getState) => {
   }
 }
 
-export const uploadProductToServer = async productData => {
-  const { imageUrl } = productData
+export const fetchAllProducts = () => async dispatch => {
+  try {
+    dispatch({ type: actionsType.FETCH_PRODUCTS_REQUEST })
 
-  if (!imageUrl) return
+    const { data } = await api.allProducts()
+
+    dispatch({
+      type: actionsType.FETCH_PRODUCTS_SUCCESS,
+      payload: data.productList
+    })
+  } catch (error) {
+    errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
+  }
+}
+
+export const uploadProductToServer = async productData => {
+  const {
+    name,
+    description,
+    price,
+    countInStock,
+    imageUrl,
+    fileList
+  } = productData
+
+  if (!fileList) return
 
   try {
     const formData = new FormData()
 
-    const imageNameArray = []
-
-    for (let i = 0; i < imageUrl.length; i += 1) {
-      formData.append('upload-input-name', imageUrl[i])
-      imageNameArray.push(`upload-input-name-${imageUrl[i].name}`)
+    for (let i = 0; i < fileList.length; i += 1) {
+      formData.append('upload-input-name', fileList[i])
     }
 
     api.uploadImageToServer(formData)
 
     await api.uploadProduct({
-      ...productData,
-      imageUrl: imageNameArray
+      name,
+      description,
+      price,
+      countInStock,
+      imageUrl
     })
   } catch (error) {
     console.log(error)

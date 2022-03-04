@@ -27,7 +27,9 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.5",
+    "sass": "^1.49.9",
     "slick-carousel": "^1.8.1",
+    "swiper": "^8.0.6",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

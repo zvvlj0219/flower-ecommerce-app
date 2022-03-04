@@ -5,6 +5,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
+import ImageArea from '../../components/ImageArea'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
 import { orderConfirm } from '../../redux/actions/usersActions'
 import { getSubtotal } from '../../module/getSubtotal'
@@ -14,10 +15,8 @@ const Order = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  // selector
   const { loading, cart, information } = useSelector(state => state.users)
 
-  // function
   const orderConfirmFunc = useCallback(() => {
     dispatch(orderConfirm(history))
   })
@@ -71,10 +70,12 @@ const Order = () => {
             cart.map(item => (
               <div key={item._id}>
                 <div className='item'>
-                  <img
-                    src={item.imagUrl}
+                  <ImageArea
+                    path={item.imageUrl[0]}
                     alt={item.name}
-                    className='image'
+                    style={{
+                      width: '150px'
+                    }}
                   />
                   <div className='item_info' key={item._id}>
                     <Link

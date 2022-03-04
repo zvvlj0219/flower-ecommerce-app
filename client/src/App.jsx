@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
 import { listenAuth, initAuth } from './redux/actions/usersActions'
 
@@ -21,8 +21,6 @@ const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { pathname } = useLocation()
-
-  console.log(useSelector(state => state.users))
 
   useEffect(() => {
     if (localStorage.getItem('profile')) {

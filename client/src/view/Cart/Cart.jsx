@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
@@ -6,6 +6,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
 import LinkHistory from '../../components/LinkHistory'
+import ImageArea from '../../components/ImageArea'
+import { getBreakpoint } from '../../module/getBreakpoint'
+import { getWindowSize } from '../../module/getWindowSize'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
 import { getSubtotal } from '../../module/getSubtotal'
 import './cart.css'
@@ -15,11 +18,43 @@ const linkdata = [
   { page: 'カート', path: '/cart' }
 ]
 
+const imageStyle = () => {
+  const bp = getBreakpoint()
+
+  switch (bp) {
+    case 'xs':
+      return {
+        width: '80px',
+        height: '80px'
+      }
+    case 'small':
+    case 'medium':
+      return {
+        width: '100px',
+        height: '100px'
+      }
+    case 'large':
+    case 'xl':
+      return {
+        width: '150px',
+        height: '150px'
+      }
+    default:
+      return {
+        width: '100px',
+        height: '100px'
+      }
+  }
+}
+
 const Cart = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const { width: windowWidth } = getWindowSize()
 
   const { loading, cart, isSignedIn } = useSelector(state => state.users)
+
+  const [imageState, setImageState] = useState(imageStyle())
 
   const addToCart = item => {
     dispatch(addIsCartIn(item))
@@ -41,12 +76,17 @@ const Cart = () => {
     if (isSignedIn) {
       history.push('/order')
     } else {
-      // history.push('/order/guest')
       history.push('/cart/guestorderinfo')
     }
   })
 
   const subTotal = getSubtotal(cart)
+
+  const imageAreaStyle = imageStyle()
+
+  useEffect(() => {
+    setImageState(imageAreaStyle)
+  }, [windowWidth])
 
   return (
     <div className='cart'>
@@ -78,10 +118,9 @@ const Cart = () => {
             cart.map(item => (
               <div key={item._id}>
                 <div className='item'>
-                  <img
-                    src={item.imagUrl}
-                    alt={item.name}
-                    className='image'
+                  <ImageArea
+                    path={item.imageUrl[0]}
+                    style={imageState}
                   />
                   <div className='item_info' key={item._id}>
                     <Link

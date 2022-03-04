@@ -18,18 +18,19 @@ const UploadProduct = () => {
   const [productDescription, setProductDescription] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productStock, setProductStock] = useState('')
-  const [imageData, setImageData] = useState({})
-
-  const productData = {
-    name: productName,
-    description: productDescription,
-    price: productPrice,
-    countInStock: productStock,
-    imageUrl: imageData
-  }
+  const [imageData, setImageData] = useState([])
+  const [fileList, setfileList] = useState({})
+  const [previewSrc, setPreviewSrc] = useState([])
 
   const uploadProduct = () => {
-    uploadProductToServer(productData)
+    uploadProductToServer({
+      name: productName,
+      description: productDescription,
+      price: productPrice,
+      countInStock: productStock,
+      imageUrl: imageData,
+      fileList
+    })
   }
 
   const handleProductName = useCallback(value => {
@@ -48,10 +49,47 @@ const UploadProduct = () => {
     setProductStock(value)
   }, [setProductStock])
 
+  const previewer = useCallback(file => {
+    if (!file) return
+
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onload = event => {
+      setPreviewSrc(src => {
+        return [
+          ...src,
+          event.target.result
+        ]
+      })
+    }
+  }, [previewSrc])
+
   const handleImageFile = useCallback(e => {
     if (!e.target.files) return
-    setImageData([...e.target.files])
-  }, [setImageData])
+    setfileList([...e.target.files])
+
+    for (let i = 0; i < e.target.files.length; i += 1) {
+      previewer(e.target.files[i])
+
+      setImageData(data => {
+        return [
+          ...data,
+          e.target.files[i].name
+        ]
+      })
+    }
+  }, [fileList, setfileList, setImageData])
+
+  const removeImage = useCallback(src => {
+    const refreshedState = previewSrc.filter(el => {
+      return el !== src
+    })
+    setPreviewSrc(refreshedState)
+  }, [previewSrc])
+
+  // `${process.env.PUBLIC_URL}/image/sofia.png`
 
   return (
     <div className='uploadproduct-container'>
@@ -110,11 +148,10 @@ const UploadProduct = () => {
             />
           </Form>
         </div>
-
       </div>
       <hr />
       <label htmlFor='upload-button'>
-        pick up pics
+        画像を選択する
         <input
           type='file'
           id='upload-button'
@@ -127,19 +164,38 @@ const UploadProduct = () => {
         />
       </label>
       <hr />
-      <div className='image_wrapper'>
-        {/* {
-          imageData.map(image => (
-            <div key={Number(Math.random() * 1000)}>
-              <img
-                src={URL.createObjectURL(image)}
-                alt={image}
-                width='300px'
-                height='300px'
-              />
+      <div className='preview_image'>
+        {
+          previewSrc.length > 0 && (
+            <div>
+              <p>preview</p>
+              {
+                previewSrc.map(src => (
+                  <div key={src}>
+                    <img
+                      src={src}
+                      alt=''
+                      style={{
+                        width: '300px',
+                        height: '300px'
+                      }}
+                    />
+                    <button
+                      type='button'
+                      onClick={() => removeImage(src)}
+                      style={{
+                        display: 'block',
+                        marginLeft: '20px'
+                      }}
+                    >
+                      delete
+                    </button>
+                  </div>
+                ))
+              }
             </div>
-          ))
-        } */}
+          )
+        }
       </div>
       <div className='button_wrapper'>
         <button
