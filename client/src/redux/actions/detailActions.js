@@ -19,17 +19,6 @@ export const fetchDetail = id => async dispatch => {
   }
 }
 
-export const listFilter = data => async dispatch => {
-  try {
-    dispatch({
-      type: actionsType.FETCH_DETAIL_SUCCESS,
-      payload: Object(data[0])
-    })
-  } catch (error) {
-    errorActions(actionsType.FETCH_DETAIL_FAIL, error)
-  }
-}
-
 export const addIsLiked = detail => async (dispatch, getState) => {
   try {
     const { users } = getState()

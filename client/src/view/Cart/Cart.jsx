@@ -120,7 +120,11 @@ const Cart = () => {
                 <div className='item'>
                   <ImageArea
                     path={item.imageUrl[0]}
-                    style={imageState}
+                    style={{
+                      ...imageState,
+                      display: 'block',
+                      margin: '10px'
+                    }}
                   />
                   <div className='item_info' key={item._id}>
                     <Link

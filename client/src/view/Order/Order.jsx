@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
@@ -6,16 +6,68 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
 import ImageArea from '../../components/ImageArea'
+import LinkHistory from '../../components/LinkHistory'
 import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
 import { orderConfirm } from '../../redux/actions/usersActions'
 import { getSubtotal } from '../../module/getSubtotal'
+import { getBreakpoint } from '../../module/getBreakpoint'
+import { getWindowSize } from '../../module/getWindowSize'
 import './order.css'
+
+const imageStyle = () => {
+  const bp = getBreakpoint()
+
+  switch (bp) {
+    case 'xxs':
+      return {
+        width: '50px',
+        height: '50px'
+      }
+    case 'xs':
+      return {
+        width: '100px',
+        height: '100px'
+      }
+    case 'small':
+    case 'medium':
+      return {
+        width: '120px',
+        height: '120px'
+      }
+    case 'large':
+    case 'xl':
+      return {
+        width: '150px',
+        height: '150px'
+      }
+    default:
+      return {
+        width: '120px',
+        height: '120px'
+      }
+  }
+}
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: 'カート', path: '/cart' },
+  { page: 'ユーザー情報確認', path: '/order' }
+]
 
 const Order = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const { width: windowWidth } = getWindowSize()
 
   const { loading, cart, information } = useSelector(state => state.users)
+
+  const [imageState, setImageState] = useState(imageStyle())
+
+  const imageAreaStyle = imageStyle()
+
+  useEffect(() => {
+    setImageState(imageAreaStyle)
+  }, [windowWidth])
 
   const orderConfirmFunc = useCallback(() => {
     dispatch(orderConfirm(history))
@@ -41,13 +93,7 @@ const Order = () => {
 
   return (
     <div className='order'>
-      <p className='link_wrapper'>
-        <span>ホーム</span>
-        <span>&rang;</span>
-        <span>カート</span>
-        <span>&rang;</span>
-        <span>ユーザー情報確認</span>
-      </p>
+      <LinkHistory linkdata={linkdata} />
       <div className='user_info'>
         <h3>ユーザー情報確認</h3>
         <div>
@@ -74,7 +120,9 @@ const Order = () => {
                     path={item.imageUrl[0]}
                     alt={item.name}
                     style={{
-                      width: '150px'
+                      ...imageState,
+                      display: 'block',
+                      margin: '10px'
                     }}
                   />
                   <div className='item_info' key={item._id}>

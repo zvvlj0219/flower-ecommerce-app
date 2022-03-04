@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
-import Divider from '@mui/material/Divider'
+import { Divider } from '@mui/material'
 import ImageArea from '../../components/ImageArea'
 import LinkHistory from '../../components/LinkHistory'
 import { getBreakpoint } from '../../module/getBreakpoint'
@@ -23,27 +23,32 @@ const imageStyle = () => {
   const bp = getBreakpoint()
 
   switch (bp) {
+    case 'xxs':
+      return {
+        width: '50px',
+        height: '50px'
+      }
     case 'xs':
       return {
-        width: '100px',
-        height: '100px'
+        width: '70px',
+        height: '70px'
       }
     case 'small':
     case 'medium':
       return {
-        width: '120px',
-        height: '120px'
+        width: '100px',
+        height: '100px'
       }
     case 'large':
     case 'xl':
       return {
-        width: '170px',
-        height: '170px'
+        width: '150px',
+        height: '150px'
       }
     default:
       return {
-        width: '150px',
-        height: '150px'
+        width: '120px',
+        height: '120px'
       }
   }
 }
@@ -69,48 +74,54 @@ const WishList = () => {
   return (
     <div className='wishlist'>
       <LinkHistory linkdata={linkdata} />
-      <div className='item_container'>
-        {
-          !loading && wishlist.length > 0 &&
-            wishlist.map(item => (
-              <div key={item._id}>
-                <div className='item'>
-                  <ImageArea
-                    path={item.imageUrl[0]}
-                    style={imageState}
-                  />
-                  <div className='item_info' key={item._id}>
-                    <Link
-                      to={`/product-detail/${item.name}/${item._id}`}
-                    >
-                      {item.name}
-                    </Link>
-                    <p className='price_wrapper'>
-                      <span>価格:</span>
-                      <span className='price'>{item.price}</span>
-                      <span>円（税込）</span>
-                    </p>
-                  </div>
-                  <button
-                    type='button'
-                    onClick={() => removeFromWishlist(item)}
+      {
+        !loading && wishlist.length > 0 &&
+          wishlist.map(item => (
+            <div
+              key={item._id}
+              className='item_container'
+            >
+              <div className='item'>
+                <ImageArea
+                  path={item.imageUrl[0]}
+                  style={{
+                    ...imageState,
+                    display: 'block',
+                    margin: '10px'
+                  }}
+                  className='productImage'
+                />
+                <div className='item_info' key={item._id}>
+                  <Link
+                    to={`/product-detail/${item.name}/${item._id}`}
                   >
-                    <FavoriteOutlinedIcon
-                      fontSize='large'
-                      sx={iconStyle}
-                    />
-                  </button>
+                    {item.name}
+                  </Link>
+                  <p className='price_wrapper'>
+                    <span>価格:</span>
+                    <span className='price'>{item.price}</span>
+                    <span>円（税込）</span>
+                  </p>
                 </div>
-                <Divider />
+                <button
+                  type='button'
+                  onClick={() => removeFromWishlist(item)}
+                >
+                  <FavoriteOutlinedIcon
+                    fontSize='large'
+                    sx={iconStyle}
+                  />
+                </button>
               </div>
-            ))
-        }
-        {
-          !loading && wishlist.length === 0 && (
-            <p>いいね!した商品がありません</p>
-          )
-        }
-      </div>
+              <Divider />
+            </div>
+          ))
+      }
+      {
+        !loading && wishlist.length === 0 && (
+          <p>いいね!した商品がありません</p>
+        )
+      }
     </div>
   )
 }

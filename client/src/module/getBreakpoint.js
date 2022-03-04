@@ -4,7 +4,9 @@ export const getBreakpoint = () => {
   const { width } = getWindowSize()
 
   switch (true) {
-    case width < 350:
+    case width < 300:
+      return 'xxs'
+    case width > 300 && width < 350:
       return 'xs'
     case width > 350 && width < 600:
       return 'small'
