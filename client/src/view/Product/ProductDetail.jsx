@@ -4,19 +4,18 @@ import { useParams, useHistory } from 'react-router-dom'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import * as api from '../../api/index'
 import LinkHistory from '../../components/LinkHistory'
 import './productDetail.css'
-import { fetchDetail, addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/detailActions'
+import { addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/usersActions'
 import ProductSlider from '../Slider/ProductSlider'
 
 const ProductDetail = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { id } = useParams()
-
-  const { detail, loading } = useSelector(state => state.productDetail)
   const { wishlist } = useSelector(state => state.users)
-
+  const [detail, setDetail] = useState(null)
   const [isLiked, setisLiked] = useState(false)
   const [imageData, setImageData] = useState([])
 
@@ -34,8 +33,18 @@ const ProductDetail = () => {
     history.push('/cart')
   }, [detail])
 
+  const fetchDetail = useCallback(async () => {
+    try {
+      const { data } = await api.fetchDetail(id)
+      setDetail(data.result[0])
+    } catch (err) {
+      throw new Error()
+    }
+  }, [])
+
   const fetchImage = useCallback(() => {
-    for (let i = 0; i < detail.imageUrl?.length; i += 1) {
+    if (!detail) return
+    for (let i = 0; i < detail.imageUrl.length; i += 1) {
       import(`../../assets/product/${detail.imageUrl[i]}`)
         .then(module => {
           setImageData(arr => {
@@ -52,7 +61,7 @@ const ProductDetail = () => {
   }, [detail, imageData, setImageData])
 
   useEffect(() => {
-    dispatch(fetchDetail(id))
+    fetchDetail()
   }, [])
 
   useEffect(() => {
@@ -67,17 +76,17 @@ const ProductDetail = () => {
     fetchImage()
   }, [detail])
 
-  const linkdata = [
-    { page: 'ホーム', path: '/' },
-    { page: `${detail.name}`, path: `/product-detail/${detail.name}/${id}` }
-  ]
-
   return (
     <div className='productDetail'>
       {
-        !loading ? (
-          <>
-            <LinkHistory linkdata={linkdata} />
+        detail ? (
+          <div>
+            <LinkHistory
+              linkdata={[
+                { page: 'ホーム', path: '/' },
+                { page: `${detail.name}`, path: `/product-detail/${detail.name}/${id}` }
+              ]}
+            />
             <h2 className='product_name'>
               {detail.name}
             </h2>
@@ -130,8 +139,8 @@ const ProductDetail = () => {
                 </div>
               </div>
             </div>
-          </>
-        ) : <p>...Loading</p>
+          </div>
+        ) : ''
       }
     </div>
   )

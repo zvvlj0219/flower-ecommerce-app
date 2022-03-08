@@ -3,7 +3,8 @@ import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
 import initialState from '../../store/initialState'
 import Merge from '../../module/takeover'
-// import errorActions from './errorActions'
+import CalcCart from '../../module/calcCart'
+import CalcIsLiked from '../../module/calcIsLiked'
 
 export const listenAuth = (history, pathname = '/') => async dispatch => {
   try {
@@ -24,8 +25,7 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
       type: actionsType.LISTEN_AUTH,
       payload: {
         ...data.user,
-        isSignedIn: true,
-        loading: false
+        isSignedIn: true
       }
     })
 
@@ -177,4 +177,204 @@ export const logout = history => async dispatch => {
   localStorage.setItem('guestProfile', JSON.stringify(initialState.users))
 
   history.push('/')
+}
+
+// detail
+
+export const addIsLiked = detail => async (dispatch, getState) => {
+  try {
+    const { users } = getState()
+
+    if (users.isSignedIn) {
+      const calc = new CalcIsLiked(users.wishlist, detail)
+
+      const updatedWishlist = calc.addToWishlist()
+
+      console.log(updatedWishlist)
+
+      const { data } = await api.updateWishlist(users._id, updatedWishlist)
+
+      dispatch({
+        type: actionsType.UPDATE_WISHLIST,
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
+      })
+    } else {
+      const { wishlist } = users
+
+      const calc = new CalcIsLiked(wishlist, detail)
+
+      const updatedData = {
+        ...users,
+        wishlist: calc.addToWishlist()
+      }
+
+      dispatch({
+        type: actionsType.UPDATE_WISHLIST,
+        payload: updatedData
+      })
+
+      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const removeIsLiked = detail => async (dispatch, getState) => {
+  try {
+    const { users } = getState()
+
+    if (users.isSignedIn) {
+      const calc = new CalcIsLiked(users.wishlist, detail)
+
+      const updateWishlist = calc.removeFromWishlist()
+
+      const { data } = await api.updateWishlist(users._id, updateWishlist)
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
+      })
+    } else {
+      const { wishlist } = users
+
+      const calc = new CalcIsLiked(wishlist, detail)
+
+      const updatedData = {
+        ...users,
+        wishlist: calc.removeFromWishlist()
+      }
+
+      dispatch({
+        type: actionsType.UPDATE_WISHLIST,
+        payload: updatedData
+      })
+
+      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const addIsCartIn = detail => async (dispatch, getState) => {
+  try {
+    const { users } = getState()
+
+    if (users.isSignedIn) {
+      const calc = new CalcCart(users.cart, detail)
+
+      const updatedCart = calc.addToCart()
+
+      const { data } = await api.updateCart(users._id, updatedCart)
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
+      })
+    } else {
+      const { cart } = users
+
+      const calc = new CalcCart(cart, detail)
+
+      const updatedData = {
+        ...users,
+        cart: calc.addToCart()
+      }
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: updatedData
+      })
+
+      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const removeIsCartIn = detail => async (dispatch, getState) => {
+  try {
+    const { users } = getState()
+
+    if (users.isSignedIn) {
+      const calc = new CalcCart(users.cart, detail)
+
+      const updatedCart = calc.removeFromCart()
+
+      const { data } = await api.updateCart(users._id, updatedCart)
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: {
+          ...data.user,
+          isSignedIn: true
+        }
+      })
+    } else {
+      const { cart } = users
+
+      const calc = new CalcCart(cart, detail)
+
+      const updatedData = {
+        ...users,
+        cart: calc.removeFromCart()
+      }
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: updatedData
+      })
+
+      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteIsCartIn = detail => async (dispatch, getState) => {
+  try {
+    const { users } = getState()
+
+    if (users.isSignedIn) {
+      const calc = new CalcCart(users.cart, detail)
+
+      const updatedCart = calc.deleteFromCart()
+
+      const { data } = await api.updateCart(users._id, updatedCart)
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: data.user
+      })
+    } else {
+      const { cart } = users
+      const calc = new CalcCart(cart, detail)
+
+      const updatedData = {
+        ...users,
+        cart: calc.deleteFromCart()
+      }
+
+      dispatch({
+        type: actionsType.UPDATE_CART,
+        payload: updatedData
+      })
+
+      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }

@@ -1,6 +1,7 @@
 import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
 import errorActions from './errorActions'
+// import { loadEnd, loadingNow } from './loadingAction'
 
 export const fetchInitialProducts = () => async dispatch => {
   try {
@@ -75,14 +76,15 @@ export const uploadProductToServer = async productData => {
 
     api.uploadImageToServer(formData)
 
-    await api.uploadProduct({
+    const res = await api.uploadProduct({
       name,
       description,
       price,
       countInStock,
       imageUrl
     })
+    return res
   } catch (error) {
-    console.log(error)
+    return { message: 'upload failed' }
   }
 }

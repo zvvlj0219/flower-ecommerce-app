@@ -9,7 +9,12 @@ const ImageArea = ({ path, style }) => {
       .then(module => {
         setSrc(module.default)
       })
-  }, [])
+      .catch(() => {
+        setSrc('')
+      })
+
+    return () => setSrc({})
+  }, [path])
 
   return (
     <div className='preview_image'>

@@ -9,7 +9,7 @@ import LinkHistory from '../../components/LinkHistory'
 import ImageArea from '../../components/ImageArea'
 import { getBreakpoint } from '../../module/getBreakpoint'
 import { getWindowSize } from '../../module/getWindowSize'
-import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/detailActions'
+import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/usersActions'
 import { getSubtotal } from '../../module/getSubtotal'
 import './cart.css'
 

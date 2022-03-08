@@ -6,20 +6,16 @@ import Grid from '@mui/material/Grid'
 import { fetchInitialProducts, fetchAjaxProducts } from '../../redux/actions/productActions'
 
 // import product
-import Product from './Product'
+import Product from '../../components/Product'
 
 const ProductsList = () => {
   const dispatch = useDispatch()
 
-  // state
-  const [products, setProducts] = useState([])
   const [buttonClass, setbuttonClass] = useState()
   const [isLoaded, setisLoaded] = useState(false)
 
-  // selector
-  const { loading, list } = useSelector(state => state.products)
+  const { list } = useSelector(state => state.products)
 
-  // function
   const loadmore = useCallback(() => {
     if (!isLoaded) {
       setbuttonClass('hidden')
@@ -29,32 +25,25 @@ const ProductsList = () => {
     }
   }, [isLoaded, dispatch, setisLoaded, setbuttonClass])
 
-  // useEffect onload
   useEffect(() => {
     dispatch(fetchInitialProducts())
   }, [])
 
-  useEffect(() => {
-    if (list.length > 0) {
-      setProducts(list)
-    }
-  }, [list])
-
-  // render
   return (
     <div className='productsList'>
-      {
-        !loading ? (
-          <Grid
-            container
-            spacing={3}
-          >
+      <Grid
+        container
+        spacing={3}
+      >
+        {
+          list.map(item => (
             <Product
-              products={products}
+              key={item._id}
+              item={item}
             />
-          </Grid>
-        ) : ''
-      }
+          ))
+        }
+      </Grid>
       <div className={`button_wrapper ${buttonClass}`}>
         <button type='button' onClick={loadmore}>
           {

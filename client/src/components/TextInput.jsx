@@ -4,16 +4,13 @@ import { styled } from '@mui/material/styles'
 
 export const Form = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
-    width: 250
-  },
-  [theme.breakpoints.up('sm')]: {
-    width: 350
+    width: '100%'
   },
   [theme.breakpoints.up('md')]: {
-    width: 480
+    width: 600
   },
   [theme.breakpoints.up('lg')]: {
-    width: 600
+    width: 700
   }
 }))
 

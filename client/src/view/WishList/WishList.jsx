@@ -7,7 +7,7 @@ import ImageArea from '../../components/ImageArea'
 import LinkHistory from '../../components/LinkHistory'
 import { getBreakpoint } from '../../module/getBreakpoint'
 import { getWindowSize } from '../../module/getWindowSize'
-import { removeIsLiked } from '../../redux/actions/detailActions'
+import { removeIsLiked } from '../../redux/actions/usersActions'
 import './wishlist.css'
 
 const linkdata = [

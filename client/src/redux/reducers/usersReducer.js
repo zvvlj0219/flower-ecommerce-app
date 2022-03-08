@@ -20,26 +20,22 @@ export const usersReducer = (state = initialState.users, action) => {
       return action.payload
     case actionsType.INIT_AUTH:
       return {
-        ...action.payload,
-        loading: false
+        ...action.payload
       }
     case actionsType.GUEST_INFO:
       return {
         ...state,
-        loading: false,
         information: action.payload
       }
     case actionsType.ORDER_CONFIRM_REQUEST:
       return {
         ...state,
-        isSignedIn: true,
-        loading: true
+        isSignedIn: true
       }
     case actionsType.ORDER_CONFIRM_SUCCESS:
       return {
         ...action.payload,
-        isSignedIn: true,
-        loading: false
+        isSignedIn: true
       }
     case actionsType.LOGOUT:
       return initialState.users

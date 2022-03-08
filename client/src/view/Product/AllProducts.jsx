@@ -1,10 +1,15 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Grid from '@mui/material/Grid'
-import { Link } from 'react-router-dom'
 import { fetchAllProducts } from '../../redux/actions/productActions'
-import Product from './Product'
+import LinkHistory from '../../components/LinkHistory'
+import Product from '../../components/Product'
 import './allproducts.css'
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: '商品一覧', path: '/all-products' }
+]
 
 const AllProducts = () => {
   const dispatch = useDispatch()
@@ -17,37 +22,26 @@ const AllProducts = () => {
 
   return (
     <div className='allproducts_container'>
-      <div className='link_wrapper'>
-        <p>
-          <Link
-            to='/'
-          >
-            ホーム
-          </Link>
-          <span>&rang;</span>
-          <Link
-            to='/all-products'
-          >
-            商品一覧
-          </Link>
-        </p>
+      <LinkHistory linkdata={linkdata} />
+      <div className='products_wrapper'>
+        <Grid
+          container
+          spacing={3}
+        >
+          {
+            allproducts.length > 0 ? (
+              allproducts.map(item => (
+                <Product
+                  item={item}
+                  key={item._id}
+                />
+              ))
+            ) : (
+              <h3>Loading ...</h3>
+            )
+          }
+        </Grid>
       </div>
-      {
-        allproducts.length > 0 ? (
-          <div className='products_wrapper'>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Product
-                products={allproducts}
-              />
-            </Grid>
-          </div>
-        ) : (
-          <p>Loading ...</p>
-        )
-      }
     </div>
   )
 }

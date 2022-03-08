@@ -4,13 +4,7 @@ const initialState = {
     list: [],
     error: null
   },
-  productDetail: {
-    loading: true,
-    detail: {},
-    error: null
-  },
   users: {
-    loading: true,
     _id: null,
     email: null,
     username: null,

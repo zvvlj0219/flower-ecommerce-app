@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
 import { useRef, useState } from 'react'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
-// import Swiper core and required modules
 import { Navigation, Pagination, A11y, Virtual, Autoplay } from 'swiper'
-
 import { Swiper, SwiperSlide } from 'swiper/react'
+
+import ProductNextArrow from '../../components/ProductNextArrow'
+import ProductPrevArrow from '../../components/ProductPrevArrow'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -28,10 +27,6 @@ const slideStyle = {
   height: '300px',
   display: 'block',
   margin: '0 auto'
-}
-
-const sx = {
-  fontSize: 60
 }
 
 const ProductSlider = ({ imageData }) => {
@@ -86,24 +81,8 @@ const ProductSlider = ({ imageData }) => {
             ))
           }
         </div>
-        <div id='productSlider_prevArrow'>
-          <button
-            type='button'
-            ref={prevRef}
-            style={arrowStyle}
-          >
-            <ArrowBackIosNewIcon sx={sx} />
-          </button>
-        </div>
-        <div id='productSlider_nextArrow'>
-          <button
-            type='button'
-            ref={nextRef}
-            style={arrowStyle}
-          >
-            <ArrowForwardIosIcon sx={sx} />
-          </button>
-        </div>
+        <ProductNextArrow ref={nextRef} arrowStyle={arrowStyle} />
+        <ProductPrevArrow ref={prevRef} arrowStyle={arrowStyle} />
       </Swiper>
     </div>
   )
