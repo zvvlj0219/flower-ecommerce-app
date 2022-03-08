@@ -1,0 +1,103 @@
+.uploadproduct-container .form_container {
+  margin: 0 auto;
+}
+
+.uploadproduct-container .name_wrapper > p,
+.uploadproduct-container .description_wrapper> p,
+.uploadproduct-container .price_wrapper> p,
+.uploadproduct-container .stock_wrapper> p {
+  width: 150px;
+}
+.uploadproduct-container .name_wrapper,
+.uploadproduct-container .description_wrapper,
+.uploadproduct-container .price_wrapper,
+.uploadproduct-container .stock_wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.uploadproduct-container .preview_image {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.uploadproduct-container .preview_image > div {
+  border-radius: 10px;
+  border: 2px solid lightpink;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.uploadproduct-container .preview_image img {
+  border-radius: 9px;
+}
+
+.uploadproduct-container .preview_image button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  color: lightgray;
+}
+.uploadproduct-container .preview_image button:hover {
+  opacity: 0.7;
+}
+
+.uploadproduct-container .uplaoad_image {
+  width: 300px;
+  margin: 30px auto 10px 10px;
+  display: flex;
+}
+
+.uploadproduct-container .uplaoad_image .image_counts{
+  align-self: center;
+}
+
+.uploadproduct-container .uplaoad_image label {
+  padding: 10px 20px;
+}
+
+.uploadproduct-container .uplaoad_image label:hover {
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.uploadproduct-container .button_wrapper button {
+  padding: 10px 30px;
+  border: 2px solid rgb(66, 165, 245);
+  border-radius: 5px;
+  background-color: rgb(66, 165, 245, 0.7);
+  margin: 0 auto;
+  width: auto;
+  display: block;
+}
+
+@media (max-width:900px) {
+  .uploadproduct-container .name_wrapper,
+  .uploadproduct-container .description_wrapper,
+  .uploadproduct-container .price_wrapper,
+  .uploadproduct-container .stock_wrapper {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .uploadproduct-container .form_container{
+    width:70%;
+  }  
+}
+@media (min-width: 900px) {
+  .uploadproduct-container .form_container{
+    width:750px;
+  }  
+}

@@ -28,6 +28,7 @@ module.exports = {
     'no-param-reassign': ["error", { "props": false }],
     'arrow-body-style':'off',
     'no-array-index-key': 0,
+    'consistent-return': 'off',
     'import/no-unresolved': 'off',
     'arrow-parens': ['error', 'as-needed'],
     'object-curly-newline':'off',

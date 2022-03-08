@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-const NextArrow = ({ className, onClick }) => {
+const MainNextArrow = ({ className, onClick }) => {
   return (
     <button
       type='button'
@@ -13,14 +13,14 @@ const NextArrow = ({ className, onClick }) => {
   )
 }
 
-NextArrow.defaultProps = {
+MainNextArrow.defaultProps = {
   className: '',
   onClick: null
 }
 
-NextArrow.propTypes = {
+MainNextArrow.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func
 }
 
-export default NextArrow
+export default MainNextArrow

@@ -13,8 +13,8 @@ import kh3 from '../../assets/kh3.jpg'
 import venis from '../../assets/venis.jpg'
 
 // arrow components
-import NextArrow from '../../components/NextArrow'
-import PrevArrow from '../../components/PrevArrow'
+import MainNextArrow from '../../components/MainNextArrow'
+import MainPrevArrow from '../../components/MainPrevArrow'
 
 const imageBox = [
   { num: 1, image: kh3 },
@@ -43,8 +43,8 @@ const MainSlider = () => {
     slidesToShow: 1,
     arrow: true,
     dots: true,
-    nextArrow: <NextArrow className='nextArrow' onClick={() => Slider.slickNext()} />,
-    prevArrow: <PrevArrow className='prevArrow' onClick={() => Slider.slickPrev()} />
+    nextArrow: <MainNextArrow className='nextArrow' onClick={() => Slider.slickNext()} />,
+    prevArrow: <MainPrevArrow className='prevArrow' onClick={() => Slider.slickPrev()} />
   }
 
   return (

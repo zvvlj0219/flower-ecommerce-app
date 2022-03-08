@@ -1,7 +1,15 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import { Divider } from '@mui/material'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import Typography from '@mui/material/Typography'
 import { Form, TextInput } from '../../components/TextInput'
 import LinkHistory from '../../components/LinkHistory'
 import { uploadProductToServer } from '../../redux/actions/productActions'
+import { getBreakpoint } from '../../module/getBreakpoint'
+import { getWindowSize } from '../../module/getWindowSize'
 import './uploadproduct.css'
 
 const linkdata = [
@@ -13,7 +21,56 @@ const setting = {
   multiline: true
 }
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 300,
+  height: 100,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+}
+
+const imageStyle = () => {
+  const bp = getBreakpoint()
+
+  switch (bp) {
+    case 'xxs':
+      return {
+        width: '30px',
+        height: '30px'
+      }
+    case 'xs':
+      return {
+        width: '50px',
+        height: '50px'
+      }
+    case 'small':
+    case 'medium':
+      return {
+        width: '120px',
+        height: '120px'
+      }
+    case 'large':
+    case 'xl':
+      return {
+        width: '200px',
+        height: '200px'
+      }
+    default:
+      return {
+        width: '80px',
+        height: '80px'
+      }
+  }
+}
+
 const UploadProduct = () => {
+  const history = useHistory()
+
   const [productName, setProductName] = useState('')
   const [productDescription, setProductDescription] = useState('')
   const [productPrice, setProductPrice] = useState('')
@@ -22,8 +79,21 @@ const UploadProduct = () => {
   const [fileList, setfileList] = useState({})
   const [previewSrc, setPreviewSrc] = useState([])
 
+  const [modalState, setModalState] = useState(false)
+  const [modalText, setModalText] = useState(
+    '商品が出品されました。\r\nホーム画面に戻ります。'
+  )
+
+  const handleModalOpen = useCallback(() => {
+    setModalState(true)
+  })
+  const handleModalClose = useCallback(() => {
+    setModalState(false)
+    history.push('/')
+  })
+
   const uploadProduct = () => {
-    uploadProductToServer({
+    const res = uploadProductToServer({
       name: productName,
       description: productDescription,
       price: productPrice,
@@ -31,7 +101,25 @@ const UploadProduct = () => {
       imageUrl: imageData,
       fileList
     })
+
+    console.log(res)
+
+    if (res) {
+      handleModalOpen()
+    } else {
+      setModalText('処理に失敗しました。\r\nもう一度やり直してください。')
+      handleModalOpen()
+    }
   }
+
+  const { width: windowWidth } = getWindowSize()
+  const [imageState, setImageState] = useState(imageStyle())
+
+  const imageAreaStyle = imageStyle()
+
+  useEffect(() => {
+    setImageState(imageAreaStyle)
+  }, [windowWidth])
 
   const handleProductName = useCallback(value => {
     setProductName(value)
@@ -89,10 +177,19 @@ const UploadProduct = () => {
     setPreviewSrc(refreshedState)
   }, [previewSrc])
 
-  // `${process.env.PUBLIC_URL}/image/sofia.png`
-
   return (
     <div className='uploadproduct-container'>
+      <Modal
+        open={modalState}
+        onClose={handleModalClose}
+        aria-labelledby='modal-modal-title'
+      >
+        <Box sx={modalStyle} onClose={handleModalClose}>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            { modalText }
+          </Typography>
+        </Box>
+      </Modal>
       <LinkHistory linkdata={linkdata} />
       <div className='form_container'>
         <div className='name_wrapper'>
@@ -148,62 +245,63 @@ const UploadProduct = () => {
             />
           </Form>
         </div>
-      </div>
-      <hr />
-      <label htmlFor='upload-button'>
-        画像を選択する
-        <input
-          type='file'
-          id='upload-button'
-          name='upload-input-name'
-          multiple
-          onChange={e => handleImageFile(e)}
-          style={{
-            display: 'none'
-          }}
-        />
-      </label>
-      <hr />
-      <div className='preview_image'>
-        {
-          previewSrc.length > 0 && (
-            <div>
-              <p>preview</p>
-              {
-                previewSrc.map(src => (
-                  <div key={src}>
-                    <img
-                      src={src}
-                      alt=''
-                      style={{
-                        width: '300px',
-                        height: '300px'
-                      }}
-                    />
-                    <button
-                      type='button'
-                      onClick={() => removeImage(src)}
-                      style={{
-                        display: 'block',
-                        marginLeft: '20px'
-                      }}
-                    >
-                      delete
-                    </button>
-                  </div>
-                ))
-              }
-            </div>
-          )
-        }
-      </div>
-      <div className='button_wrapper'>
-        <button
-          type='button'
-          onClick={() => uploadProduct()}
-        >
-          商品を登録する
-        </button>
+        <div className='uplaoad_image'>
+          <label htmlFor='upload-button'>
+            <span>画像を選択する</span>
+            <AddPhotoAlternateIcon color='primary' />
+            <input
+              type='file'
+              id='upload-button'
+              name='upload-input-name'
+              multiple
+              onChange={e => handleImageFile(e)}
+              style={{
+                display: 'none'
+              }}
+            />
+          </label>
+          <p className='image_counts'>
+            {
+              previewSrc.length < 4 && (
+                `（あと${4 - (previewSrc.length)}枚まで）`
+              )
+            }
+          </p>
+        </div>
+        <Divider />
+        <div className='preview_image'>
+          {
+            previewSrc.length > 0 && (
+              previewSrc.map(src => (
+                <div key={`${src}_t_${Date.now()}`} style={imageState}>
+                  <img
+                    src={src}
+                    alt=''
+                    style={imageState}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => removeImage(src)}
+                    style={{
+                      display: 'block',
+                      marginLeft: '20px'
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))
+            )
+          }
+        </div>
+        <div className='button_wrapper'>
+          <button
+            type='button'
+            onClick={() => uploadProduct()}
+          >
+            商品を登録する
+          </button>
+        </div>
       </div>
     </div>
   )
