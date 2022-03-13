@@ -6,9 +6,15 @@ import initialState from '../../store/initialState'
 export const usersReducer = (state = initialState.users, action) => {
   switch (action.type) {
     case actionsType.SIGN_IN:
-      return action.payload
+      return {
+        ...action.payload,
+        isSignedIn: true
+      }
     case actionsType.LISTEN_AUTH:
-      return action.payload
+      return {
+        ...action.payload,
+        isSignedIn: true
+      }
     case actionsType.LISTEN_AUTH_REQUEST:
       return {
         ...state,
@@ -33,6 +39,11 @@ export const usersReducer = (state = initialState.users, action) => {
         isSignedIn: true
       }
     case actionsType.ORDER_CONFIRM_SUCCESS:
+      return {
+        ...action.payload,
+        isSignedIn: true
+      }
+    case actionsType.EDIT_ACCOUNT:
       return {
         ...action.payload,
         isSignedIn: true

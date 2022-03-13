@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import { Form, TextInput } from '../../components/TextInput'
 import LinkHistory from '../../components/LinkHistory'
-import { uploadProductToServer } from '../../redux/actions/productActions'
+import * as api from '../../api/index'
 import { getBreakpoint } from '../../module/getBreakpoint'
 import { getWindowSize } from '../../module/getWindowSize'
 import './uploadproduct.css'
@@ -78,8 +78,8 @@ const UploadProduct = () => {
   const [imageData, setImageData] = useState([])
   const [fileList, setfileList] = useState({})
   const [previewSrc, setPreviewSrc] = useState([])
-
   const [modalState, setModalState] = useState(false)
+  const [redirectPath, setRedirectPath] = useState('/')
   const [modalText, setModalText] = useState(
     '商品が出品されました。\r\nホーム画面に戻ります。'
   )
@@ -89,25 +89,38 @@ const UploadProduct = () => {
   })
   const handleModalClose = useCallback(() => {
     setModalState(false)
-    history.push('/')
+    history.push(redirectPath)
   })
 
-  const uploadProduct = () => {
-    const res = uploadProductToServer({
+  const uploadProduct = async () => {
+    if (!fileList) return
+
+    const productData = {
       name: productName,
       description: productDescription,
       price: productPrice,
       countInStock: productStock,
       imageUrl: imageData,
       fileList
-    })
+    }
 
-    console.log(res)
+    try {
+      const formData = new FormData()
 
-    if (res) {
+      for (let i = 0; i < fileList.length; i += 1) {
+        formData.append('upload-input-name', fileList[i])
+      }
+
+      api.uploadImageToServer(formData)
+
+      await api.uploadProduct(productData)
+
       handleModalOpen()
-    } else {
-      setModalText('処理に失敗しました。\r\nもう一度やり直してください。')
+    } catch (error) {
+      setRedirectPath('/upload-product')
+      setModalText(
+        '処理に失敗しました。\r\nもう一度やり直してください。'
+      )
       handleModalOpen()
     }
   }

@@ -3,18 +3,13 @@ import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
 import initialState from '../../store/initialState'
 import Merge from '../../module/takeover'
-import CalcCart from '../../module/calcCart'
-import CalcIsLiked from '../../module/calcIsLiked'
 
 export const listenAuth = (history, pathname = '/') => async dispatch => {
   try {
     const token = JSON.parse(localStorage.getItem('profile'))
 
     dispatch({
-      type: actionsType.LISTEN_AUTH_REQUEST,
-      payload: {
-        isSignedIn: true
-      }
+      type: actionsType.LISTEN_AUTH_REQUEST
     })
 
     const { email, _id } = jwtDecode(token)
@@ -23,10 +18,7 @@ export const listenAuth = (history, pathname = '/') => async dispatch => {
 
     dispatch({
       type: actionsType.LISTEN_AUTH,
-      payload: {
-        ...data.user,
-        isSignedIn: true
-      }
+      payload: data.user
     })
 
     history.push(pathname)
@@ -89,20 +81,14 @@ export const signIn = (form, history) => async dispatch => {
 
       dispatch({
         type: actionsType.SIGN_IN,
-        payload: {
-          ...mergedData.user,
-          isSignedIn: true
-        }
+        payload: mergedData.user
       })
 
       localStorage.removeItem('guestProfile')
     } else {
       dispatch({
         type: actionsType.SIGN_IN,
-        payload: {
-          ...data.user,
-          isSignedIn: true
-        }
+        payload: data.user
       })
     }
 
@@ -146,27 +132,6 @@ export const guestInfo = (client, address) => async (dispatch, getState) => {
   })
 }
 
-export const orderConfirm = history => async (dispatch, getState) => {
-  try {
-    dispatch({ type: actionsType.ORDER_CONFIRM_REQUEST })
-
-    const { users } = getState()
-    const { _id, cart } = users
-
-    const { data } = await api.orderConfirm(_id, cart)
-
-    dispatch({
-      type: actionsType.ORDER_CONFIRM_SUCCESS,
-      payload: data.user
-    })
-
-    history.push('/order/complete')
-  } catch (err) {
-    history.push('/cart')
-    alert('処理に失敗しました')
-  }
-}
-
 export const logout = history => async dispatch => {
   dispatch({
     type: actionsType.LOGOUT
@@ -179,202 +144,13 @@ export const logout = history => async dispatch => {
   history.push('/')
 }
 
-// detail
+export const editAccount = (form, history) => async dispatch => {
+  const { data } = await api.editAccount(form)
 
-export const addIsLiked = detail => async (dispatch, getState) => {
-  try {
-    const { users } = getState()
+  dispatch({
+    type: actionsType.EDIT_ACCOUNT,
+    payload: data.user
+  })
 
-    if (users.isSignedIn) {
-      const calc = new CalcIsLiked(users.wishlist, detail)
-
-      const updatedWishlist = calc.addToWishlist()
-
-      console.log(updatedWishlist)
-
-      const { data } = await api.updateWishlist(users._id, updatedWishlist)
-
-      dispatch({
-        type: actionsType.UPDATE_WISHLIST,
-        payload: {
-          ...data.user,
-          isSignedIn: true
-        }
-      })
-    } else {
-      const { wishlist } = users
-
-      const calc = new CalcIsLiked(wishlist, detail)
-
-      const updatedData = {
-        ...users,
-        wishlist: calc.addToWishlist()
-      }
-
-      dispatch({
-        type: actionsType.UPDATE_WISHLIST,
-        payload: updatedData
-      })
-
-      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export const removeIsLiked = detail => async (dispatch, getState) => {
-  try {
-    const { users } = getState()
-
-    if (users.isSignedIn) {
-      const calc = new CalcIsLiked(users.wishlist, detail)
-
-      const updateWishlist = calc.removeFromWishlist()
-
-      const { data } = await api.updateWishlist(users._id, updateWishlist)
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: {
-          ...data.user,
-          isSignedIn: true
-        }
-      })
-    } else {
-      const { wishlist } = users
-
-      const calc = new CalcIsLiked(wishlist, detail)
-
-      const updatedData = {
-        ...users,
-        wishlist: calc.removeFromWishlist()
-      }
-
-      dispatch({
-        type: actionsType.UPDATE_WISHLIST,
-        payload: updatedData
-      })
-
-      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export const addIsCartIn = detail => async (dispatch, getState) => {
-  try {
-    const { users } = getState()
-
-    if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, detail)
-
-      const updatedCart = calc.addToCart()
-
-      const { data } = await api.updateCart(users._id, updatedCart)
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: {
-          ...data.user,
-          isSignedIn: true
-        }
-      })
-    } else {
-      const { cart } = users
-
-      const calc = new CalcCart(cart, detail)
-
-      const updatedData = {
-        ...users,
-        cart: calc.addToCart()
-      }
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: updatedData
-      })
-
-      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export const removeIsCartIn = detail => async (dispatch, getState) => {
-  try {
-    const { users } = getState()
-
-    if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, detail)
-
-      const updatedCart = calc.removeFromCart()
-
-      const { data } = await api.updateCart(users._id, updatedCart)
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: {
-          ...data.user,
-          isSignedIn: true
-        }
-      })
-    } else {
-      const { cart } = users
-
-      const calc = new CalcCart(cart, detail)
-
-      const updatedData = {
-        ...users,
-        cart: calc.removeFromCart()
-      }
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: updatedData
-      })
-
-      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export const deleteIsCartIn = detail => async (dispatch, getState) => {
-  try {
-    const { users } = getState()
-
-    if (users.isSignedIn) {
-      const calc = new CalcCart(users.cart, detail)
-
-      const updatedCart = calc.deleteFromCart()
-
-      const { data } = await api.updateCart(users._id, updatedCart)
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: data.user
-      })
-    } else {
-      const { cart } = users
-      const calc = new CalcCart(cart, detail)
-
-      const updatedData = {
-        ...users,
-        cart: calc.deleteFromCart()
-      }
-
-      dispatch({
-        type: actionsType.UPDATE_CART,
-        payload: updatedData
-      })
-
-      localStorage.setItem('guestProfile', JSON.stringify(updatedData))
-    }
-  } catch (error) {
-    console.log(error)
-  }
+  history.push('/account-service')
 }

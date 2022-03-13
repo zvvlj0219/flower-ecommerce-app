@@ -13,6 +13,7 @@ export const INIT_AUTH = 'INIT_AUTH'
 export const GUEST_INFO = 'GUEST_INFO'
 export const SIGN_IN = 'SIGN_IN'
 export const LOGOUT = 'LOGOUT'
+export const EDIT_ACCOUNT = 'EDIT_ACCOUNT'
 
 // order in usersReducers
 export const ORDER_CONFIRM_REQUEST = 'ORDER_CONFIRM_REQUEST'

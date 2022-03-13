@@ -29,7 +29,7 @@ app.use('/api', productRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/wishlist', wishlistRoute)
 app.use('/api/cart', cartRoute)
-app.use('/api/account', accountRoute)
+app.use('/api/account-service', accountRoute)
 
 //handle production
 
