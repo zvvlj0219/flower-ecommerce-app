@@ -12,7 +12,7 @@ const listenAuth = async (req, res) => {
 
   try {
     const existedUser = await Auth.findOne({ email, _id })
-    .select(['_id','email','username','cart','wishlist','information'])
+    .select(['_id','email','username','cart','wishlist','information', 'order'])
 
     if (!existedUser) {
       res.status(404).json({ message: 'no exist' })

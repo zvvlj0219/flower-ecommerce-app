@@ -16,6 +16,9 @@ import Register from './view/Auth/Register'
 import Order from './view/Order/Order'
 import GuestOrderInfo from './view/Order/GuestOrderInfo'
 import OrderComplete from './view/Order/OrderComplete'
+import AccountService from './view/Account/AccountService'
+import EditAccount from './view/Account/EditAccount'
+import OrderHistory from './view/Account/OrderHistory'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -45,6 +48,9 @@ const App = () => {
         <Route exact path='/order/complete' component={OrderComplete} />
         <Route exact path='/auth/signin' component={SignIn} />
         <Route exact path='/auth/register' component={Register} />
+        <Route exact path='/account-service' component={AccountService} />
+        <Route exact path='/account-service/edit-account' component={EditAccount} />
+        <Route exact path='/account-service/order-history' component={OrderHistory} />
       </Switch>
       <hr />
       <div>フッター</div>

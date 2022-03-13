@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const { updateInfo } = require('../../controller/accountController')
+const { editAccount } = require('../../controller/accountController')
 
 const { verifyToken } = require('../../middleware/verifyToken')
 
-router.put('/account/updateInfo', verifyToken, updateInfo)
+router.put('/edit-account', verifyToken, editAccount)
 
 module.exports = router

@@ -6,16 +6,15 @@ const initialState = {
   },
   users: {
     _id: null,
-    email: null,
-    username: null,
+    email: '',
+    username: '',
     isSignedIn: false,
     cart: [],
     wishlist: [],
     order: [],
     information: {
       client: '',
-      address: '',
-      payment: []
+      address: ''
     }
   }
 }

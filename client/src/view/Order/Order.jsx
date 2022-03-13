@@ -7,7 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Divider from '@mui/material/Divider'
 import ImageArea from '../../components/ImageArea'
 import LinkHistory from '../../components/LinkHistory'
-import { orderConfirm, addIsCartIn, removeIsCartIn, deleteIsCartIn} from '../../redux/actions/usersActions'
+import { addIsCartIn, removeIsCartIn, deleteIsCartIn } from '../../redux/actions/cartActions'
+import { orderConfirm } from '../../redux/actions/orderActions'
 import { getSubtotal } from '../../module/getSubtotal'
 import { getBreakpoint } from '../../module/getBreakpoint'
 import { getWindowSize } from '../../module/getWindowSize'
@@ -186,12 +187,12 @@ const Order = () => {
         </div>
         <div>
           <div>送料</div>
-          <div>{`${Math.floor(subTotal * 0.3)}円`}</div>
+          <div>1000円</div>
         </div>
         <Divider />
         <div>
           <div>合計</div>
-          <div>{`${subTotal + Math.floor(subTotal * 0.1) + Math.floor(subTotal * 0.3)}円`}</div>
+          <div>{`${subTotal + Math.floor(subTotal * 0.1) + 1000}円`}</div>
         </div>
       </div>
       <div className='orderConfirm'>

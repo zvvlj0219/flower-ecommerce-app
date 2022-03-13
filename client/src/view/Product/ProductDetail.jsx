@@ -7,7 +7,8 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
 import * as api from '../../api/index'
 import LinkHistory from '../../components/LinkHistory'
 import './productDetail.css'
-import { addIsLiked, removeIsLiked, addIsCartIn } from '../../redux/actions/usersActions'
+import { addIsLiked, removeIsLiked } from '../../redux/actions/wishlistActions'
+import { addIsCartIn } from '../../redux/actions/cartActions'
 import ProductSlider from '../Slider/ProductSlider'
 
 const ProductDetail = () => {

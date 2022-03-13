@@ -11,4 +11,4 @@ export { fetchWishlist, updateWishlist } from './wishlist/wishlist'
 export { updateCart, orderConfirm } from './cart/cart'
 
 // account
-export { updateInfo } from './account/account'
+export { editAccount } from './account/account'
