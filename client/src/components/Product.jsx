@@ -8,13 +8,13 @@ import { CardActionArea } from '@mui/material'
 import ImageArea from './ImageArea'
 
 const imgStyle = {
-  width: '160px',
-  height: '160px',
+  width: '90%',
+  height: 'auto',
   display: 'block',
   margin: '10px auto'
 }
 
-const Product = ({ item }) => {
+const Product = ({ item, isPrice }) => {
   const history = useHistory()
 
   const productPage = (name, id) => {
@@ -39,12 +39,35 @@ const Product = ({ item }) => {
             />
           </CardMedia>
           <CardContent>
-            <h3>{item.name}</h3>
-            <p className='price_wrapper'>
-              <span>価格:</span>
-              <span className='price'>{item.price}</span>
-              <span>円（税込）</span>
-            </p>
+            <h3 style={{ marginLeft: '30px' }}>{item.name}</h3>
+            {
+              isPrice && (
+                <p className='price_wrapper'>
+                  <span
+                    style={{
+                      color: 'dimgray'
+                    }}
+                  >
+                    価格:
+                  </span>
+                  <span
+                    className='price'
+                    style={{
+                      color: 'red'
+                    }}
+                  >
+                    {item.price}
+                  </span>
+                  <span
+                    style={{
+                      color: 'red'
+                    }}
+                  >
+                    円（税込）
+                  </span>
+                </p>
+              )
+            }
           </CardContent>
         </CardActionArea>
       </Card>
@@ -53,7 +76,8 @@ const Product = ({ item }) => {
 }
 
 Product.defaultProps = {
-  item: {}
+  item: {},
+  isPrice: true
 }
 
 Product.propTypes = {
@@ -67,7 +91,8 @@ Product.propTypes = {
     updatedAt: PropTypes.string,
     __v: PropTypes.number,
     _id: PropTypes.string
-  })
+  }),
+  isPrice: PropTypes.bool
 }
 
 export default Product

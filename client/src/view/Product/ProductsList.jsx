@@ -40,6 +40,7 @@ const ProductsList = () => {
             <Product
               key={item._id}
               item={item}
+              isPrice={false}
             />
           ))
         }

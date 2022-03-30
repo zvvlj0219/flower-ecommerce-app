@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import ImageArea from './ImageArea'
 
-const OrderItem = ({ orderItem }) => {
+const OrderItem = ({ orderItem, style }) => {
   return (
     <>
       {
@@ -10,15 +10,10 @@ const OrderItem = ({ orderItem }) => {
             key={item._id}
             className='order_item'
           >
-            <p>{item.name}</p>
+            <p className='item_name'>{item.name}</p>
             <ImageArea
               path={item.imageUrl[0]}
-              style={{
-                display: 'block',
-                margin: '10px',
-                width: '50px',
-                height: '50px'
-              }}
+              style={style}
               className='productImage'
             />
           </div>
@@ -29,11 +24,13 @@ const OrderItem = ({ orderItem }) => {
 }
 
 OrderItem.defaultProps = {
-  orderItem: []
+  orderItem: [],
+  style: {}
 }
 
 OrderItem.propTypes = {
-  orderItem: PropTypes.arrayOf(PropTypes.object)
+  orderItem: PropTypes.arrayOf(PropTypes.object),
+  style: PropTypes.objectOf(PropTypes.string)
 }
 
 export default OrderItem

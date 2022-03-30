@@ -1,0 +1,60 @@
+.order_history h1 {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.order_history .order_wrapper {
+  border: 2px solid darkgray;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.order_wrapper .order_date {
+  font-size: 1.5rem;
+  margin-left: 20px;
+}
+
+.order_item {
+  margin-left: 40px;
+  margin-bottom: 30px;
+}
+
+.order_item .item_name {
+  font-size: 1rem;
+  color: rgb(0, 95, 95);
+}
+
+.order_history button {
+  display: block;
+  padding: 10px 40px;
+  margin: 0 auto;
+  background-color: #42a5f5;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 2px 3px 0 rgba(146, 146, 146, 0.5);
+}
+
+
+@media (max-width:300px) {
+  .order_history .order_wrapper {
+    width: 250px;
+  }  
+}
+
+@media (min-width:300px) {
+  .order_history .order_wrapper {
+    width: 75%;
+  }  
+}
+
+@media (min-width:600px) {
+  .order_history .order_wrapper {
+    width: 65%;
+  }  
+}
+
+@media (min-width:900px) {
+  .order_history .order_wrapper {
+    width: 600px;
+  }  
+}

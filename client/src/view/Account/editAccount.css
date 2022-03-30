@@ -1,0 +1,75 @@
+.edit_account .form_wrapper {
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.edit_account h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.edit_account .button_wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.edit_account .button_wrapper button {
+  display: block;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  box-shadow: 2px 2px 3px 0 rgba(146, 146, 146, 0.5);
+}
+
+.edit_account .button_wrapper button.save {
+  background-color: #42a5f5;
+}
+
+.edit_account .button_wrapper button.destroy {
+  background-color: rgb(255, 130, 150);
+}
+
+@media (max-width:300px) {
+  .edit_account .form_wrapper {
+    width: 250px;
+  }
+  .edit_account .button_wrapper {
+    width: 250px;
+  }
+}
+
+@media (min-width:300px) {
+  .edit_account .form_wrapper {
+    width: 75%;
+    padding: 20px;
+  }
+  .edit_account .button_wrapper {
+    width: 75%;
+    padding: 20px;
+  }
+
+}
+
+@media (min-width:600px) {
+  .edit_account .form_wrapper {
+    width: 65%;
+    padding: 30px 100px;
+  }
+  .edit_account .button_wrapper {
+    width: 65%;
+    padding: 20px 100px;
+  }
+}
+
+@media (min-width:900px) {
+  .edit_account .form_wrapper {
+    width: 650px;
+    padding: 30px 100px;
+  }
+  .edit_account .button_wrapper {
+    width: 500px;
+    padding: 20px 100px;
+  }
+}
