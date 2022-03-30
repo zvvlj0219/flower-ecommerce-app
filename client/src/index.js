@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import configureStore, { history } from './store/store'
 import App from './App'
-import './index.css'
+import './App.css'
 import reportWebVitals from './reportWebVitals'
 
 // store

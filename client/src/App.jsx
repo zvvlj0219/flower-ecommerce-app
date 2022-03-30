@@ -6,6 +6,7 @@ import { listenAuth, initAuth } from './redux/actions/usersActions'
 // view
 import Header from './view/Header/Header'
 import FirstView from './view/FirstView'
+import Footer from './view/Footer/Footer'
 import AllProducts from './view/Product/AllProducts'
 import ProductDetail from './view/Product/ProductDetail'
 import WishList from './view/WishList/WishList'
@@ -34,7 +35,7 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div className='app'>
       <Header />
       <Switch>
         <Route exact path='/' component={FirstView} />
@@ -52,8 +53,7 @@ const App = () => {
         <Route exact path='/account-service/edit-account' component={EditAccount} />
         <Route exact path='/account-service/order-history' component={OrderHistory} />
       </Switch>
-      <hr />
-      <div>フッター</div>
+      <Footer />
     </div>
   )
 }

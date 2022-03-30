@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import HeaderDrawer from './HeaderDrawer'
 import MenuWrapper from './MenuWrapper'
 import './header.css'
@@ -14,12 +15,11 @@ const Header = () => {
 
   const navLink = [
     { name: 'Home', path: '/' },
-    { name: 'Products', path: '/all-products' },
-    { name: 'information', path: '/' }
+    { name: 'Products', path: '/all-products' }
   ]
 
   return (
-    <div className='header flex'>
+    <div className='header'>
       <div className='title_logo'>
         <Link to='/'>
           Florist &nbsp;
@@ -37,9 +37,14 @@ const Header = () => {
               </li>
             ))
           }
+          <li>
+            <AnchorLink href='#garally'>
+              information
+            </AnchorLink>
+          </li>
         </ul>
       </nav>
-      <div className='menu_wrapper flex'>
+      <div className='menu_wrapper'>
         <MenuWrapper
           handleDrawer={e => handleDrawer(e, true)}
         />

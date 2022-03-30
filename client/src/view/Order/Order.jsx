@@ -104,7 +104,12 @@ const Order = () => {
           <span>受取人住所:</span>
           <p>{information.address}</p>
         </div>
-        <button type='button'>編集する</button>
+        <button
+          type='button'
+          onClick={() => history.push('/account-service/edit-account')}
+        >
+          編集する
+        </button>
       </div>
       <div className='item_container'>
         <h4 className='head'>カート内アイテム一覧</h4>

@@ -1,6 +1,5 @@
 .productDetail {
   width:95%;
-  height: auto;
   margin: 0 auto;
 }
 
@@ -184,6 +183,9 @@
 
 /* pc */
 @media (min-width:1000px) {
+  .productDetail {
+    height: 400px;
+  }
   .productDetail .grid {
     width:1000px;
     display: grid;

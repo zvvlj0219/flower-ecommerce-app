@@ -39,7 +39,14 @@ const Product = ({ item, isPrice }) => {
             />
           </CardMedia>
           <CardContent>
-            <h3 style={{ marginLeft: '30px' }}>{item.name}</h3>
+            <h3
+              style={{
+                fontSize: '1rem',
+                textAlign: 'center'
+              }}
+            >
+              {item.name}
+            </h3>
             {
               isPrice && (
                 <p className='price_wrapper'>

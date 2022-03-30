@@ -114,7 +114,7 @@ const Cart = () => {
           loading && ''
         }
         {
-          !loading && cart.length > 0 &&
+          !loading && cart.length > 0 ?
             cart.map(item => (
               <div key={item._id}>
                 <div className='item'>
@@ -173,12 +173,9 @@ const Cart = () => {
                 </div>
                 <Divider />
               </div>
-            ))
-        }
-        {
-          !loading && cart.length === 0 && (
-            <p>カート内にアイテムがありません</p>
-          )
+            )) : (
+              <p>カートに商品がありません</p>
+            )
         }
       </div>
       {

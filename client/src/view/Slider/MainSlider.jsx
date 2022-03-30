@@ -2,9 +2,6 @@
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
-// import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getWindowSize } from '../../module/getWindowSize'
 
 // import images & css
@@ -66,10 +63,11 @@ const MainSlider = () => {
               <div className='slide_image' style={imagesWrapper()}>
                 <img src={slide.image} style={imagesWrapper()} alt='' />
                 <div>
-                  <div>
-                    <h1>Meet your own special flower</h1>
-                    <Link to='/'><span>Shop now</span></Link>
-                  </div>
+                  <p>
+                    Floristが贈る
+                    <br />
+                    フラワーギフト
+                  </p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 /* header */
 .header {
+  display: flex;
   justify-content: space-between;
   height: 55px;
   width: 100%;
@@ -45,6 +46,7 @@
 
 /* menu */
 .header .menu_wrapper {
+  display: flex;
   align-items: center;
   margin:0 25px;
 }
