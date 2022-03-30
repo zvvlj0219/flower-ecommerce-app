@@ -3,6 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Form, TextInput } from '../../components/TextInput'
 import { editAccount } from '../../redux/actions/usersActions'
+import LinkHistory from '../../components/LinkHistory'
+import './editAccount.css'
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: 'アカウントサービス', path: '/account-service' },
+  { page: 'アカウント情報編集', path: '/account-service/edit-account' }
+]
 
 const EditAccount = () => {
   const history = useHistory()
@@ -53,8 +61,9 @@ const EditAccount = () => {
   }, [emailState, infoState, usernameState])
 
   return (
-    <div className='account_service'>
-      <h1>edit account</h1>
+    <div className='edit_account'>
+      <LinkHistory linkdata={linkdata} />
+      <h1>アカウント情報変更</h1>
       <div className='form_wrapper'>
         {
           emailState && infoState && usernameState ? (
@@ -108,10 +117,18 @@ const EditAccount = () => {
         }
       </div>
       <div className='button_wrapper'>
-        <button type='button' onClick={dispatchEditAccount}>
+        <button
+          type='button'
+          onClick={dispatchEditAccount}
+          className='save'
+        >
           保存する
         </button>
-        <button type='button' onClick={() => history.push('/account-service')}>
+        <button
+          type='button'
+          onClick={() => history.push('/account-service')}
+          className='destroy'
+        >
           変更を破棄する
         </button>
       </div>

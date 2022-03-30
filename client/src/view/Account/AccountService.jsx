@@ -1,5 +1,14 @@
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
+import LinkHistory from '../../components/LinkHistory'
+import './accountService.css'
+
+const linkdata = [
+  { page: 'ホーム', path: '/' },
+  { page: 'アカウントサービス', path: '/account-service' }
+]
 
 const AccountService = () => {
   const history = useHistory()
@@ -14,10 +23,40 @@ const AccountService = () => {
   }
 
   return (
-    <div>
-      <h1>account service</h1>
-      <button type='button' onClick={() => pushLink('/account-service/edit-account')}>edit account</button>
-      <button type='button' onClick={() => pushLink('/account-service/order-history')}>order history</button>
+    <div className='account_service'>
+      <LinkHistory linkdata={linkdata} />
+      <div className='button_wrapper'>
+        <button
+          type='button'
+          onClick={() => pushLink('/account-service/edit-account')}
+          className='edit'
+        >
+          <div className='content'>
+            <p>アカウント情報変更</p>
+            <ManageAccountsIcon
+              sx={{
+                fontSize: 120,
+                color: 'dimgray'
+              }}
+            />
+          </div>
+        </button>
+        <button
+          type='button'
+          onClick={() => pushLink('/account-service/order-history')}
+          className='history'
+        >
+          <div className='content'>
+            <p>注文履歴</p>
+            <LibraryBooksIcon
+              sx={{
+                fontSize: 120,
+                color: 'dimgray'
+              }}
+            />
+          </div>
+        </button>
+      </div>
     </div>
   )
 }

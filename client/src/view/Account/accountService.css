@@ -1,0 +1,88 @@
+.account_service .button_wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.account_service button.edit,
+.account_service button.history {
+  display: block;
+  border-radius: 10px;
+  margin-left:30px
+}
+
+.account_service button.edit {
+  background-color: rgba(115, 210, 255, 0.7);
+  border: 2px solid rgb(86, 147, 175);
+}
+
+.account_service button.history {
+  background-color: rgb(255, 230, 0, 0.8);
+  border: 2px solid orange;
+}
+
+.account_service button.edit p,
+.account_service button.history p {
+  color: rgb(77, 77, 77);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+@media (max-width:300px) {
+  .account_service .button_wrapper {
+    flex-direction: column;
+    width:80%;
+    align-items: center;
+  }
+  
+  .account_service button.edit,
+  .account_service button.history {
+    width: 200px;
+    height: 200px;
+    margin: 20px 0;
+  }
+}
+
+@media (min-width:300px) {
+  .account_service .button_wrapper {
+    flex-direction: column;
+    width:90%;
+    align-items: center;
+  }
+  
+  .account_service button.edit,
+  .account_service button.history {
+    width: 200px;
+    height: 200px;
+    margin: 20px 0;
+  }
+}
+
+@media (min-width:600px) {
+  .account_service .button_wrapper {
+    flex-direction: row;
+    justify-content: space-around;
+    width:70%;
+  }
+  
+  .account_service button.edit,
+  .account_service button.history {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (min-width:900px) {
+  .account_service .button_wrapper {
+    flex-direction: row;
+    justify-content: space-around;
+    width:700px;
+  }
+
+  .account_service button.edit,
+  .account_service button.history {
+    width: 200px;
+    height: 200px;
+  }
+}
