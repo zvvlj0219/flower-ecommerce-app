@@ -69,10 +69,10 @@
 
 .main_slider .slide_image > div {
   position: absolute;
-  bottom: 170px;
+  bottom: 100px;
   left:50px;
   font-family: 'Varela Round', sans-serif;
-  font-size: 20px;
+  font-size: 1.2rem;
   color: rgb(255, 0, 234);
 }
 
@@ -90,9 +90,9 @@
 
 @media (max-width:600px) {
   .main_slider .slide_image > div {
-    bottom: 50px;
+    bottom: 20px;
     left:50px;
-    font-size: 12px;
+    font-size: 1rem;
   }
 
   .main_slider .slide_image  span {
@@ -114,7 +114,7 @@
   .main_slider .slide_image > div {
     bottom: 70px;
     left:30px;
-    font-size: 15px;
+    font-size: 1rem;
   }
 
   .main_slider .slide_image  span {
@@ -130,7 +130,7 @@
   .main_slider .slide_image > div {
     bottom: 120px;
     left:70px;
-    font-size: 18px;
+    font-size: 2rem;
   }
 
   .main_slider .slide_image  span {
@@ -170,7 +170,7 @@
   .main_slider .slide_image > div {
     bottom: 130px;
     left:90px;
-    font-size: 18px;
+    font-size: 2rem;
     position: absolute;
   }
 

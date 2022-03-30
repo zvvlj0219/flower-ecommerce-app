@@ -11,6 +11,8 @@ import Product from '../../components/Product'
 const ProductsList = () => {
   const dispatch = useDispatch()
 
+  console.log(useSelector(state => state.users))
+
   const [buttonClass, setbuttonClass] = useState()
   const [isLoaded, setisLoaded] = useState(false)
 
