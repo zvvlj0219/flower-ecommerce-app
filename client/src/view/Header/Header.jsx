@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import HeaderDrawer from './HeaderDrawer'
 import MenuWrapper from './MenuWrapper'
 import './header.css'
 
 const Header = () => {
+  const { pathname } = useLocation()
   const [sidebarOpen, setsidebarOpen] = useState(false)
 
   const handleDrawer = useCallback((event, isOpne) => {
@@ -37,11 +38,21 @@ const Header = () => {
               </li>
             ))
           }
-          <li>
-            <AnchorLink href='#garally'>
-              information
-            </AnchorLink>
-          </li>
+          {
+            pathname === '/' ? (
+              <li>
+                <AnchorLink href='#garally'>
+                  information
+                </AnchorLink>
+              </li>
+            ) : (
+              <li>
+                <Link to='/'>
+                  information
+                </Link>
+              </li>
+            )
+          }
         </ul>
       </nav>
       <div className='menu_wrapper'>

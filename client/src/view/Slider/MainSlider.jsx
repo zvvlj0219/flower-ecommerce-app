@@ -6,16 +6,18 @@ import { getWindowSize } from '../../module/getWindowSize'
 
 // import images & css
 import './main_slider.css'
-import kh3 from '../../assets/kh3.jpg'
-import venis from '../../assets/venis.jpg'
+import ms1 from '../../assets/ms/ms_1.jpg'
+import ms2 from '../../assets/ms/ms_2.jpg'
+import ms3 from '../../assets/ms/ms_3.jpg'
 
 // arrow components
 import MainNextArrow from '../../components/MainNextArrow'
 import MainPrevArrow from '../../components/MainPrevArrow'
 
 const imageBox = [
-  { num: 1, image: kh3 },
-  { num: 2, image: venis }
+  { num: 1, image: ms1 },
+  { num: 2, image: ms2 },
+  { num: 2, image: ms3 }
 ]
 
 const MainSlider = () => {
