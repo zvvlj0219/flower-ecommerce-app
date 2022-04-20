@@ -30,7 +30,7 @@ const orderConfirm = async (req, res) => {
       const updatedStock = countInStock - cartItem.qty
 
       if (updatedStock < 0) {
-        throw new Error({ message: 'no exist in stock' })
+        return res.status(400).send({ message: 'stock error'})
       }
 
       await Product.findByIdAndUpdate(
@@ -45,22 +45,30 @@ const orderConfirm = async (req, res) => {
       orderDate: new Date()
     })
 
-    const user = await Auth.findByIdAndUpdate(
-      userId,
-      { 
-        cart: [],
-        $push: {
-          order: orderHistory
-        }
-      },
-      { returnDocument : 'after'}
-    )
-    .select(['_id','email','username','cart','wishlist','information'])
+    let user = {}
+  
+    if (userId) {
+      user = await Auth.findByIdAndUpdate(
+        userId,
+        { 
+          cart: [],
+          $push: {
+            order: orderHistory
+          }
+        },
+        { returnDocument : 'after'}
+      )
+      .select(['_id','email','username','cart','wishlist','information'])
+    } else {
+      user = {
+        _id: null,
+        cart: []
+      }
+    }
 
     res.status(200).json({ user })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 

@@ -30,8 +30,7 @@ const HeaderDrawer = ({ open, onClose }) => {
     { linkname: 'ホーム', path: '/' },
     { linkname: '商品一覧', path: '/all-products' },
     { linkname: 'いいね!した商品', path: '/wishlist' },
-    { linkname: 'カート', path: '/cart' },
-    { linkname: '出品する', path: '/upload-product' }
+    { linkname: 'カート', path: '/cart' }
   ]
 
   return (
@@ -75,6 +74,18 @@ const HeaderDrawer = ({ open, onClose }) => {
                 <Divider />
               </div>
             ))
+          }
+          {
+            isSignedIn && (
+              <div>
+                <div className='link'>
+                  <Link to='/upload-product'>
+                    出品する
+                  </Link>
+                </div>
+                <Divider />
+              </div>
+            )
           }
           <div>
             {

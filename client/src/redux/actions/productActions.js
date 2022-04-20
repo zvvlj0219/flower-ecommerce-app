@@ -1,6 +1,5 @@
 import * as actionsType from '../constants/actionsType'
 import * as api from '../../api/index'
-import errorActions from './errorActions'
 
 export const fetchInitialProducts = () => async dispatch => {
   try {
@@ -14,7 +13,6 @@ export const fetchInitialProducts = () => async dispatch => {
     })
   } catch (error) {
     console.log(error)
-    errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
   }
 }
 
@@ -35,7 +33,7 @@ export const fetchAjaxProducts = () => async (dispatch, getState) => {
       ]
     })
   } catch (error) {
-    errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
+    console.log(error)
   }
 }
 
@@ -50,6 +48,6 @@ export const fetchAllProducts = () => async dispatch => {
       payload: data.productList
     })
   } catch (error) {
-    errorActions(actionsType.FETCH_PRODUCTS_FAIL, error)
+    console.log(error)
   }
 }

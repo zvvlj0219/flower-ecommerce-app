@@ -36,13 +36,22 @@ export const usersReducer = (state = initialState.users, action) => {
     case actionsType.ORDER_CONFIRM_REQUEST:
       return {
         ...state,
-        isSignedIn: true
+        isSignedIn: action.payload
       }
-    case actionsType.ORDER_CONFIRM_SUCCESS:
+    case actionsType.ORDER_CONFIRM_SUCCESS: {
+      const { _id } = action.payload
+      if (_id) {
+        return {
+          ...action.payload,
+          isSignedIn: true
+        }
+      }
       return {
+        ...state,
         ...action.payload,
-        isSignedIn: true
+        isSignedIn: false
       }
+    }
     case actionsType.EDIT_ACCOUNT:
       return {
         ...action.payload,
