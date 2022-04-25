@@ -57,7 +57,7 @@ const WishList = () => {
   const dispatch = useDispatch()
   const { width: windowWidth } = getWindowSize()
 
-  const { loading, wishlist } = useSelector(state => state.users)
+  const { wishlist } = useSelector(state => state.users)
 
   const [imageState, setImageState] = useState(imageStyle())
 
@@ -74,54 +74,53 @@ const WishList = () => {
   return (
     <div className='wishlist'>
       <LinkHistory linkdata={linkdata} />
-      {
-        !loading && wishlist.length > 0 &&
-          wishlist.map(item => (
-            <div
-              key={item._id}
-              className='item_container'
-            >
-              <div className='item'>
-                <ImageArea
-                  path={item.imageUrl[0]}
-                  style={{
-                    ...imageState,
-                    display: 'block',
-                    margin: '10px'
-                  }}
-                  className='productImage'
-                />
-                <div className='item_info' key={item._id}>
-                  <Link
-                    to={`/product-detail/${item.name}/${item._id}`}
-                  >
-                    {item.name}
-                  </Link>
-                  <p className='price_wrapper'>
-                    <span>価格:</span>
-                    <span className='price'>{item.price}</span>
-                    <span>円（税込）</span>
-                  </p>
-                </div>
-                <button
-                  type='button'
-                  onClick={() => removeFromWishlist(item)}
-                >
-                  <FavoriteOutlinedIcon
-                    fontSize='large'
-                    sx={iconStyle}
+      <div className='item_container'>
+        {
+          wishlist.length > 0 &&
+            wishlist.map(item => (
+              <div key={item._id}>
+                <div className='item'>
+                  <ImageArea
+                    path={item.imageUrl[0]}
+                    style={{
+                      ...imageState,
+                      display: 'block',
+                      margin: '10px'
+                    }}
+                    className='productImage'
                   />
-                </button>
+                  <div className='item_info' key={item._id}>
+                    <Link
+                      to={`/product-detail/${item.name}/${item._id}`}
+                    >
+                      {item.name}
+                    </Link>
+                    <p className='price_wrapper'>
+                      <span>価格:</span>
+                      <span className='price'>{item.price}</span>
+                      <span>円（税込）</span>
+                    </p>
+                  </div>
+                  <button
+                    type='button'
+                    onClick={() => removeFromWishlist(item)}
+                  >
+                    <FavoriteOutlinedIcon
+                      fontSize='large'
+                      sx={iconStyle}
+                    />
+                  </button>
+                </div>
+                <Divider />
               </div>
-              <Divider />
-            </div>
-          ))
-      }
-      {
-        !loading && wishlist.length === 0 && (
-          <p>いいね!した商品がありません</p>
-        )
-      }
+            ))
+        }
+        {
+          wishlist.length === 0 && (
+            <h3>いいねした商品がありません</h3>
+          )
+        }
+      </div>
     </div>
   )
 }

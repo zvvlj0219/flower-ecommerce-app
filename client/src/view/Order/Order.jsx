@@ -69,6 +69,12 @@ const Order = () => {
     setImageState(imageAreaStyle)
   }, [windowWidth])
 
+  useEffect(() => {
+    if (!loading && cart.length === 0) {
+      history.push('/cart')
+    }
+  }, [loading, cart])
+
   const orderConfirmFunc = useCallback(() => {
     dispatch(orderConfirm(history))
   })

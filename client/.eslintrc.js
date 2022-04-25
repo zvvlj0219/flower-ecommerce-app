@@ -45,6 +45,8 @@ module.exports = {
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function'
       }
-    ]
+    ],
+    "no-console": "off",
+    "no-alert": "off"
   }
 };

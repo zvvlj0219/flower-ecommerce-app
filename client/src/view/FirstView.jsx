@@ -21,7 +21,7 @@ const FirstView = () => {
   return (
     <div className='first_view'>
       <MainSlider />
-      <div>
+      <div className='describe_1'>
         <p>
           母の日、お誕生日、長寿のお祝いなど個人間でお贈りするお祝いの花（御祝の花）やプレゼントの花にワンランク上のフラワーギフトはいかがですか。
           <br />
@@ -30,9 +30,8 @@ const FirstView = () => {
           お誕生日、プレゼント用のかわいらしいフラワーギフトまで様々なお花を全国に配達しています。
         </p>
       </div>
-      <hr />
       <h2>Product</h2>
-      <p>本日のおすすめ商品</p>
+      <p className='describe_2'>本日のおすすめ商品</p>
       <div className='main_contents'>
         <ProductsList />
       </div>
@@ -43,7 +42,7 @@ const FirstView = () => {
         }}
       />
       <h2 id='garally'>Garally</h2>
-      <p>
+      <p className='describe_2'>
         あなたが撮った思い出の一枚をFloristで共有できます。
       </p>
       <div className='site_images'>
