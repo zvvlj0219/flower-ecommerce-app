@@ -22,7 +22,14 @@ const app = express()
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type']
+}
+app.use(cors(corsOptions))
 
 //routes middleware
 app.use('/api', productRoute)
@@ -34,10 +41,10 @@ app.use('/api/account-service', accountRoute)
 // handle production
 if (process.env.NODE_ENV === 'production') {
   // static folder
-  app.use(express.static(path.resolve(__dirname, '/build')))
+  app.use(express.static(path.resolve(__dirname, './build')))
   // handle spa
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build/index.html'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './build/index.html'))
   })
 }
 
