@@ -6,18 +6,20 @@ import { getWindowSize } from '../../module/getWindowSize'
 
 // import images & css
 import './main_slider.css'
-import ms1 from '../../assets/ms/ms_1.jpg'
-import ms2 from '../../assets/ms/ms_2.jpg'
-import ms3 from '../../assets/ms/ms_3.jpg'
+import ms4 from '../../assets/ms/ms_4.jpg'
+import ms5 from '../../assets/ms/ms_5.jpg'
+import ms6 from '../../assets/ms/ms_6.jpg'
+import ms7 from '../../assets/ms/ms_7.jpg'
 
 // arrow components
 import MainNextArrow from '../../components/MainNextArrow'
 import MainPrevArrow from '../../components/MainPrevArrow'
 
 const imageBox = [
-  { num: 1, image: ms1 },
-  { num: 2, image: ms2 },
-  { num: 2, image: ms3 }
+  { num: 1, image: ms4 },
+  { num: 2, image: ms5 },
+  { num: 3, image: ms6 },
+  { num: 4, image: ms7 }
 ]
 
 const MainSlider = () => {
@@ -64,7 +66,7 @@ const MainSlider = () => {
             <div key={slide.num}>
               <div className='slide_image' style={imagesWrapper()}>
                 <img src={slide.image} style={imagesWrapper()} alt='' />
-                <div>
+                <div className='head_text'>
                   <p>
                     Floristが贈る
                     <br />

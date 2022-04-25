@@ -31,7 +31,15 @@ app.use('/api/wishlist', wishlistRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/account-service', accountRoute)
 
-//handle production
+// handle production
+if (process.env.NODE_ENV === 'production') {
+  // static folder
+  app.use(express.static(path.resolve(__dirname, '/build')))
+  // handle spa
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build/index.html'))
+  })
+}
 
 //server 
 const port = process.env.PORT || 5000

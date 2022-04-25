@@ -9,9 +9,8 @@ import ImageArea from './ImageArea'
 
 const imgStyle = {
   width: '90%',
-  height: 'auto',
   display: 'block',
-  margin: '10px auto'
+  margin: '10px auto 0'
 }
 
 const Product = ({ item, isPrice }) => {
@@ -38,7 +37,7 @@ const Product = ({ item, isPrice }) => {
               style={imgStyle}
             />
           </CardMedia>
-          <CardContent>
+          <CardContent sx={{ height: '35px' }}>
             <h3
               style={{
                 fontSize: '1rem',

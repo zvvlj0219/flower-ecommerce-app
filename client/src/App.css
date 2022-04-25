@@ -11,10 +11,23 @@ body {
   box-sizing: border-box;
 }
 
+.app .first_view > .describe_1 {
+  padding:5px 20px;
+  margin: 10px auto;
+  border-top: 2px solid rgb(255, 102, 127);
+  border-bottom: 2px solid rgb(255, 102, 127);
+  font-family: 'Kiwi Maru', serif;
+}
+
+.app .first_view > .describe_2 {
+  text-align: center;
+  color: darkgray;
+}
+
 .app .first_view > h2 {
   font-size: 1.6rem;
   width: 150px;
-  margin: 10px auto;
+  margin: 15px auto;
   color: rgb(255, 187, 0);
   text-align: center;
   border-bottom: 4px solid palevioletred;
@@ -39,7 +52,16 @@ body {
   .app .site_images img {
     width: 90%;
     margin-bottom: 10px;
-  }  
+  }
+  
+  .app .first_view > .describe_1 {
+    font-size: 0.9rem;
+    width: 80%;
+  }
+
+  .app .first_view > .describe_2 {
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 500px) {
@@ -53,7 +75,16 @@ body {
   .app .site_images img {
     width: 45%;
     margin-bottom: 20px;
-  }  
+  }
+
+  .app .first_view > .describe_1 {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .app .first_view > .describe_2 {
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 900px) {
@@ -68,7 +99,16 @@ body {
 
   .app .site_images img {
     width: 45%;
-  }  
+  }
+
+  .app .first_view > .describe_1 {
+    width: 800px;
+    font-size: 1.1rem;
+  }
+
+  .app .first_view > .describe_2 {
+    font-size: 1rem;
+  }
 }
 
 /* link  */

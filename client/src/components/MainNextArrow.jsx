@@ -7,8 +7,12 @@ const MainNextArrow = ({ className, onClick }) => {
       type='button'
       className={className}
       onClick={onClick}
+      style={{
+        display: 'block',
+        right: '10px'
+      }}
     >
-      <ArrowForwardIosIcon fontSize='large' />
+      <ArrowForwardIosIcon sx={{ fontSize: '35px', color: 'skyblue' }} />
     </button>
   )
 }

@@ -52,7 +52,7 @@ const Cart = () => {
   const history = useHistory()
   const { width: windowWidth } = getWindowSize()
 
-  const { loading, cart, isSignedIn } = useSelector(state => state.users)
+  const { cart, isSignedIn } = useSelector(state => state.users)
 
   const [imageState, setImageState] = useState(imageStyle())
 
@@ -92,7 +92,7 @@ const Cart = () => {
     <div className='cart'>
       <LinkHistory linkdata={linkdata} />
       {
-        !loading && cart.length > 0 && (
+        cart.length > 0 && (
           <>
             <h4>{`カート内に${cart.length}点のアイテムがあります`}</h4>
             <p className='subtotal'>
@@ -111,10 +111,7 @@ const Cart = () => {
       }
       <div className='item_container'>
         {
-          loading && ''
-        }
-        {
-          !loading && cart.length > 0 ?
+          cart.length > 0 &&
             cart.map(item => (
               <div key={item._id}>
                 <div className='item'>
@@ -173,9 +170,12 @@ const Cart = () => {
                 </div>
                 <Divider />
               </div>
-            )) : (
-              <p>カートに商品がありません</p>
-            )
+            ))
+        }
+        {
+          cart.length === 0 && (
+            <h3>カートに商品がありません</h3>
+          )
         }
       </div>
       {

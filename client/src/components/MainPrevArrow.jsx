@@ -7,8 +7,12 @@ const MainPrevArrow = ({ className, onClick }) => {
       type='button'
       className={className}
       onClick={onClick}
+      style={{
+        display: 'block',
+        left: '10px'
+      }}
     >
-      <ArrowBackIosNewIcon fontSize='large' />
+      <ArrowBackIosNewIcon sx={{ fontSize: '35px', color: 'skyblue' }} />
     </button>
   )
 }
