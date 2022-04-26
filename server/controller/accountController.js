@@ -1,11 +1,15 @@
+const { verifyToken } = require('../middleware/verifyToken')
+
 // import model
 const Auth = require('../model/authModel')
 
 const editAccount = async (req, res) => {
-  const { form } = req.body
-  const { email, client, address, username, _id } = form
-
   try {
+    verifyToken()
+  
+    const { form } = req.body
+    const { email, client, address, username, _id } = form
+  
     const user = await Auth.findByIdAndUpdate(
       _id,
       {
