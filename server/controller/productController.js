@@ -9,7 +9,6 @@ const fetchInitialProducts = async (req, res) => {
     res.status(200).json({ result: initialProducts })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -25,7 +24,6 @@ const fetchAjaxProducts = async (req, res) => {
     res.status(200).json({ result: ajaxProducts })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -36,7 +34,6 @@ const fetchProductDetail = async (req, res) => {
     res.status(200).json({ result: [detailData] })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -47,7 +44,6 @@ const fetchAllProducts = async (req, res) => {
     res.status(200).json({ productList: AllProducts })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 

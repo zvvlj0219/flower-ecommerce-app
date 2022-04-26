@@ -25,7 +25,6 @@ const fetchWishlist = async (req, res) => {
     res.status(200).json({ result: wishlist })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -43,7 +42,6 @@ const updateWishlist = async (req, res) => {
     res.status(200).json({ user })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 

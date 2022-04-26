@@ -5,7 +5,7 @@ const verifyToken = async (req,res,next) =>{
     const token = req.headers.authorization.split(" ")[1]
 
     if(!token){
-      return res.status(401).send('Access Denied');
+      return res.status(401).send('Access Denied')
     }
     const verified = jwt.verify(
       token,
@@ -18,12 +18,11 @@ const verifyToken = async (req,res,next) =>{
 
     req.userId = verified;
 
-    console.log('verify call')
-    next();
+    next()
   } catch (error) {
     console.log(error)
     return res.status(400).send('ERROR : Invalid Token')
   }
 }
 
-module.exports.verifyToken = verifyToken
+exports.verifyToken = verifyToken

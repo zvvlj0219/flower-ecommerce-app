@@ -33,7 +33,6 @@ const listenAuth = async (req, res) => {
     res.status(200).json({ user:existedUser, token})
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -81,7 +80,6 @@ const signIn = async (req, res) => {
     })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -102,7 +100,6 @@ const takeOver = async (req, res) => {
     res.status(200).json({ user })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
@@ -151,7 +148,6 @@ const register = async (req, res) => {
     res.status(200).json({ user: createdAccount })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 

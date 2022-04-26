@@ -23,7 +23,6 @@ const editAccount = async (req, res) => {
     res.status(200).json({ user })
   } catch (error) {
     console.log(error)
-    throw new Error()
   }
 }
 
