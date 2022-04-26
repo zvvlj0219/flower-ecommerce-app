@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 
 //load .env
 const dotenv = require('dotenv')
@@ -26,8 +27,7 @@ const corsOptions = {
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type']
+  optionsSuccessStatus: 204
 }
 app.use(cors(corsOptions))
 
