@@ -69,12 +69,6 @@ const Order = () => {
     setImageState(imageAreaStyle)
   }, [windowWidth])
 
-  useEffect(() => {
-    if (!loading && cart.length === 0) {
-      history.push('/cart')
-    }
-  }, [loading, cart])
-
   const orderConfirmFunc = useCallback(() => {
     dispatch(orderConfirm(history))
   })
@@ -85,10 +79,16 @@ const Order = () => {
 
   const removeFromCart = item => {
     dispatch(removeIsCartIn(item))
+    if (cart.length === 0) {
+      history.push('/cart')
+    }
   }
 
   const deleteFromCart = item => {
     dispatch(deleteIsCartIn(item))
+    if (cart.length === 0) {
+      history.push('/cart')
+    }
   }
 
   const gotoDetail = useCallback(item => {

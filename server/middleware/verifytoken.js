@@ -18,6 +18,7 @@ const verifyToken = async (req,res,next) =>{
 
     req.userId = verified;
 
+    console.log('verify call')
     next();
   } catch (error) {
     console.log(error)
