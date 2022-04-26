@@ -3,6 +3,8 @@ const router = express.Router()
 
 const { editAccount } = require('../../controller/accountController')
 
-router.put('/edit-account', editAccount)
+const { verifyToken } = require('../../middleware/verifytoken')
+
+router.put('/edit-account',verifyToken, editAccount)
 
 module.exports = router

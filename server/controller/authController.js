@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const { verifyToken } = require('../middleware/verifyToken')
-
 // import model
 const Auth = require('../model/authModel')
 
@@ -10,10 +8,7 @@ const Auth = require('../model/authModel')
 const { signinValidation, registerValidation, comparePassword } = require('../middleware/validation')
 
 const listenAuth = async (req, res) => {
-  
   try {
-    verifyToken()
-
     const { email, _id } = req.body
     const existedUser = await Auth.findOne({ email, _id })
     .select(['_id','email','username','cart','wishlist','information', 'order'])
