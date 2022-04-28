@@ -1,10 +1,14 @@
 const multer = require('multer')
 const path = require('path')
 
+const outputPath = process.env.NODE_ENV === 'production'
+  ? './server/build/static/media'
+  : './client/src/assets/product'
+
 const storage = multer.diskStorage({
   destination: function(req, file, callback) {
     // output dir
-    callback(null, './client/src/assets/product');
+    callback(null, outputPath);
   },
   filename: function(req, file, callback) {
     const { originalname } = file
