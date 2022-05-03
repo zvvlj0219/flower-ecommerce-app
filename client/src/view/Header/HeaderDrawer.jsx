@@ -75,7 +75,7 @@ const HeaderDrawer = ({ open, onClose }) => {
               </div>
             ))
           }
-          {
+          {/* {
             isSignedIn && (
               <div>
                 <div className='link'>
@@ -86,7 +86,7 @@ const HeaderDrawer = ({ open, onClose }) => {
                 <Divider />
               </div>
             )
-          }
+          } */}
           <div>
             {
               isSignedIn ? (

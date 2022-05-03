@@ -2,18 +2,15 @@ import { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Form, TextInput } from '../../components/TextInput'
-import { signIn } from '../../redux/actions/usersActions'
+import { signIn, testLogin } from '../../redux/actions/usersActions'
 import './auth.css'
 
 const SignIn = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-
-  // state
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
 
-  // function
   const handleSubmit = () => {
     dispatch(signIn({
       email,
@@ -21,7 +18,6 @@ const SignIn = () => {
     }, history))
   }
 
-  // form handler
   const handleEmail = useCallback(value => {
     setemail(value)
   }, [setemail])
@@ -29,6 +25,10 @@ const SignIn = () => {
   const handlePassword = useCallback(value => {
     setpassword(value)
   }, [setpassword])
+
+  const testLoginFunc = () => {
+    dispatch(testLogin(history))
+  }
 
   return (
     <div className='auth_container'>
@@ -71,6 +71,11 @@ const SignIn = () => {
         >
           新規登録のかたはこちら
         </Link>
+      </div>
+      <div className='test_login'>
+        <button type='button' onClick={testLoginFunc}>
+          ゲストログイン
+        </button>
       </div>
     </div>
   )

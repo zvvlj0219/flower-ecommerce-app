@@ -81,6 +81,48 @@ const signIn = async (req, res) => {
     console.log(error)
   }
 }
+const testLogin = async (req, res) => {
+  try {
+    // test account
+    const email = 'florist_guest_01@florist.com'
+    const password = '123456'
+
+    const existedUser = await Auth.findOne({ email })
+    if (!existedUser) {
+      res.status(404).json({ message: 'no exist' })
+    }
+
+    const passwordCorrect = await bcrypt.compare(password, existedUser.password)
+    if (!passwordCorrect) {
+      res.status(400).json({ message: 'invalid password' })
+    }
+    
+    const token = jwt.sign(
+      { 
+        email:existedUser.email,
+        _id:existedUser._id
+      }, 
+      process.env.TOKEN_SECRET,
+      { 
+        algorithm: 'HS256',
+        expiresIn: '2h' 
+      }
+    )
+      
+    res.status(200).json({
+      user:{
+        _id: existedUser._id,
+        email: existedUser.email,
+        username: existedUser.username,
+        cart: existedUser.cart,
+        wishlist: existedUser.wishlist
+      },
+      token
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const takeOver = async (req, res) => {
   const { _id, wishlist, cart } = req.body
@@ -152,5 +194,6 @@ const register = async (req, res) => {
 
 module.exports.listenAuth = listenAuth
 module.exports.signIn = signIn
+module.exports.testLogin = testLogin
 module.exports.takeOver = takeOver
 module.exports.register = register

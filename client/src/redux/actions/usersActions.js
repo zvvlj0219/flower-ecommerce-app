@@ -100,6 +100,48 @@ export const signIn = (form, history) => async dispatch => {
   }
 }
 
+export const testLogin = history => async dispatch => {
+  try {
+    const { data } = await api.testLogin()
+
+    const { _id, wishlist: userWishlist, cart: userCart } = data.user
+
+    // if browser has guesuprofile
+    // take over cart and wishlist with signin
+    if (localStorage.getItem('guestProfile')) {
+      const { wishlist: guestWishlist, cart: guestCart } = JSON.parse(
+        localStorage.getItem('guestProfile')
+      )
+
+      const merge = new Merge(guestWishlist, guestCart, userWishlist, userCart)
+
+      const { data: mergedData } = await api.takeOver(
+        _id,
+        merge.takeoverWishlist(),
+        merge.takeoverCart()
+      )
+
+      dispatch({
+        type: actionsType.SIGN_IN,
+        payload: mergedData.user
+      })
+
+      localStorage.removeItem('guestProfile')
+    } else {
+      dispatch({
+        type: actionsType.SIGN_IN,
+        payload: data.user
+      })
+    }
+
+    history.push('/')
+
+    localStorage.setItem('profile', JSON.stringify(data.token))
+  } catch (error) {
+    throw new Error()
+  }
+}
+
 export const register = (form, history) => async () => {
   try {
     await api.register(form)

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[317],{317:function(e,t,c){e.exports=c.p+"static/media/wallpaperbetter.003d7cdbd20b6c2b7488.jpg"}}]);

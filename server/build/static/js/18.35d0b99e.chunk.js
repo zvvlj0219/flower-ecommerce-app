@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[18],{4018:function(e,c,t){e.exports=t.p+"static/media/bouquest_03_0503.4cbcd547067506e8e995.jpg"}}]);

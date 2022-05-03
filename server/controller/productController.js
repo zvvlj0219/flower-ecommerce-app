@@ -20,7 +20,7 @@ const fetchAjaxProducts = async (req, res) => {
         $nin: _id
       }
     })
-    .limit(6)
+    .limit(2)
     res.status(200).json({ result: ajaxProducts })
   } catch (error) {
     console.log(error)

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[419],{6419:function(c,e,s){c.exports=s.p+"static/media/musicbox_01_0503.0d68f75a5b4040ffd49c.jpg"}}]);

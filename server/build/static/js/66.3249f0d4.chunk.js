@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[66],{6066:function(e,t,s){e.exports=s.p+"static/media/whiterose_02_0503.533d14e3357b7f92113a.jpg"}}]);

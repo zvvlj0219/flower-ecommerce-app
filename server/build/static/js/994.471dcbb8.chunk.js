@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[994],{5994:function(e,t,a){e.exports=a.p+"static/media/doom_01_0503.4e2f9b9f8ae14aa963db.jpg"}}]);

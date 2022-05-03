@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[326],{9326:function(e,t,c){e.exports=c.p+"static/media/bouquet_02_0503.be93f7f3233c4287e77d.jpg"}}]);
