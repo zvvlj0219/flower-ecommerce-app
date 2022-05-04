@@ -37,18 +37,28 @@ const Product = ({ item, isPrice }) => {
               style={imgStyle}
             />
           </CardMedia>
-          <CardContent sx={{ height: '35px' }}>
+          <CardContent sx={{ height: isPrice ? '50px' : '30px' }}>
             <h3
               style={{
                 fontSize: '1rem',
-                textAlign: 'center'
+                lineHeight: '1rem',
+                textAlign: 'center',
+                margin: 'auto 0',
+                position: 'relative'
               }}
             >
               {item.name}
             </h3>
             {
               isPrice && (
-                <p className='price_wrapper'>
+                <p
+                  className='price_wrapper'
+                  style={{
+                    fontSize: '0.8rem',
+                    position: 'absolute',
+                    bottom: '0'
+                  }}
+                >
                   <span
                     style={{
                       color: 'dimgray'

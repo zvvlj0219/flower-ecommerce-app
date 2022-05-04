@@ -26,7 +26,7 @@ const AllProducts = () => {
       <div className='products_wrapper'>
         <Grid
           container
-          spacing={3}
+          spacing={2}
         >
           {
             allproducts.length > 0 ? (
