@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { CardActionArea } from '@mui/material'
+import { getWindowSize } from '../module/getWindowSize'
 import ImageArea from './ImageArea'
 
 const imgStyle = {
@@ -15,6 +17,48 @@ const imgStyle = {
 
 const Product = ({ item, isPrice }) => {
   const history = useHistory()
+  const [productname, setproductname] = useState({
+    fontSize: '1rem',
+    lineHeight: '1rem',
+    textAlign: 'center',
+    margin: 'auto 0',
+    position: 'relative'
+  })
+  const [price, setPrice] = useState({
+    fontSize: '0.8rem'
+  })
+
+  const { width } = getWindowSize()
+  useEffect(() => {
+    console.log(width)
+    if (width > 500) {
+      setproductname({
+        fontSize: '1.3rem',
+        lineHeight: '1.3rem',
+        textAlign: 'center',
+        margin: 'auto 0',
+        position: 'relative'
+      })
+
+      setPrice({
+        fontSize: '1rem'
+      })
+    }
+
+    if (width < 350) {
+      setproductname({
+        fontSize: '0.7rem',
+        lineHeight: '0.7rem',
+        textAlign: 'center',
+        margin: 'auto 0',
+        position: 'relative'
+      })
+
+      setPrice({
+        fontSize: '0.6rem'
+      })
+    }
+  }, [])
 
   const productPage = (name, id) => {
     history.push(`/product-detail/${name}/${id}`)
@@ -37,11 +81,15 @@ const Product = ({ item, isPrice }) => {
               style={imgStyle}
             />
           </CardMedia>
-          <CardContent sx={{ height: isPrice ? '50px' : '30px' }}>
+          <CardContent
+            sx={{
+              padding: width < 350 ? '10px 5px' : '10px',
+              height: isPrice ? '40px' : '30px'
+            }}
+          >
             <h3
               style={{
-                fontSize: '1rem',
-                lineHeight: '1rem',
+                ...productname,
                 textAlign: 'center',
                 margin: 'auto 0',
                 position: 'relative'
@@ -54,7 +102,7 @@ const Product = ({ item, isPrice }) => {
                 <p
                   className='price_wrapper'
                   style={{
-                    fontSize: '0.8rem',
+                    ...price,
                     position: 'absolute',
                     bottom: '0'
                   }}
