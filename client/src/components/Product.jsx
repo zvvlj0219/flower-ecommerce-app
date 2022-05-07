@@ -19,10 +19,7 @@ const Product = ({ item, isPrice }) => {
   const history = useHistory()
   const [productname, setproductname] = useState({
     fontSize: '1rem',
-    lineHeight: '1rem',
-    textAlign: 'center',
-    margin: 'auto 0',
-    position: 'relative'
+    lineHeight: '1rem'
   })
   const [price, setPrice] = useState({
     fontSize: '0.8rem'
@@ -33,11 +30,8 @@ const Product = ({ item, isPrice }) => {
     console.log(width)
     if (width > 500) {
       setproductname({
-        fontSize: '1.3rem',
-        lineHeight: '1.3rem',
-        textAlign: 'center',
-        margin: 'auto 0',
-        position: 'relative'
+        fontSize: '1rem',
+        lineHeight: '1rem'
       })
 
       setPrice({
@@ -48,10 +42,7 @@ const Product = ({ item, isPrice }) => {
     if (width < 350) {
       setproductname({
         fontSize: '0.7rem',
-        lineHeight: '0.7rem',
-        textAlign: 'center',
-        margin: 'auto 0',
-        position: 'relative'
+        lineHeight: '0.7rem'
       })
 
       setPrice({
@@ -83,16 +74,17 @@ const Product = ({ item, isPrice }) => {
           </CardMedia>
           <CardContent
             sx={{
-              padding: width < 350 ? '10px 5px' : '10px',
-              height: isPrice ? '40px' : '30px'
+              // padding: width < 350 ? '5px' : '10px'
+              height: width < 350 ? '40px' : '50px',
+              padding: '15px 0',
+              position: 'relative'
             }}
           >
             <h3
               style={{
                 ...productname,
                 textAlign: 'center',
-                margin: 'auto 0',
-                position: 'relative'
+                marginTop: 'auto'
               }}
             >
               {item.name}
@@ -103,8 +95,10 @@ const Product = ({ item, isPrice }) => {
                   className='price_wrapper'
                   style={{
                     ...price,
+                    width: '100%',
+                    padding: '0 5px',
                     position: 'absolute',
-                    bottom: '0'
+                    bottom: 0
                   }}
                 >
                   <span
